@@ -160,6 +160,8 @@ class ARTIngest(IngestBase):
             metaSpeaker1 = metaItem['table_person_1']['name'].strip()
             metaSpeaker2 = metaItem['table_person_2']['name'].strip()
             
+            # print 'metaSpeaker1: ', metaSpeaker1, ' metaSpeaker2: ', metaSpeaker2
+            
             # If the two speakers match then we have found our sample
             if speaker2 is None and speaker1 == metaSpeaker1.strip():
                 return metaItem

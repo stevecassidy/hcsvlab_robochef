@@ -53,7 +53,7 @@ class Sample(object):
     
     
     def getSecondarySpeaker(self):
-        """ This method returns the name of the primary presenter or Presenter 1 """
+        """ This method returns the name of the seondary presenter or Presenter 2 """
         firstSpeaker = self.sample[0]
         secondSpeaker = self.sample[2]
 

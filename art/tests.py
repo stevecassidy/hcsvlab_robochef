@@ -10,8 +10,8 @@ from ausnc_ingest.art.iterator import *
 
 def unittests():
     res = unittest.TestSuite()
-    # res.addTest(unittest.makeSuite(ParsingTests))
-    # res.addTest(unittest.makeSuite(MetaTests))
+    res.addTest(unittest.makeSuite(ParsingTests))
+    res.addTest(unittest.makeSuite(MetaTests))
     res.addTest(unittest.makeSuite(IngestTests))
     return res
 
@@ -34,7 +34,6 @@ class ParsingTests(unittest.TestCase):
         ingest = ARTIngest()
         res = ingest.extractAnnotations(rawText)
 
-        # print res[0]
         self.assertEqual("[pause:  120 -> 120, pause:  130 -> 130, pause:  309 -> 309]", str(res[1]))
             
               
@@ -84,7 +83,7 @@ class IngestTests(unittest.TestCase):
     def setUp(self):
         self.ingest.setMetaData('../input/ART/ART-corpus-catalogue.xls')
     
-    @unittest.skip("Tmp")    
+    #@unittest.skip("Tmp")    
     def test_simple_speaker_turn_parsing(self):
         parsed_content = parseCompleteDocument("[P1] Well hello there.")
         self.assertEqual(2, len(parsed_content))
@@ -95,7 +94,7 @@ class IngestTests(unittest.TestCase):
         self.assertEqual("E1", parsed_content[0][0])
         
 
-    @unittest.skip("Tmp")        
+    #@unittest.skip("Tmp")        
     def test_parse_sample1(self):
         file = open("../systemtests/art/sample1.txt", "r")
         content = file.read()
@@ -108,7 +107,7 @@ class IngestTests(unittest.TestCase):
             self.assertEqual((0, 10), sample)
         
 
-    @unittest.skip("Tmp")    
+    #@unittest.skip("Tmp")    
     def test_parse_sample2(self):
         file = open("../systemtests/art/sample2.txt", "r")
         content = file.read()
@@ -126,7 +125,7 @@ class IngestTests(unittest.TestCase):
             index += 1
 
     
-    @unittest.skip("Tmp")           
+    #@unittest.skip("Tmp")           
     def test_parse_sample3(self):
         file = open("../systemtests/art/sample3.txt", "r")
         content = file.read()
@@ -144,7 +143,7 @@ class IngestTests(unittest.TestCase):
             index += 1
             
 
-    @unittest.skip("Tmp")        
+    #@unittest.skip("Tmp")        
     def test_parse_sample4(self):
         file = open("../systemtests/art/sample4.txt", "r")
         content = file.read()
@@ -155,14 +154,25 @@ class IngestTests(unittest.TestCase):
         index = 0
         for sample in ArtIterator(parsed_content):
             if (index == 0):
-                # print parsed_content[406]
                 self.assertEqual((0, 405), sample)
             else:
                 self.assertEqual((406, 1284), sample)
             index += 1
             
-                        
-    @unittest.skip("Tmp")
+    
+    def test_parse_sample6(self):
+      file = open("../systemtests/art/sample6.txt", "r")
+      content = file.read()
+      parsed_content = parseCompleteDocument(content)
+
+      for rawSample in ArtIterator(parsed_content):
+        sample = Sample(parsed_content[rawSample[0]: rawSample[1]])
+        self.assertEqual('John Laws', sample.getPrimarySpeaker())
+        self.assertEqual('Mark', sample.getSecondarySpeaker())
+        meta = self.ingest.findMetaData(sample)
+                  
+                                     
+    @unittest.skip("Test takes a while and has been commented out")
     def test_parse_original(self):
         file = open("../input/ART/Austgram-texts.txt", "r")
         content = file.read()
@@ -172,15 +182,10 @@ class IngestTests(unittest.TestCase):
             self.assertTrue(parsed_content[index][0][0] in ('P','C', 'E'))
             
             
-        for sample in ArtIterator(parsed_content):
-            print sample
-            print parsed_content[sample[0]]
-            
-            
+    @unittest.skip("This test should not be executed, it is used instead of calling main when required")          
     def test_ingest_samples(self):
-        
-        self.ingest.ingestCorpus("../input/ART", "../output/ART")
-        # self.ingest.ingestCorpus("../systemtests/art", "../output/ART")
+        # self.ingest.ingestCorpus("../input/ART", "../output/ART")
+        self.ingest.ingestCorpus("../systemtests/art", "../output/ART")
     
 
 class MetaTests(unittest.TestCase):

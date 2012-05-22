@@ -20,7 +20,7 @@ class Resolver(object):
     
     for subject in graph.subjects(predicate = RDF.type, object = FOAF.Document):
       if str(subject) == subject_uri:
-        for s,p,o in graph.triples((subject, FOAF['documenttype'], None)):
+        for s,p,o in graph.triples((subject, DC['type'], None)):
           return str(o)  
     
       
@@ -69,9 +69,9 @@ class Resolver(object):
      
     graph = self.__create_graph(rdf_document)
     
-    # TODO: Is there a more efficient way to query for this?
-    for s,p,o in graph.triples((None, FOAF['documentname'], None)):
-      result.append(str(o))
+    for subject in graph.subjects(predicate = RDF.type, object = FOAF.Document):
+      for s,p,o in graph.triples((subject, DC['identifier'], None)):
+        result.append(str(o))
     
     return result
     
@@ -101,7 +101,7 @@ class Resolver(object):
     graph = self.__create_graph(rdf_document)
     
     # TODO: Is there a more efficient way to query for this?
-    for s,p,o in graph.triples((None, FOAF['documentname'], None)):
+    for s,p,o in graph.triples((None, DC['identifier'], None)):
       if o == source_document_name:
         return str(s)
     

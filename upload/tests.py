@@ -94,6 +94,28 @@ class UnitTest(unittest.TestCase):
     return_codes = getRequest.submit()
     
     self.assertEqual(return_codes['code'], 404)
+
+
+  @unittest.skip("Uncomment once proper dev server setup") 
+  def testUploadOfRDFFile(self):
+    
+    session = Session()
+    session.authenticate(self.loginUrl, 'admin','$ailing')
+    
+    if session.inSession():
+      uploadForm = FormDecorator(AdminRDFUploadForm())
+      
+      adminuploadUrl = configmanager.get_config("ADMINUPLOADURL")
+      response = uploadForm.submit(adminuploadUrl, session, 'http://ns.ausnc.org.au/corpus/ACE/', 'A01a-ann.rdf', '../output/ace/A01a-ann.rdf')
+
+      print
+      print 'SERVER RESPONSE:'
+      print response
+      
+    else:
+      
+      print 'Failed Authentication'
+
   
   @unittest.skip("Uncomment once proper dev server setup") 
   def testUploadOfFileFailure(self):
@@ -192,21 +214,21 @@ class UnitTest(unittest.TestCase):
     resolver = Resolver()
     sub_uri = resolver.get_subject_uri('../systemtests/griffith/GCSAusE07-metadata.rdf', 'GCSAusE07.mp3')
 
-    self.assertEqual('http://ns.ausnc.org.au/corpora/http://ns.ausnc.org.au/corpus/gcsause//source/GCSAusE07#Audio', sub_uri)
+    self.assertEqual('http://ns.ausnc.org.au/corpora/gcsause/source/GCSAusE07#Audio', sub_uri)
       
 
   def test_get_subject_uri_GCSAusE07txt(self):
     resolver = Resolver()
     sub_uri = resolver.get_subject_uri('../systemtests/griffith/GCSAusE07-metadata.rdf', 'GCSAusE07-plain.txt')
 
-    self.assertEqual('http://ns.ausnc.org.au/corpora/http://ns.ausnc.org.au/corpus/gcsause//source/GCSAusE07#Text', sub_uri)
+    self.assertEqual('http://ns.ausnc.org.au/corpora/gcsause/source/GCSAusE07#Text', sub_uri)
         
 
   def test_get_item_uri_GCSAusE07txt(self):
     resolver = Resolver()
     item_uri = resolver.get_item_uri('../systemtests/griffith/GCSAusE07-metadata.rdf')
 
-    self.assertEqual('http://ns.ausnc.org.au/corpora/http://ns.ausnc.org.au/corpus/gcsause//items/GCSAusE07', item_uri)
+    self.assertEqual('http://ns.ausnc.org.au/corpora/gcsause/items/GCSAusE07', item_uri)
     
 
   def test_get_item_uri_ACE01(self):

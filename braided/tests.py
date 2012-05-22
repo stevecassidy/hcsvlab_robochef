@@ -25,7 +25,7 @@ class UnitTest(unittest.TestCase):
       res = self.braided.parseFile("    TITLE      \n22 July 1987\n many notes \n see, more notes \n another\n\nbodytext")
       self.assertEqual(res["infile_title"], 'TITLE')
       self.assertEqual(res["infile_date"], "22 July 1987")
-      self.assertEqual(res["infile_notes"], "many notes\nsee, more notes\nanother")
+      self.assertEqual(res["infile_notes"], "many notes see, more notes another")
       self.assertEqual(res["body"], "bodytext")
       
   def test1ca050MetaData(self):
@@ -40,7 +40,7 @@ class UnitTest(unittest.TestCase):
       res = self.braided.parseFile(meta)
       self.assertEqual(res["infile_title"], "INTERVIEW WITH JUNE JACKSON")
       self.assertEqual(res["infile_date"], "5 June 2000")
-      self.assertEqual(res["infile_notes"], "Updated 04/01/10\nTimecode from Tape 16_BC_DV\nTopics in Bold")
+      self.assertEqual(res["infile_notes"], "Updated 04/01/10 Timecode from Tape 16_BC_DV Topics in Bold")
       
   def test0bb92MetaData(self):
       meta = """                     INTERVIEW WITH GLADYS CROSS
@@ -54,7 +54,7 @@ class UnitTest(unittest.TestCase):
       res = self.braided.parseFile(meta)
       self.assertEqual(res["infile_title"], "INTERVIEW WITH GLADYS CROSS")
       self.assertEqual(res["infile_date"], "22 June 2000")
-      self.assertEqual(res["infile_notes"], "Refers to tape 56_BVC_SP\nTopics in Bold")
+      self.assertEqual(res["infile_notes"], "Refers to tape 56_BVC_SP Topics in Bold")
       self.assertEqual(res['infile_participants'][0], {"TF":"Trish", "GC":"Gladys"})
 
   def testfd96cc22Annotations(self):

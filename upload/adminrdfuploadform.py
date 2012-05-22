@@ -38,7 +38,7 @@ class AdminRDFUploadForm(Form):
     response, content = http.request(url, 'POST', headers = headers, body = body)
     
     if 'status' in response.keys():
-      print 'Graph Uri for file ', fileName, ' is ', graph_uri
+      # print 'Graph Uri for file ', fileName, ' is ', graph_uri
       print 'Response status for rdf upload ', response['status']
       
     if self.isValidUploadResponse(response):

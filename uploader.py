@@ -15,7 +15,7 @@ from ausnc_ingest.upload.helper import *
 from ausnc_ingest.upload.resolver import *
 
 
-supported_collections = ['ace', 'md', 'griffith', 'auslit', 'braided', 'cooee', 'ice', 'monash']
+supported_collections = ['ace', 'art', 'md', 'griffith', 'auslit', 'braided', 'cooee', 'ice', 'monash']
 
 helper = Helper()
 resolver = Resolver()
@@ -36,6 +36,9 @@ def corpus_item_upload(form, session, meta_path, corpusuploadUrl, folder_loc, up
       subject_uri = resolver.get_subject_uri(meta_path, file_name)
 
       file_path = os.path.join(folder_loc, file_name)
+      if not os.path.isfile(file_path):
+        print "Ignoring not existing file %s" + file_path
+        continue
 
       if not helper.is_uploaded(file_name, uploaded_files):
 
@@ -79,7 +82,7 @@ def main():
     collection_name = sys.argv[1].strip()
     corpus_folder_name = sys.argv[2].strip()
     folder_loc = sys.argv[3].strip()
-    upload_corpus_doc = bool(sys.argv[4].strip())
+    upload_corpus_doc = sys.argv[4].strip().lower() == 'true'
   
     print 'Parameters: Collection Name->', collection_name, \
           ' Corpus Folder Name->', corpus_folder_name, \

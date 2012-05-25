@@ -76,13 +76,20 @@ def main():
         return
   
     # Example command: python uploader.py md mdtest '/Users/Shirren/Desktop/md/S00/ True'
-    # First parameter (i.e. md) is the name of the collection, this value should be reflected in the supported_collections dictionary
+    # First parameter (i.e. md) is the name of the collection, this value should 
+    # be reflected in the supported_collections dictionary
     # Second parameter (i.e. mdtest) is the name of the corpus folder in Plone
     # Third paramter is the location of the files
     collection_name = sys.argv[1].strip()
     corpus_folder_name = sys.argv[2].strip()
     folder_loc = sys.argv[3].strip()
     upload_corpus_doc = sys.argv[4].strip().lower() == 'true'
+  
+    if len(sys.argv) == 6:
+        # We have been provided with an ini file to use as a reference
+        ini_file = sys.argv[5].strip()
+    else:
+        ini_file = 'griffithconfig.ini'
   
     print 'Parameters: Collection Name->', collection_name, \
           ' Corpus Folder Name->', corpus_folder_name, \
@@ -93,7 +100,7 @@ def main():
   
         # Initialise configuration file and grab reference data for the upload. This reference data
         # also includes the files we have already uploaded which comes from the log files in the tmp folder
-        configmanager.configinit("griffithconfig.ini")
+        configmanager.configinit(ini_file)
         uploaded_files = helper.get_uploaded_files(collection_name)
         (loginUrl, uploadUrl, corpusuploadUrl) = helper.get_required_urls(corpus_folder_name)
   
@@ -117,9 +124,9 @@ def main():
     
             for meta_file in fileList:       
         
-                meta_path = os.path.join(folder_loc, meta_file)
+                meta_path = fileHandler.findFilePath(folder_loc, meta_file)
                 ann_file = helper.derive_annotation_filename_from_meta_filename(meta_file)
-                ann_path = os.path.join(folder_loc, ann_file)
+                ann_path = fileHandler.findFilePath(folder_loc, ann_file)
         
                 item_uri = resolver.get_item_uri(meta_path)
                 source_files = resolver.get_upload_units(meta_path)

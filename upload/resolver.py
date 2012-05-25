@@ -55,7 +55,7 @@ class Resolver(object):
         # The title can appear in different namespaces so we do not predicate using the namespace 
         # i.e. DC['title] as opposed to AUSNC['title]
         if re.search('/title', str(p)):
-          result = str(o)
+          result = unicode(o)
 
     return result
   
@@ -101,9 +101,10 @@ class Resolver(object):
     graph = self.__create_graph(rdf_document)
     
     # TODO: Is there a more efficient way to query for this?
-    for s,p,o in graph.triples((None, DC['identifier'], None)):
-      if o == source_document_name:
-        return str(s)
+    for subject in graph.subjects(predicate = RDF.type, object = FOAF.Document):
+      for s,p,o in graph.triples((subject, DC['identifier'], None)):
+        if o == source_document_name:
+          return str(s)
     
     # Could not find it so return empty subject string (better than none?)
     return ''

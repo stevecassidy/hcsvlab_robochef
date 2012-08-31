@@ -1,4 +1,4 @@
 from ausnc_ingest.griffith import ingest
-from ausnc_ingest.griffith import tests
+#from ausnc_ingest.griffith import tests
 
-unittests       = tests.unittests
+#unittests       = tests.unittests

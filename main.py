@@ -26,59 +26,65 @@ def main():
     configmanager.configinit()
     logging.basicConfig(filename='ausnc_ingest.log', level=logging.INFO, format='%(asctime)s %(message)s')
     
+    corpus_basedir = configmanager.get_config("CORPUS_BASEDIR", "../input/")
+    output_dir = configmanager.get_config("CORPUS_OUTPUTDIR", "../output/")
+    
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
     for c in corpra:
       
         if c == "art":
             print "converting ART"
             art = ARTIngest()
-            art.setMetaData("../input/ART/ART-corpus-catalogue.xls")
-            art.ingestCorpus("../input/ART", "../output/ART")
+            art.setMetaData(corpus_basedir+"ART/ART-corpus-catalogue.xls")
+            art.ingestCorpus(corpus_basedir+"ART", output_dir+"ART")
             
         elif c == "cooee":
             print "converting COOEE"
             cooee = CooeeIngest()
-            cooee.setMetaData("../input/COOEE/COOEE.XLS")
-            cooee.ingestCorpus("../input/COOEE/data", "../output/cooee")
+            cooee.setMetaData(corpus_basedir+"COOEE/COOEE.XLS")
+            cooee.ingestCorpus(corpus_basedir+"COOEE/data", output_dir+"cooee")
             
         elif c == "ace":
             print "converting ace"
             ace = ACEIngest()
-            ace.setMetaData('../input/ace/Manual')
-            ace.ingestCorpus("../input/ace", "../output/ace")
+            ace.setMetaData(corpus_basedir+"ace/Manual")
+            ace.ingestCorpus(corpus_basedir+"ace", output_dir+"ace")
             
         elif c == "ice":
             print "converting ice"      
             ice = ICEIngest()
-            ice.setWrittenMetaData("../input/ICE/metadata")
-            ice.setMetaData("../input/ICE/metadata")
-            ice.ingestCorpus("../input/ICE/standoff", "../output/ice")
+            ice.setWrittenMetaData(corpus_basedir+"ICE/metadata")
+            ice.setMetaData(corpus_basedir+"ICE/metadata")
+            ice.ingestCorpus(corpus_basedir+"ICE/standoff", output_dir+"ice")
             
         elif c == "monash": 
             print "converting monash"
             monash = MonashIngest()
-            monash.ingestCorpus("../input/Monash Corpus of Australian English/Transcripts-sanitised", "../output/monash")
+            monash.ingestCorpus(corpus_basedir+"Monash Corpus of Australian English/Transcripts-sanitised", output_dir+"monash")
             
         elif c == "griffith":
             print "converting griffith"
             griffith = GriffithIngest()
-            griffith.setMetaData("../input/griffith/metadata")
-            griffith.ingestCorpus("../input/griffith", "../output/griffith")
+            griffith.setMetaData(corpus_basedir+"griffith/metadata")
+            griffith.ingestCorpus(corpus_basedir+"griffith", output_dir+"griffith")
             
         elif c == "md":
             print "converting mitchell & delbridge"
             md = MDIngest()
-            md.setMetaData("../input/MD/flatfilesrc.txt")
-            md.ingestCorpus("../input/MD", "../output/md")
+            md.setMetaData(corpus_basedir+"MD/flatfilesrc.txt")
+            md.ingestCorpus(corpus_basedir+"MD", output_dir+"md")
             
         elif c == "auslit":
             print "converting auslit"
             auslit = AuslitIngest()
-            auslit.ingestCorpus("../input/AusLit", "../output/auslit")
+            auslit.ingestCorpus(corpus_basedir+"AusLit", output_dir+"auslit")
             
         elif c == "braided":
             print "converting braided channels"
             braided = BraidedIngest()
-            braided.ingestCorpus("../input/braided_channels", "../output/braided")
+            braided.ingestCorpus(corpus_basedir+"braided_channels", output_dir+"braided")
 
 if __name__ == "__main__":
     main()

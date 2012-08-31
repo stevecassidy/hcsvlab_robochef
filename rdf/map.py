@@ -6,6 +6,8 @@ from rdflib.term import URIRef
 from ausnc_ingest.utils.parsing import toXMLName
 from namespaces import *
 
+from ausnc_ingest import configmanager
+configmanager.configinit()
 
 def get_generic_doc_mapper():
     ''' This function returns a generic mapping for FOAF documents '''  
@@ -27,6 +29,8 @@ def get_generic_doc_mapper():
     docMapper.add('documenttitle', mapto=DC.title)
   
     return docMapper
+
+
 
 
 def dictmapper(dictionary):
@@ -230,6 +234,15 @@ class MetadataMapper(FieldMapper):
                 # make a document uri
                 docuri = self.document(docmeta, graph)
                 graph.add((itemuri, AUSNC.document, docuri))  # TODO: what is a document?
+                # add a property recording a URI for the document if
+                # we're given a  DOCUMENT_BASE_URL in the configuration
+    
+                baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
+                if not baseuri == "": 
+                    docid = docmeta['filename']
+                    uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                    graph.add((docuri, DC.source, URIRef(uri)))
+
                 
             elif  metadata[key] != '':
                 # convert and add the property/value   

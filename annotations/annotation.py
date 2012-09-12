@@ -1,7 +1,7 @@
 from UserDict import DictMixin
 from xml.etree import ElementTree
 from uuid import uuid4
-from rdflib import Namespace, Graph, Literal
+from rdflib import Namespace, Graph, Literal, XSD
 from ausnc_ingest.rdf.namespaces import *
  
 
@@ -160,8 +160,8 @@ class Annotation(DictMixin):
         for this annotation"""
            
         graph.add((locatoruri, RDF.type, GRAF.UTF8Region))
-        graph.add((locatoruri, GRAF.start, Literal(self.start)))
-        graph.add((locatoruri, GRAF.end, Literal(self.end)))
+        graph.add((locatoruri, GRAF.start, Literal(int(self.start), datatype=XSD.integer)))
+        graph.add((locatoruri, GRAF.end, Literal(int(self.end), datatype=XSD.integer)))
         
         return locatoruri
 

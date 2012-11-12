@@ -30,10 +30,12 @@ class SesameServer():
         try:
             h = urllib2.urlopen(url)
             result = h.read()
+            return (h.code, result)
         except urllib2.URLError, e:
             print "Error", e
+            return (e.code, e)
         
-        return (h.code, result)
+
 
     
     def size(self):
@@ -68,12 +70,30 @@ class SesameServer():
         """upload all RDF files found inside dirname and
         subdirectories (recursively)"""
         
+        retry = []
+        
         for dirpath, dirnames, filenames in os.walk(dirname):
             for fn in filenames:
                 if fn.endswith(".rdf"): 
                     print "Upload", fn
-                    self.upload(os.path.join(dirpath, fn))
-    
+                    try:
+                        self.upload(os.path.join(dirpath, fn))
+                    except:
+                        print "problem uploading", fn
+                        retry.append(os.path.join(dirpath, fn))
+        
+        print "Retrying ", len(retry), "uploads"
+        while len(retry) > 0:
+            fn = retry.pop()
+            print "Upload", fn
+            try: 
+                self.upload(fn)
+            except:
+                print "problem with retry of ", fn
+                retry.append(fn)
+            
+        
+        
     def clear(self):
         """Remove all triples in the store"""
         
@@ -89,12 +109,12 @@ if __name__=='__main__':
     
     import sys
     
-    url = "http://115.146.94.199/openrdf-sesame/repositories/ausnc_dev"
+    url = "http://115.146.93.47/openrdf-sesame/repositories/ausnc_dev"
     rdfbase = sys.argv[1]
     
     server = SesameServer(url)
 
-    #server.clear()
+    server.clear()
     server.upload_dir(rdfbase)
 
     size = server.size()

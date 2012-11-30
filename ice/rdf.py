@@ -148,6 +148,7 @@ iceM = MetadataMapper(ICE, iceSpeakerM, documentMap = get_generic_doc_mapper())
 iceM.add('table_category', mapper=genre_mapper)
 iceM.add('table_letter_genre', mapper=letter_genre_mapper)
 iceM.add('table_date_of_recording', mapto=DC.created)
+iceM.add('date_of_publication', mapto=DC.created)
 iceM.add('table_number_of_speakers', ignore=True)
 iceM.add('table_place_of_recording', mapto=ICENS.recordingplace)
 iceM.add('table_tv_or_radio', mapper=broadcast_mapper)
@@ -156,28 +157,36 @@ iceM.add('table_source_title', mapto=DC.title)
 iceM.add('table_program', mapto=DC.title)
 iceM.add('table_free_comments', mapto=AUSNC.comment)
 iceM.add('table_recorder', mapto=OLAC.recorder)
+iceM.add('publisher', mapto=DC.publisher)
+
+
 iceM.add('table_identifier', ignore=True)
 iceM.add('table_wordcount', ignore = True)
+iceM.add('table_number_of_subtexts', ignore=True)
 iceM.add('category', mapper=category_mapper)
+iceM.add('table_subtext_number', ignore=True)    # only used a few times
+iceM.add('number_of_subtexts', ignore=True)# with two spellings, not useful info
+iceM.add('table_version', ignore=True) # sometimes has the value 'proof heard', not useful
+iceM.add('table_textcode', ignore=True)# used once
+iceM.add('table_audience', ignore=True)# used once
+iceM.add('table_audience_size', ignore=True)# used once
 
 iceM.add('table_genre_subject', mapper=genre_subject_mapper)
+
+# some written samples have an author
+iceM.add('author', mapto=DC.creator)
+
 
 
     #===========================================================================
     # ICE properties not dealt with and their frequencies
     #
-    # 1 table_audience
-    #  1 table_audience_size
     # 73 table_channel
     # 105 table_communicative_situation
     # 10 table_consent
     # 26 table_mode
-    # 20 table_number_of_participants
-    #  3 table_number_of_subtexts
+    # 20 table_number_of_participants 
     #  7 table_organising_body
-    #  1 table_subtext_number
-    #  1 table_textcode
-    # 61 table_version
     # 356 table_wordcount
     #===========================================================================
 

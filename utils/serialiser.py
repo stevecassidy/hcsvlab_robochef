@@ -15,6 +15,9 @@ class Serialiser(object):
   
   def __init__(self, outdir):
     self.outdir = outdir
+    
+    if not os.path.exists(outdir):
+        os.makedirs(outdir) 
   
   
   def serialise_single(self, sampleid, collection_name, rawtext, text, meta_map, meta_dict, ann_dict, source = None):

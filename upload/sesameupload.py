@@ -92,7 +92,22 @@ class SesameServer():
                 print "problem with retry of ", fn
                 retry.append(fn)
             
+    def upload_graph(self, graph):
+        """Upload the contents of an RDFlib graph to the store"""
         
+        data = graph.serialize(format='xml')
+        
+        path = "/statements"
+        headers = {'Content-Type': 'application/rdf+xml'}
+        req = urllib2.Request(self.url+path, data=data, headers=headers)
+        
+        result = self._get(req)
+        # check that return code is 204
+        if result[0] == 204:
+            return result[1]
+        else:
+            raise Exception("Problem with upload of data, result code %s" % result[0])
+       
         
     def clear(self):
         """Remove all triples in the store"""

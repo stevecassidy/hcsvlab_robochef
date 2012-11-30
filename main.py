@@ -55,9 +55,7 @@ def main():
         elif c == "ice":
             print "converting ice"      
             ice = ICEIngest()
-            ice.setWrittenMetaData(corpus_basedir+"ICE/metadata")
-            ice.setMetaData(corpus_basedir+"ICE/metadata")
-            ice.ingestCorpus(corpus_basedir+"ICE/standoff", output_dir+"ice")
+            ice.ingest(os.path.join(corpus_basedir, "ICE"), os.path.join(output_dir, "ice")) 
             
         elif c == "monash": 
             print "converting monash"

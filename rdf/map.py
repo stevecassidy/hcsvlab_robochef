@@ -50,6 +50,10 @@ def dictmapper(dictionary):
 class FieldMapper:
     """Class representing a mapping of field names and values"""
     
+    # class variables to collect class and predicates used
+    classes = []
+    predicates = []
+    
     def __init__(self, corpusID):
         """Create a Field Mapper
         
@@ -178,8 +182,51 @@ class FieldMapper:
                     if prop: 
                         graph.add((itemuri, prop, value))
         
+        self.update_schema(graph)
         return graph
+    
+    
+    def update_schema(self, graph):
+        """Generate a list of classes and properties used in this graph
+        which might form the basis of a schema, store them in 
+        class variables
+        """
 
+        classes = graph.objects(predicate=RDF.type)
+        predicates = graph.predicates()
+        
+        for c in classes:
+            if not c in self.classes:
+                self.classes.append(c)
+        
+        for p in predicates:
+            if not p in self.predicates:
+                self.predicates.append(p)
+
+
+    @classmethod
+    def generate_schema(cls):
+        """Using the recorded classes and predicates lists,
+        generate a proto-schema"""
+        
+        schema = Graph()
+        schema.bind('owl', OWL)
+        schema.bind('rdf', RDF)
+        schema.bind('rdfs', RDFS)
+        schema.bind('foaf', FOAF)
+        
+        for c in cls.classes:
+            schema.add((c, RDF.type, OWL.Class))
+            schema.add((c, RDFS.label, Literal("LABEL")))
+        
+        for p in cls.predicates:
+            schema.add((p, RDF.type, OWL.DataTypeProperty))
+            schema.add((p, RDFS.label, Literal("PREDICATE")))
+            schema.add((p, OWL.domain, AUSNC.AusNCObject))
+            schema.add((p, OWL.range, XSD.String))
+        
+        return schema
+        
 
 class MetadataMapper(FieldMapper):
     """Mapper class for metadata that might include nested speaker descriptions"""
@@ -269,6 +316,8 @@ class MetadataMapper(FieldMapper):
 
         # TODO: should we derive a new property from dc:identifier?
         graph.add((itemuri, DC.identifier, Literal(metadata['sampleid'])))
+            
+        self.update_schema(graph)
         
         return graph
 

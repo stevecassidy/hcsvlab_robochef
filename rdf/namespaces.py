@@ -16,7 +16,8 @@ OLAC = Namespace(u"http://www.language-archives.org/OLAC/1.1/")
 GRAF = Namespace("http://www.xces.org/ns/GrAF/1.0/")
 RDF = Namespace(u"http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 RDFS = Namespace(u"http://www.w3.org/2000/01/rdf-schema#")
-
+OWL = Namespace(u"http://www.w3.org/2002/07/owl#")
+XSD = Namespace(u"http://www.w3.org/2001/XMLSchema#")
 
 # Namespaces we control
 # SCHEMA is the namespace for all schema

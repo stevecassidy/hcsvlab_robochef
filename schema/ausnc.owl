@@ -1,0 +1,365 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ausnc: <http://ns.ausnc.org.au/schemas/ausnc_md_model/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix olac: <http://www.language-archives.org/OLAC/1.1/> .
+@prefix ice: <http://ns.ausnc.org.au/schemas/ice/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+
+ausnc: a owl:Ontology;
+    dcterms:description "The Ontology for the Australian National Corpus metadata";
+    dcterms:title "The Australian National Corpus Ontology" .
+
+ausnc:AusNCObject a owl:Class, rdfs:Class;
+    rdfs:label "AusNCObject" .
+
+foaf:Document a owl:Class, rdfs:Class;
+    rdfs:label "Document" .
+
+
+### Person and properties
+
+foaf:Person a owl:Class, rdfs:Class;
+    rdfs:label "Person" .
+
+ausnc:role a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Role";
+    rdfs:comment "role of the person in the text, author, speaker";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+foaf:age a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Age";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+foaf:firstName a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "First Name";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+foaf:gender a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Gender";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+foaf:lastName a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Last Name";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+#################
+
+### Properties of documents and relating documents to AusNCObject
+
+
+ausnc:document a owl:ObjectProperty, rdf:Property;
+    rdfs:label "document";
+    rdfs:comment "a document associated with this Object";
+    owl:domain ausnc:AusNCObject;
+    owl:range foaf:Document .
+
+ausnc:plaintextversion a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Plain Text Version";
+    rdfs:comment "denotes the document containing just the plain text of this item (for indexing)";
+    owl:domain ausnc:AusNCObject;
+    owl:range foaf:Document .
+
+ausnc:source a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "source";
+    rdfs:comment "reference to the URI of the actual document";
+    owl:domain foaf:Document;
+    owl:range xsd:AnyURI .
+    
+
+
+
+### Properties describing the 'genre' of a text or transcript
+
+## Communications Context 
+
+ausnc:CommunicationContext a owl:Class, rdfs:Class;
+    rdfs:comment "The context in which some communication takes place - the physical relationship of the  speaker to the audience" .
+
+ausnc:face_to_face a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:CommunicationContext;
+    rdfs:label "Face to Face";
+    rdfs:comment "Delivery to an audience that is physically present, eg, an interview or lecture" .
+    
+ausnc:distance a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:CommunicationContext;
+    rdfs:label "Distance";
+    rdfs:comment "Delivery to an audience that is not physically present, eg. a telephone conversation or TV broadcast" .
+
+ausnc:massed a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:AudienceType;
+    rdfs:label "Massed Audience" ;
+    rdfs:comment "A large group audience such as in a lecture or political speech" .
+    
+
+ausnc:communication_context a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Communication Context";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:CommunicationContext .
+
+
+
+## Audience Types
+
+ausnc:AudienceType a owl:Class, rdfs:Class .
+    
+ausnc:individual a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:AudienceType;
+    rdfs:label "Individual Audience" ;
+    rdfs:comment "An individual audience - one to one as in an interview or conversation" .
+    
+ausnc:small_group a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:AudienceType;
+    rdfs:label "Small Group Audience" ;
+    rdfs:comment "A small group audience such as in a meeting or family discussion" .
+    
+ausnc:specialised  a owl:Class, rdfs:Class;
+    rdfs:subClassOf ausnc:AudienceType;
+    rdfs:label "Specialised Audience" ;
+    rdfs:comment "A specialised audience such as a parliamentary debate" .
+    
+
+ausnc:audience a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Audience";
+    rdfs:comment "The kind of audience that this text was addressed to";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:AudienceType .
+    
+
+## Communication Medium
+
+ausnc:communication_medium a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Communication Medium";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:CommunicationMediumType .
+
+
+
+## Communication Setting 
+
+ausnc:communication_setting a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Communication Setting";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:CommunicationSettingType .
+
+
+## Interactivity
+
+ausnc:interactivity a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Interactivity";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:InteractivityType .
+
+## Mode
+
+ausnc:mode a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Mode of Communication";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:ModeType .
+
+## Publication Status
+
+ausnc:publication_status a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Publication Status";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:PublicationStatusType .
+
+## WRitten Mode
+
+ausnc:written_mode a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Written Mode";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:WrittenModeType .
+
+## Speech Style
+
+ausnc:speechStyle a owl:ObjectProperty, rdf:Property;
+    rdfs:label "Speech Style";
+    owl:domain ausnc:AusNCObject;
+    owl:range ausnc:SpeechStyleType .
+
+#### End of Genre properties
+
+
+
+dbpedia:birthplace a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Birth Place";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ice:recordingplace a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Recording Location";
+    rdfs:comment "descriptive label for the place of recording";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ 
+
+
+ausnc:channel a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Channel";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:comment a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Comment";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+    
+ausnc:communicative_situation a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Communicative Situation";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+ausnc:consent a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Consent";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:education a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Level of Education";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:genre a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Genre";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+
+ausnc:itemwordcount a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Number of Words in Text (calculated)";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:Integer .
+
+ausnc:mothertongue a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Mother Tongue";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:nationality a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Nationality";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:number_of_participants a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Number of Participants";
+    rdfs:comment "number of participants in a discussion (may be different to the number of identified speakers)";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:Integer .
+ 
+
+ausnc:occupation a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Occupation";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:organising_body a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Organising Body";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:otherlanguages a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Other Languages Spoken";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+ausnc:relationship a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Relationship between speakers";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+ausnc:source_type a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Source Type";
+    rdfs:comment "kind of source data, eg broadcast speech";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+ausnc:subtitle a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Subtitle";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+
+
+
+### DC Properties
+
+
+dcterms:created a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Creation Date";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:extent a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Extent";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:identifier a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Identifier";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:isPartOf a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "is part of" .
+
+dcterms:source a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Source";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:subject a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Subject";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:title a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Title";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:type a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Document Type";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+dcterms:creator a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Creator";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+    
+dcterms:publisher a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "publisher";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+### OLAC properties
+
+
+olac:recorder a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Recorder";
+    rdfs:comment "Person who recorded this item";
+    owl:domain ausnc:AusNCObject;
+    owl:range foaf:Person .
+
+olac:speaker a owl:DataTypeProperty, rdf:Property;
+    rdfs:label "Speaker";
+    rdfs:speaker "Person who speaks in this item";
+    owl:domain ausnc:AusNCObject;
+    owl:range foaf:Person .
+

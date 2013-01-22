@@ -11,6 +11,7 @@ from ausnc_ingest.ingest_base import IngestBase
 from ausnc_ingest.annotations import *
 from ausnc_ingest.utils.serialiser import *
 from ausnc_ingest.utils.statistics import *
+from ausnc_ingest.rdf.map import FieldMapper
 
 from rdf import iceM
 from xml.etree import ElementTree
@@ -20,6 +21,14 @@ class ICEIngest(IngestBase):
   filemetadata = {}
   book_date_mode = 0
 
+
+  def ingest(self, corpus_basedir, output_dir): 
+     """Perform the ingest process for this corpus"""    
+      
+     self.setWrittenMetaData(os.path.join(corpus_basedir, "metadata"))
+     self.setMetaData(os.path.join(corpus_basedir, "metadata"))
+     self.ingestCorpus(os.path.join(corpus_basedir, "standoff"), output_dir)
+            
      
   def setWrittenMetaData(self, dirpath):
     """ This method extracts the meta data for the written corpora for the ICE collections """
@@ -494,33 +503,24 @@ class ICEIngest(IngestBase):
   
     res = []
     utils.listFiles(res, srcdir, True)
-    sofar = 0
-    total = len(res)
-  
-    print "    processing files..."
-  
+    total = 0
     for f in res:
-
-      print sofar, "of", total, f , "\033[A"
-      
+  
       if ( f.endswith(".txt") ): 
-        
+          print "ICE:", f
           (sampleid, rawtext, body, meta, anns) = self.ingestDocument(f)
-        
-          f = f.replace(srcdir, outdir, 1)
-          thisoutdir = os.path.dirname(f)
-          try:
-            os.makedirs(thisoutdir)
-          except:
-            pass
-          
+
+          thisoutdir = os.path.dirname(f.replace(srcdir, outdir, 1))
           self.__serialise(thisoutdir, sampleid, body, meta, anns)
           
-      sofar += 1
+          #if total > 10:
+          #    break
+          total += 1
     
-    print "\033[2K   ", total, "files processed"
-
-
+    schema = FieldMapper.generate_schema()
+    schema.serialize(os.path.join(outdir, "schema.owl"), format="turtle")
+    
+    
   def ingestDocument(self, sourcepath):
     
     # matching annotation is in the .xml file
@@ -544,6 +544,9 @@ class ICEIngest(IngestBase):
 
 
   def __serialise(self, outdir, sampleid, body, meta, anns):
+    """Write out the various products of ingest to the output
+    directory"""
+    
     serialiser = Serialiser(outdir)
     return serialiser.serialise_single(sampleid, 'ice', None, body, iceM, meta, anns)
 

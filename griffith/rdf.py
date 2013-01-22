@@ -10,13 +10,12 @@ TODO: * finalise mapping
 
 from ausnc_ingest.rdf.map import *
 
-GRIFFNS = Namespace(u"http://ns.ausnc.org.au/corpus/gcsause")
-GRIFF = 'gcsause'
-
+GRIFF = "GCSAUSE"
+GRIFFNS = corpus_property_namespace(GRIFF) 
 
 
 # mapper for properties of a person in COOEE
-griffPerson = FieldMapper(GRIFF)
+griffPerson = FieldMapper(GRIFFNS)
 griffPerson.add('name', mapto=FOAF.name)
 
 # The following fields contain sensitive data, exclude from the site
@@ -45,7 +44,7 @@ griffDocument.add('description', ignore = True)
 griffDocument.add('conversion', ignore = True)
 griffDocument.add('GCSAusEUniqueID', ignore = True)
 
-griffMap = MetadataMapper(GRIFF, griffPerson, griffDocument)
+griffMap = MetadataMapper(GRIFFNS, griffPerson, griffDocument)
 griffMap.add('Date transcription last modified', mapto=DC.created)
 griffMap.add('Place of recording', mapto=GRIFFNS.place)
 griffMap.add('Contributor of recording', mapto=OLAC.contributor)

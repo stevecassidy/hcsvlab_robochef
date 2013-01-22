@@ -171,7 +171,8 @@ class FieldMapper:
         module in this package, and returns a rdflib Graph instance.
         '''
         
-        graph = Graph(identifier=self.corpus_uri()) 
+        graph = Graph(identifier=self.corpus_uri())
+        graph = bind_graph(graph)
         
         itemuri = self.item_uri(metadata['sampleid'])
      
@@ -259,10 +260,7 @@ class MetadataMapper(FieldMapper):
         '''
         
         graph = Graph(identifier=self.corpus_uri()) 
-        graph.bind('graf', GRAF)
-        graph.bind('ausnc', AUSNC)
-        graph.bind('corpus', CORPUS)
-        
+        graph = bind_graph(graph)
         
         itemuri = self.item_uri(metadata['sampleid']) 
         sourceuri = self.item_source_uri(metadata['sampleid'])

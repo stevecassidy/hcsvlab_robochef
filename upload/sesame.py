@@ -2,6 +2,8 @@
 
 import urllib, urllib2
 import os
+import configmanager
+configmanager.configinit()
 
 class RequestWithMethod(urllib2.Request):
   def __init__(self, *args, **kwargs):
@@ -13,6 +15,14 @@ class RequestWithMethod(urllib2.Request):
   def get_method(self):
     return self._method if self._method else super(RequestWithMethod, self).get_method()
 
+def upload_collectionrecords(server):
+    
+    import glob 
+    
+    basedir = configmanager.get_config("CORPUS_BASEDIR")
+    for f in glob.glob(os.path.join(basedir, '*.n3')):
+        print "Uploading", f
+        server.upload(f)
 
 
 class SesameServer():
@@ -120,18 +130,3 @@ class SesameServer():
         return result
         
     
-if __name__=='__main__':
-    
-    import sys
-    
-    url = "http://115.146.93.47/openrdf-sesame/repositories/ausnc_dev"
-    rdfbase = sys.argv[1]
-    
-    server = SesameServer(url)
-
-    server.clear()
-    server.upload_dir(rdfbase)
-
-    size = server.size()
-    
-    print "Size: ", size

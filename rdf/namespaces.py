@@ -29,6 +29,22 @@ AUSNC = Namespace(SCHEMA[u"ausnc_md_model/"])
 # corpus is used as a prefix for all corpus items
 CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
 
+# this hack finds all of the namespaces defined above and 
+# puts them into a dictionary that we can use in bind_graph
+import sys
+NAMESPACES = dict()
+namespaces = [n for n in sys.modules[__name__].__dict__.keys() if n.isupper()]
+for ns in namespaces:
+    NAMESPACES[ns.lower()] = eval(ns)
+
+def bind_graph(graph):
+    
+    for ns in NAMESPACES.keys():
+        graph.bind(ns, NAMESPACES[ns]) 
+
+    return graph
+
+
 def corpus_property_namespace(corpusID):
     """Return a namespace object suitable for use
     in generating new property names for this corpus"""

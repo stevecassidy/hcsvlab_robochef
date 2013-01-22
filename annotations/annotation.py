@@ -38,9 +38,7 @@ class AnnotationCollection:
         in an RDF graph"""
         
         graph = Graph()
-        graph.bind('graf', GRAF)
-        graph.bind('ausnc', AUSNC)
-        graph.bind('corpus', CORPUS)
+        graph = bind_graph(graph)
         
         for a in self.annotations:
             a.to_rdf(graph, self.metaMap, self.uri())
@@ -136,31 +134,25 @@ class Annotation(DictMixin):
       
       # some identifiers 
       property_namespace = corpus_property_namespace(metaMap.corpusID)
-      #nodeuri = corpus_annotation_uri(metaMap.corpusID, self.id)
-      annoturi = corpus_annotation_uri(metaMap.corpusID, self.id + "A")
+      annoturi = corpus_annotation_uri(metaMap.corpusID, self.id )
       locatoruri = corpus_annotation_uri(metaMap.corpusID, self.id + "L")
-      
-      # add a node
-      #g.add((nodeuri, RDF.type, GRAF.Node))
-      
-      
+
+
+      # annotation
+      g.add((annoturi, RDF.type, GRAF.Annotation))
       g.add((annoturi, GRAF.partof, collectionUri))
       
       # locator info depends on the type of annotation
       locatoruri = self.locator_rdf(locatoruri, g)
-      
-      
       g.add((annoturi, GRAF.targets, locatoruri))
-
-      # annotation
-      g.add((annoturi, RDF.type, GRAF.Annotation))
+      
       g.add((annoturi, GRAF.type, Literal(self.tipe))) # need a type namespace
-      #g.add((annoturi, GRAF.annotates, nodeuri))
       for key in self.keys():
-          if key == "speakerid":
-              g.add((annoturi, AUSNC.speakerid, metaMap.speaker_uri(self[key])))
-          else:
-              g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  # need to translate
+          if self[key] != '':
+              if key == "speakerid":
+                  g.add((annoturi, property_namespace[key], metaMap.speaker_uri(self[key])))
+              else:
+                  g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  # need to translate
       
   def locator_rdf(self, locatoruri, graph):
         """Add RDF triples to the graph to represent the locator information
@@ -183,7 +175,7 @@ def MillisecondAnnotation(Annotation):
         for this annotation"""
           
         
-        graph.add((locatoruri, RDF.type, GRAF.TemporalRegion))
+        graph.add((locatoruri, RDF.type, GRAF.MillisecondRegion))
         graph.add((locatoruri, GRAF.start, Literal(self.start)))
         graph.add((locatoruri, GRAF.end, Literal(self.end)))
         return locatoruri
@@ -196,7 +188,7 @@ def HMSAnnotation(Annotation):
         """Add RDF triples to the graph to represent the locator information
         for this annotation"""
           
-        graph.add((locatoruri, RDF.type, GRAF.TemporalRegion))
+        graph.add((locatoruri, RDF.type, GRAF.HMSRegion))
         graph.add((locatoruri, GRAF.start, Literal(self.start)))
         graph.add((locatoruri, GRAF.end, Literal(self.end)))
         return locatoruri

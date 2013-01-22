@@ -10,7 +10,8 @@ TODO: * finalise mapping
 
 from ausnc_ingest.rdf.map import *
 
-GRIFF = Namespace(u"http://ns.ausnc.org.au/corpus/gcsause/")
+GRIFFNS = Namespace(u"http://ns.ausnc.org.au/corpus/gcsause")
+GRIFF = 'gcsause'
 
 
 
@@ -46,13 +47,13 @@ griffDocument.add('GCSAusEUniqueID', ignore = True)
 
 griffMap = MetadataMapper(GRIFF, griffPerson, griffDocument)
 griffMap.add('Date transcription last modified', mapto=DC.created)
-griffMap.add('Place of recording', mapto=GRIFF.place)
+griffMap.add('Place of recording', mapto=GRIFFNS.place)
 griffMap.add('Contributor of recording', mapto=OLAC.contributor)
 griffMap.add('Number of pages', ignore=True)
 griffMap.add('Date of recording', mapto=OLAC.recordingdate)
 griffMap.add('Length of transcript', ignore=True)
-griffMap.add('Length of recording', mapto=GRIFF.lengthOfRecording)
-griffMap.add('Number of people', mapto=GRIFF.numberOfPeople)
+griffMap.add('Length of recording', mapto=GRIFFNS.lengthOfRecording)
+griffMap.add('Number of people', mapto=GRIFFNS.numberOfPeople)
 griffMap.add('Creator', mapto=DC.creator)
 griffMap.add('Title', mapto=DC.title)
  

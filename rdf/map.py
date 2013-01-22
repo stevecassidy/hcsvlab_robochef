@@ -212,6 +212,10 @@ class MetadataMapper(FieldMapper):
         '''
         
         graph = Graph(identifier=self.corpus_uri()) 
+        graph.bind('graf', GRAF)
+        graph.bind('ausnc', AUSNC)
+        graph.bind('corpus', CORPUS)
+        
         
         itemuri = self.item_uri(metadata['sampleid']) 
         sourceuri = self.item_source_uri(metadata['sampleid'])

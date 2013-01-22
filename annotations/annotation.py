@@ -38,6 +38,9 @@ class AnnotationCollection:
         in an RDF graph"""
         
         graph = Graph()
+        graph.bind('graf', GRAF)
+        graph.bind('ausnc', AUSNC)
+        graph.bind('corpus', CORPUS)
         
         for a in self.annotations:
             a.to_rdf(graph, self.metaMap, self.uri())
@@ -133,25 +136,29 @@ class Annotation(DictMixin):
       
       # some identifiers 
       property_namespace = corpus_property_namespace(metaMap.corpusID)
-      nodeuri = corpus_annotation_uri(metaMap.corpusID, self.id)
+      #nodeuri = corpus_annotation_uri(metaMap.corpusID, self.id)
       annoturi = corpus_annotation_uri(metaMap.corpusID, self.id + "A")
       locatoruri = corpus_annotation_uri(metaMap.corpusID, self.id + "L")
       
       # add a node
-      g.add((nodeuri, RDF.type, GRAF.Node))
-      g.add((nodeuri, GRAF.partof, collectionUri))
+      #g.add((nodeuri, RDF.type, GRAF.Node))
+      
+      
+      g.add((annoturi, GRAF.partof, collectionUri))
       
       # locator info depends on the type of annotation
       locatoruri = self.locator_rdf(locatoruri, g)
-      g.add((nodeuri, GRAF.targets, locatoruri))
+      
+      
+      g.add((annoturi, GRAF.targets, locatoruri))
 
       # annotation
       g.add((annoturi, RDF.type, GRAF.Annotation))
       g.add((annoturi, GRAF.type, Literal(self.tipe))) # need a type namespace
-      g.add((annoturi, GRAF.annotates, nodeuri))
+      #g.add((annoturi, GRAF.annotates, nodeuri))
       for key in self.keys():
           if key == "speakerid":
-              g.add((annoturi, property_namespace[key], metaMap.speaker_uri(self[key])))
+              g.add((annoturi, AUSNC.speakerid, metaMap.speaker_uri(self[key])))
           else:
               g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  # need to translate
       

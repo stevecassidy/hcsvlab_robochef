@@ -84,7 +84,7 @@ def intonationParser():
          ^ Literal(u",").setParseAction(lambda s, loc, toks: AnnotatedText("", [annotation.Annotation("intonation", "continuing", 0,0)])) \
          ^ Literal(u".").setParseAction(lambda s, loc, toks: AnnotatedText("", [annotation.Annotation("intonation", "falling", 0,0)])) \
          ^ Literal(unichr(8595)).setParseAction(lambda s, loc, toks: AnnotatedText("", [annotation.Annotation("intonation", "sharp-falling", 0,0)])) \
-         ^ Literal(unichr(8593)).setParseAction(lambda s, loc, toks: AnnotatedText("", [annotation.Annotation("intonation", "sharp-falling", 0,0)])) \
+         ^ Literal(unichr(8593)).setParseAction(lambda s, loc, toks: AnnotatedText("", [annotation.Annotation("intonation", "sharp-rising", 0,0)])) \
          )
 
 def dubiousOrNonsenseParser(inner):

@@ -143,7 +143,7 @@ def speakerParser(innerParser):
   """
   def parseInner(data, speaker):
     at = innerParser.parseString(data)[0]
-    at.add_anns([annotation.Annotation('speaker', speaker, 0, len(at.text))])
+    at.add_anns([annotation.Annotation('speaker', '', 0, len(at.text), properties={'speakerid': speaker})])
     return at
 
   speakerToken = (Word(u"ABCDEFGHIJKLMNOPQRSTUVWXYZ"+nums) ^ Literal("all") ^ Literal("?")) + Suppress(u": ")

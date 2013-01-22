@@ -65,7 +65,8 @@ class GriffithIngest(IngestBase):
             sample_type = 'Text'
           elif sample_type == 'Audio_Recording':
             sample_type = 'Audio'
-            
+        
+          spec_tags[u'filename'] = sample_name
           spec_tags[u"id"] = sample_name + u"#" + sample_type
           sample_type = u"table_document_" + sample_name + '#' + sample_type
         

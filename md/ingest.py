@@ -188,7 +188,7 @@ class MDIngest(IngestBase):
   
       for item in phonemes:
         if not item['word'] in ('#','B','+'):
-          anns.append(Annotation(tipe, item['word'], item['start'], item['end']))
+          anns.append(MillisecondAnnotation(tipe, item['word'], item['start'], item['end']))
   
       return anns
   

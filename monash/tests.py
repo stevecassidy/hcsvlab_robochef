@@ -2,7 +2,7 @@ import rdflib
 import unittest
 
 from ausnc_ingest.monash.ingest import *
-from ausnc_ingest.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal, GRAF
+from ausnc_ingest.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal
 from ausnc_ingest.utils import AusNCTest
 
 

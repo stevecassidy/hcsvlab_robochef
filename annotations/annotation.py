@@ -43,8 +43,8 @@ class AnnotationCollection:
         for a in self.annotations:
             a.to_rdf(graph, self.metaMap, self.uri())
             
-        graph.add((self.uri(), RDF.type, GRAF.AnnotationCollection))
-        graph.add((self.uri(), GRAF.annotates, self.metaMap.item_uri(self.itemid)))
+        graph.add((self.uri(), RDF.type, DADA.AnnotationCollection))
+        graph.add((self.uri(), DADA.annotates, self.metaMap.item_uri(self.itemid)))
         
         return graph
 
@@ -139,14 +139,14 @@ class Annotation(DictMixin):
 
 
       # annotation
-      g.add((annoturi, RDF.type, GRAF.Annotation))
-      g.add((annoturi, GRAF.partof, collectionUri))
+      g.add((annoturi, RDF.type, DADA.Annotation))
+      g.add((annoturi, DADA.partof, collectionUri))
       
       # locator info depends on the type of annotation
       locatoruri = self.locator_rdf(locatoruri, g)
-      g.add((annoturi, GRAF.targets, locatoruri))
+      g.add((annoturi, DADA.targets, locatoruri))
       
-      g.add((annoturi, GRAF.type, Literal(self.tipe))) # need a type namespace
+      g.add((annoturi, DADA.type, Literal(self.tipe))) # need a type namespace
       for key in self.keys():
           if self[key] != '':
               if key == "speakerid":
@@ -158,29 +158,30 @@ class Annotation(DictMixin):
         """Add RDF triples to the graph to represent the locator information
         for this annotation"""
            
-        graph.add((locatoruri, RDF.type, GRAF.UTF8Region))
-        graph.add((locatoruri, GRAF.start, Literal(int(self.start), datatype=XSD.integer)))
-        graph.add((locatoruri, GRAF.end, Literal(int(self.end), datatype=XSD.integer)))
+        graph.add((locatoruri, RDF.type, DADA.UTF8Region))
+        graph.add((locatoruri, DADA.start, Literal(int(self.start), datatype=XSD.integer)))
+        graph.add((locatoruri, DADA.end, Literal(int(self.end), datatype=XSD.integer)))
         
         return locatoruri
 
 
 
-def MillisecondAnnotation(Annotation):
+class MillisecondAnnotation(Annotation):
     """An annotation on a audio/video document with endpoints defined by offsets in milli-seconds, 
     defines the serialisation of the locator"""
+  
   
     def locator_rdf(self, locatoruri, graph):
         """Add RDF triples to the graph to represent the locator information
         for this annotation"""
           
         
-        graph.add((locatoruri, RDF.type, GRAF.MillisecondRegion))
-        graph.add((locatoruri, GRAF.start, Literal(self.start)))
-        graph.add((locatoruri, GRAF.end, Literal(self.end)))
+        graph.add((locatoruri, RDF.type, DADA.MillisecondRegion))
+        graph.add((locatoruri, DADA.start, Literal(float(self.start), datatype=XSD.float)))
+        graph.add((locatoruri, DADA.end, Literal(float(self.end), datatype=XSD.float)))
         return locatoruri
 
-def HMSAnnotation(Annotation):
+class HMSAnnotation(Annotation):
     """An annotation on a audio/video document with endpoints defined by offsets in HH:MM:SS
     defines the serialisation of the locator"""
   
@@ -188,8 +189,8 @@ def HMSAnnotation(Annotation):
         """Add RDF triples to the graph to represent the locator information
         for this annotation"""
           
-        graph.add((locatoruri, RDF.type, GRAF.HMSRegion))
-        graph.add((locatoruri, GRAF.start, Literal(self.start)))
-        graph.add((locatoruri, GRAF.end, Literal(self.end)))
+        graph.add((locatoruri, RDF.type, DADA.HMSRegion))
+        graph.add((locatoruri, DADA.start, Literal(self.start)))
+        graph.add((locatoruri, DADA.end, Literal(self.end)))
         return locatoruri
         

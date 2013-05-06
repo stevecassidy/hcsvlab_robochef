@@ -1,4 +1,4 @@
-from ausnc_ingest.auslit import ingest
-from ausnc_ingest.auslit import tests
+from hcsvlab_robochef.auslit import ingest
+from hcsvlab_robochef.auslit import tests
 
 unittests       = tests.unittests

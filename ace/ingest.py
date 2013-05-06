@@ -4,15 +4,15 @@ import re
 import xml.dom
 import copy
 
-from ausnc_ingest import utils
-from ausnc_ingest import metadata
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.annotations import *
-from ausnc_ingest.utils.filehandler import *
-from ausnc_ingest.utils.parsing import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.ace.html_parser import *
+from hcsvlab_robochef import utils
+from hcsvlab_robochef import metadata
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.utils.filehandler import *
+from hcsvlab_robochef.utils.parsing import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.ace.html_parser import *
 
 from rdf import aceMap
 from xml.dom.minidom import parse, parseString

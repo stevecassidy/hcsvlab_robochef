@@ -1,13 +1,13 @@
 import rdflib
 import unittest
 
-from ausnc_ingest.monash.ingest import *
-from ausnc_ingest.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal
-from ausnc_ingest.utils import AusNCTest
+from hcsvlab_robochef.monash.ingest import *
+from hcsvlab_robochef.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal
+from hcsvlab_robochef.utils import AusNCTest
 
 
 # Define namespaces
-from ausnc_ingest.rdf.namespaces import *
+from hcsvlab_robochef.rdf.namespaces import *
 
 MONASHNS = Namespace(u"http://ns.ausnc.org.au/schemas/monash/")
 MONASHCORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/monash/")

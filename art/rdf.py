@@ -1,4 +1,4 @@
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.rdf.map import *
 
 ART = "ART"
 

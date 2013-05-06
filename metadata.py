@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as etree
-
+import re
 
 def write_metadata(d, xmlfile):
     """Generate our little XML metadata format
@@ -40,6 +40,19 @@ def xml2dict(xml_tree, pre = "", ignore_root = False):
         d[k2] = other[k]
   return d
 
+
+def xml2tuplelist(xml_tree, ignorelist=[], strip_qual=False, flatten_attr=False):
+  result = []
+#  etree.dump(xml_tree)
+  for node in xml_tree.iter():
+    __strip_qual__(node)
+    __flatten_attr__(node)
+    if node.tag not in ignorelist:
+      result.append((node.tag, node.text));
+  return result
+      
+
+
 def get_on_path(elts, d):
   """
   We sometimes want to recover particular elements which we encoded from xml by xml2dict, this method
@@ -58,6 +71,33 @@ def get_on_path(elts, d):
         del res[k]
         break
   return res.values()
+
+
+def __strip_qual__(node):
+#  print node.tag
+  node.tag = re.sub('\{.+?\}', '', node.tag)
+  for k,v in node.items():
+    del node.attrib[k]
+    key = re.sub('\{.+?\}', '', k)
+    value = re.sub('\{.+?\}', '', v)
+    if ':' in value:
+      value = re.sub(r'.+?\:(.+)', r'\1', value)
+    node.attrib[key] = value
+  return node
+
+
+def __flatten_attr__(node):
+#this only works if strip_qual is true
+  if 'type' in node.attrib:
+    if 'code' in node.attrib:
+      if node.text:
+        node.tag = node.attrib['code']
+      else:
+        node.tag = node.attrib['type']
+        node.text = node.attrib['code']
+    elif node.text:
+      node.tag = node.attrib['type']
+
   
 import unittest  
 import doctest    

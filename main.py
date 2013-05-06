@@ -1,18 +1,19 @@
 import sys
 import logging
 
-from ausnc_ingest.cooee.ingest import *
-from ausnc_ingest.ace.ingest import *
-from ausnc_ingest.ice.ingest import *
-from ausnc_ingest.monash.ingest import *
-from ausnc_ingest.griffith.ingest import *
-from ausnc_ingest.md.ingest import *
-from ausnc_ingest.auslit.ingest import *
-from ausnc_ingest.braided.ingest import *
-from ausnc_ingest.art.ingest import *
+from hcsvlab_robochef.cooee.ingest import *
+from hcsvlab_robochef.ace.ingest import *
+from hcsvlab_robochef.ice.ingest import *
+from hcsvlab_robochef.monash.ingest import *
+from hcsvlab_robochef.griffith.ingest import *
+from hcsvlab_robochef.md.ingest import *
+from hcsvlab_robochef.auslit.ingest import *
+from hcsvlab_robochef.braided.ingest import *
+from hcsvlab_robochef.art.ingest import *
+from hcsvlab_robochef.paradisec.ingest import *
 
-from ausnc_ingest import utils
-from ausnc_ingest import configmanager
+from hcsvlab_robochef import utils
+from hcsvlab_robochef import configmanager
 
 def main():
     '''
@@ -24,7 +25,7 @@ def main():
     
     ''' Configure the logger and the configuration manager '''
     configmanager.configinit()
-    logging.basicConfig(filename='ausnc_ingest.log', level=logging.INFO, format='%(asctime)s %(message)s')
+    logging.basicConfig(filename='hcsvlab_robochef.log', level=logging.INFO, format='%(asctime)s %(message)s')
     
     corpus_basedir = configmanager.get_config("CORPUS_BASEDIR", "../input/")
     output_dir = configmanager.get_config("CORPUS_OUTPUTDIR", "../output/")
@@ -83,6 +84,11 @@ def main():
             print "converting braided channels"
             braided = BraidedIngest()
             braided.ingestCorpus(corpus_basedir+"braided_channels", output_dir+"braided")
+            
+        elif c == "paradisec":
+            print "converting paradisec"
+            braided = ParadisecIngest()
+            braided.ingestCorpus(corpus_basedir+"paradisec", output_dir+"paradisec")
 
 if __name__ == "__main__":
     main()

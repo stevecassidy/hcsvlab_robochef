@@ -1,5 +1,5 @@
-from ausnc_ingest.upload.loginform import *
-from ausnc_ingest.upload.formdecorator import *
+from hcsvlab_robochef.upload.loginform import *
+from hcsvlab_robochef.upload.formdecorator import *
 
 import httplib2, urllib
 

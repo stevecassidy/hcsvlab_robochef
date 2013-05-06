@@ -8,7 +8,7 @@ TODO:
 
 '''
 
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.rdf.map import *
 
 ICE = "ICE"
 ICENS = corpus_property_namespace(ICE)

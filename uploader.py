@@ -3,16 +3,16 @@ import sys
 sys.path.append('../')
 
 #import logging
-#import ausnc_ingest
+#import hcsvlab_robochef
 
-from ausnc_ingest import configmanager
-from ausnc_ingest.utils import *
-from ausnc_ingest.utils.filehandler import *
-from ausnc_ingest.upload.session import *
-from ausnc_ingest.upload.adminrdfuploadform import *
-from ausnc_ingest.upload.corpusitemuploadform import *
-from ausnc_ingest.upload.helper import *
-from ausnc_ingest.upload.resolver import *
+from hcsvlab_robochef import configmanager
+from hcsvlab_robochef.utils import *
+from hcsvlab_robochef.utils.filehandler import *
+from hcsvlab_robochef.upload.session import *
+from hcsvlab_robochef.upload.adminrdfuploadform import *
+from hcsvlab_robochef.upload.corpusitemuploadform import *
+from hcsvlab_robochef.upload.helper import *
+from hcsvlab_robochef.upload.resolver import *
 
 
 supported_collections = ['ace', 'art', 'md', 'griffith', 'auslit', 'braided', 'cooee', 'ice', 'monash']

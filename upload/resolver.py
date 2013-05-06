@@ -2,7 +2,7 @@ import os
 import rdflib
 import re
 
-from ausnc_ingest.rdf.map import DC, RDF, FOAF, AUSNC
+from hcsvlab_robochef.rdf.map import DC, RDF, FOAF, AUSNC
 from rdflib import Graph
 from rdflib.term import URIRef
 

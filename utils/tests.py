@@ -1,11 +1,11 @@
 import unittest
 import os
 
-from ausnc_ingest.utils.parsing import *
-from ausnc_ingest.utils.program import *
-from ausnc_ingest.utils.filehandler import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
+from hcsvlab_robochef.utils.parsing import *
+from hcsvlab_robochef.utils.program import *
+from hcsvlab_robochef.utils.filehandler import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
 
 
 def unittests():

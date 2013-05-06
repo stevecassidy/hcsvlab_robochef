@@ -1,4 +1,4 @@
-from ausnc_ingest.upload.uploadexception import *
+from hcsvlab_robochef.upload.uploadexception import *
 
 import logging
 import os
@@ -7,7 +7,7 @@ class FormDecorator(object):
   '''
   This class is used to decorate Form classes with logging behaviour
   '''
-  def __init__(self, form, collection = 'ausnc_ingest'):
+  def __init__(self, form, collection = 'hcsvlab_robochef'):
     '''
     Track the form to be decorated. Also set the logger based on the current collection name
     '''

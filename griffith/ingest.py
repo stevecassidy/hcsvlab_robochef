@@ -7,12 +7,12 @@ import shutil
 import string
 import re
 
-from ausnc_ingest import utils
-from ausnc_ingest import metadata
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.annotations import *
+from hcsvlab_robochef import utils
+from hcsvlab_robochef import metadata
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.annotations import *
 
 from pyparsing import *
 from xml.etree import ElementTree as et

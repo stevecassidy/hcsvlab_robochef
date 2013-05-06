@@ -5,13 +5,13 @@ import xlrd
 import os.path
 import shutil
 
-from ausnc_ingest import utils
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.annotations.annotation import *
-from ausnc_ingest.utils.filehandler import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.utils.parsing import *
+from hcsvlab_robochef import utils
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.annotations.annotation import *
+from hcsvlab_robochef.utils.filehandler import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.utils.parsing import *
 
 from rdf import mdMap #, annotation_rdf
 from pyparsing import *

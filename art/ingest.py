@@ -6,17 +6,17 @@ import xlrd
 
 from datetime import datetime
 
-from ausnc_ingest.annotations import *
-from ausnc_ingest.annotations.annotation import *
-from ausnc_ingest.annotations.annotated_text import *
-from ausnc_ingest.annotations.annotation_parsers import *
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.utils.filehandler import FileHandler
-from ausnc_ingest.art.iterator import ArtIterator
-from ausnc_ingest.art.parser import *
-from ausnc_ingest.art.sample import Sample
-from ausnc_ingest.art.rdf import *
-from ausnc_ingest.utils.serialiser import Serialiser
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.annotations.annotation import *
+from hcsvlab_robochef.annotations.annotated_text import *
+from hcsvlab_robochef.annotations.annotation_parsers import *
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.utils.filehandler import FileHandler
+from hcsvlab_robochef.art.iterator import ArtIterator
+from hcsvlab_robochef.art.parser import *
+from hcsvlab_robochef.art.sample import Sample
+from hcsvlab_robochef.art.rdf import *
+from hcsvlab_robochef.utils.serialiser import Serialiser
 
 
 class ARTIngest(IngestBase):

@@ -1,4 +1,4 @@
-import ausnc_ingest.utils
-from ausnc_ingest.rdf import tests
+import hcsvlab_robochef.utils
+from hcsvlab_robochef.rdf import tests
 
 unittests       = tests.unittests

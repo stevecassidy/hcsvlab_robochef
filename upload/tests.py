@@ -1,15 +1,15 @@
 import httplib2, unittest, logging, os
 
-from ausnc_ingest.upload.helper import *
-from ausnc_ingest.upload.session import *
-from ausnc_ingest.upload.getrequest import *
-from ausnc_ingest.upload.adminrdfuploadform import *
-from ausnc_ingest.upload.rdfuploadform import *
-from ausnc_ingest.upload.corpusitemuploadform import *
-from ausnc_ingest.upload.formdecorator import *
-from ausnc_ingest.upload.resolver import *
-from ausnc_ingest.upload.uploadexception import *
-from ausnc_ingest.utils.filehandler import *
+from hcsvlab_robochef.upload.helper import *
+from hcsvlab_robochef.upload.session import *
+from hcsvlab_robochef.upload.getrequest import *
+from hcsvlab_robochef.upload.adminrdfuploadform import *
+from hcsvlab_robochef.upload.rdfuploadform import *
+from hcsvlab_robochef.upload.corpusitemuploadform import *
+from hcsvlab_robochef.upload.formdecorator import *
+from hcsvlab_robochef.upload.resolver import *
+from hcsvlab_robochef.upload.uploadexception import *
+from hcsvlab_robochef.utils.filehandler import *
 
 def unittests():
   return unittest.makeSuite(UnitTest)  
@@ -26,9 +26,9 @@ class UnitTest(unittest.TestCase):
     '''
     current_dir = os.path.abspath(os.path.dirname(__name__))
     if os.path.basename(current_dir) == 'bin':
-      homedir = '../src/ausnc_ingest'
+      homedir = '../src/hcsvlab_robochef'
     else:
-      homedir = os.path.join(current_dir, 'ausnc_ingest')
+      homedir = os.path.join(current_dir, 'hcsvlab_robochef')
   
     DEFAULT_CONFIG_FILE = os.path.join(homedir, "griffithconfig.ini")
     configmanager.configinit(DEFAULT_CONFIG_FILE)

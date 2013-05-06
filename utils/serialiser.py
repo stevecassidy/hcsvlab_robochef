@@ -1,13 +1,13 @@
 import os
 import shutil
-import ausnc_ingest
+import hcsvlab_robochef
 
-from ausnc_ingest import metadata
-from ausnc_ingest.rdf.map import RDF, AUSNC
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.utils.parsing import *
-from ausnc_ingest.upload.helper import *
-from ausnc_ingest.rdf.serialiser import *
+from hcsvlab_robochef import metadata
+from hcsvlab_robochef.rdf.map import RDF, AUSNC
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.utils.parsing import *
+from hcsvlab_robochef.upload.helper import *
+from hcsvlab_robochef.rdf.serialiser import *
 
 
 class Serialiser(object):

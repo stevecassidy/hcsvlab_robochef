@@ -1,6 +1,6 @@
-from ausnc_ingest.ace.ingest import *
-from ausnc_ingest.annotations import *
-from ausnc_ingest.ace.html_parser import *
+from hcsvlab_robochef.ace.ingest import *
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.ace.html_parser import *
 
 import unittest
 

@@ -1,20 +1,20 @@
-from ausnc_ingest import utils
+from hcsvlab_robochef import utils
 import unittest
 import os
 import subprocess
 import sys
 
-from ausnc_ingest import monash
-from ausnc_ingest import cooee
-from ausnc_ingest import griffith
-from ausnc_ingest import annotations
-from ausnc_ingest import ace
-from ausnc_ingest import braided
-from ausnc_ingest import utils
-from ausnc_ingest import metadata 
-from ausnc_ingest import ice 
-from ausnc_ingest import upload
-from ausnc_ingest import rdf
+from hcsvlab_robochef import monash
+from hcsvlab_robochef import cooee
+from hcsvlab_robochef import griffith
+from hcsvlab_robochef import annotations
+from hcsvlab_robochef import ace
+from hcsvlab_robochef import braided
+from hcsvlab_robochef import utils
+from hcsvlab_robochef import metadata 
+from hcsvlab_robochef import ice 
+from hcsvlab_robochef import upload
+from hcsvlab_robochef import rdf
 
 class BasicTests(unittest.TestCase):
   def testIsAlive(self):

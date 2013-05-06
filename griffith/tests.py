@@ -1,9 +1,9 @@
 # coding: utf-8
 import unittest
 
-from ausnc_ingest.griffith.ingest import *
-from ausnc_ingest.griffith import ingest
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.griffith.ingest import *
+from hcsvlab_robochef.griffith import ingest
+from hcsvlab_robochef.rdf.map import *
 
 
 def unittests():

@@ -3,8 +3,8 @@ import unittest
 #import subprocess
 #import sys
 
-from ausnc_ingest.rdf.map import *
-from ausnc_ingest.rdf.serialiser import *
+from hcsvlab_robochef.rdf.map import *
+from hcsvlab_robochef.rdf.serialiser import *
 
 NS = Namespace("http://example.org/")
 

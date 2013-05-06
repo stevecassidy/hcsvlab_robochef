@@ -6,12 +6,12 @@ import shutil
 import re
 
 from pyparsing import *
-from ausnc_ingest import utils
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.annotations import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.rdf.map import FieldMapper
+from hcsvlab_robochef import utils
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.rdf.map import FieldMapper
 
 from rdf import iceM
 from xml.etree import ElementTree

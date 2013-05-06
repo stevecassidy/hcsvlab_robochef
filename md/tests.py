@@ -1,8 +1,8 @@
 import re
 import unittest
 
-from ausnc_ingest.md.organiser import *
-from ausnc_ingest.md.ingest import *
+from hcsvlab_robochef.md.organiser import *
+from hcsvlab_robochef.md.ingest import *
 
 
 def unittests():

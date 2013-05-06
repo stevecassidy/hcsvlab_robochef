@@ -3,8 +3,8 @@ This module defines a method genrdf, which takes a metadata dictionary
 as parameter and returns a rdflib Graph instance.
 
 '''
-from ausnc_ingest.rdf.map import *
-from ausnc_ingest.rdf.namespaces import *
+from hcsvlab_robochef.rdf.map import *
+from hcsvlab_robochef.rdf.namespaces import *
 
 # corpus identifier
 ACE = "ACE"

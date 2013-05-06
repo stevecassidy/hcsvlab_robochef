@@ -4,7 +4,7 @@ as parameter and returns a rdflib Graph instance.
 
 '''
 
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.rdf.map import *
 
 def map_gender(prop, value):
   '''

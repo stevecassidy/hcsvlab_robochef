@@ -3,10 +3,10 @@
 
 from rdflib import Namespace, Graph, Literal
 from rdflib.term import URIRef
-from ausnc_ingest.utils.parsing import toXMLName
+from hcsvlab_robochef.utils.parsing import toXMLName
 from namespaces import *
 
-from ausnc_ingest import configmanager
+from hcsvlab_robochef import configmanager
 configmanager.configinit()
 
 def get_generic_doc_mapper():

@@ -1,6 +1,6 @@
 from pyparsing import *
 
-from ausnc_ingest.annotations import annotation
+from hcsvlab_robochef.annotations import annotation
 
 class AnnotatedText:
   def __init__(self, text, anns):

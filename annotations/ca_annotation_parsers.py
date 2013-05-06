@@ -1,6 +1,6 @@
-from ausnc_ingest.annotations.annotated_text import *
-from ausnc_ingest.annotations.annotation import *
-from ausnc_ingest.annotations.annotation_parsers import *
+from hcsvlab_robochef.annotations.annotated_text import *
+from hcsvlab_robochef.annotations.annotation import *
+from hcsvlab_robochef.annotations.annotation_parsers import *
 from pyparsing import *
 
 def unknownParser():
@@ -160,7 +160,7 @@ def latchedParser():
 
 import unittest
 import doctest
-from ausnc_ingest import utils
+from hcsvlab_robochef import utils
 
 def unittests():
   res = doctest.DocTestSuite()

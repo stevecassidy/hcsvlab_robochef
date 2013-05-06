@@ -1,5 +1,5 @@
-from ausnc_ingest import configmanager
-from ausnc_ingest.upload.form import *
+from hcsvlab_robochef import configmanager
+from hcsvlab_robochef.upload.form import *
 
 import httplib2, urllib
 

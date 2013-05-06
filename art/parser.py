@@ -1,6 +1,6 @@
 from pyparsing import *
-from ausnc_ingest.annotations.annotation import *
-from ausnc_ingest.annotations.annotated_text import *
+from hcsvlab_robochef.annotations.annotation import *
+from hcsvlab_robochef.annotations.annotated_text import *
 
 
 # Define grammar for ART source data

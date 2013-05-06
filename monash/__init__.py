@@ -1,3 +1,3 @@
-from ausnc_ingest.monash import tests
+from hcsvlab_robochef.monash import tests
 
 unittests       = tests.unittests

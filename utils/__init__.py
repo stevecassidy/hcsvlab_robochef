@@ -1,5 +1,5 @@
-from ausnc_ingest.utils import program
-from ausnc_ingest.utils import tests
+from hcsvlab_robochef.utils import program
+from hcsvlab_robochef.utils import tests
 import parsing
 import ausnctest
 

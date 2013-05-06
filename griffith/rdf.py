@@ -8,7 +8,7 @@ TODO: * finalise mapping
       * extract and convert item sources
 '''
 
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.rdf.map import *
 
 GRIFF = "GCSAUSE"
 GRIFFNS = corpus_property_namespace(GRIFF) 

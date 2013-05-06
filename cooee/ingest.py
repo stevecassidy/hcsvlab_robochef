@@ -4,13 +4,13 @@ import shutil
 import re
 import xlrd
 
-from ausnc_ingest import utils
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.cooee.rdf import cooeeMap
-from ausnc_ingest.annotations import *
-from ausnc_ingest.ice.rdf import iceM
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
+from hcsvlab_robochef import utils
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.cooee.rdf import cooeeMap
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.ice.rdf import iceM
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
 
 
 class CooeeIngest(IngestBase):

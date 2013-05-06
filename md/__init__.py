@@ -1,3 +1,3 @@
-from ausnc_ingest.md import tests
+from hcsvlab_robochef.md import tests
 
 unittests       = tests.unittests

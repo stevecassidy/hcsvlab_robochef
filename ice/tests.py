@@ -5,9 +5,9 @@ import rdflib
 import unittest
 import os
 
-from ausnc_ingest.ice.ingest import *
-from ausnc_ingest.ice import ingest
-from ausnc_ingest.rdf.map import *
+from hcsvlab_robochef.ice.ingest import *
+from hcsvlab_robochef.ice import ingest
+from hcsvlab_robochef.rdf.map import *
 
 def unittests():
   res = unittest.makeSuite(UnitTest)

@@ -1,8 +1,8 @@
 import unittest
 
-from ausnc_ingest.cooee.ingest import *
+from hcsvlab_robochef.cooee.ingest import *
 from rdflib import Namespace, Graph, Literal
-from ausnc_ingest.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA
+from hcsvlab_robochef.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA
 
 COOEE = Namespace(u"http://ns.ausnc.org.au/corpora/cooee/")
 COOEENS = Namespace(u"http://ns.ausnc.org.au/schemas/cooee/")

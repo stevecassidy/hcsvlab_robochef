@@ -2,7 +2,7 @@ from UserDict import DictMixin
 from xml.etree import ElementTree
 from uuid import uuid4
 from rdflib import Namespace, Graph, Literal, XSD
-from ausnc_ingest.rdf.namespaces import *
+from hcsvlab_robochef.rdf.namespaces import *
  
 
 def _subnode_(node, name, text, attr={}):

@@ -1,7 +1,7 @@
 import unittest
 
-from ausnc_ingest.auslit.ingest import *
-from ausnc_ingest.annotations import *
+from hcsvlab_robochef.auslit.ingest import *
+from hcsvlab_robochef.annotations import *
 
 def unittests():
   return unittest.makeSuite(UnitTest)  

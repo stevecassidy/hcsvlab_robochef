@@ -3,7 +3,7 @@ import re
 
 from rdflib import Graph
 from rdflib.term import URIRef
-from ausnc_ingest import configmanager
+from hcsvlab_robochef import configmanager
 
 class Helper(object):
     

@@ -1,9 +1,9 @@
-from ausnc_ingest.annotations import annotated_text
-from ausnc_ingest.annotations import annotation_parsers
-from ausnc_ingest.annotations import ca_annotation_parsers
-from ausnc_ingest.annotations import cap
+from hcsvlab_robochef.annotations import annotated_text
+from hcsvlab_robochef.annotations import annotation_parsers
+from hcsvlab_robochef.annotations import ca_annotation_parsers
+from hcsvlab_robochef.annotations import cap
 
-from ausnc_ingest.annotations.annotation import Annotation, AnnotationCollection
+from hcsvlab_robochef.annotations.annotation import Annotation, AnnotationCollection
 
 
 # classes 

@@ -2,10 +2,10 @@ import httplib2
 import logging
 import urllib
 
-from ausnc_ingest import configmanager
-from ausnc_ingest.upload.multipartform import *
-from ausnc_ingest.upload.form import *
-from ausnc_ingest.upload.uploadexception import *
+from hcsvlab_robochef import configmanager
+from hcsvlab_robochef.upload.multipartform import *
+from hcsvlab_robochef.upload.form import *
+from hcsvlab_robochef.upload.uploadexception import *
 
 
 class AdminRDFUploadForm(Form):

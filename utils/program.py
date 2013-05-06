@@ -16,7 +16,7 @@ def getCorporaArgs(argsv):
   """
   corpra = []
   if (len(argsv) == 1):
-    corpra = ["cooee", "ace", "ice", "monash", 'griffith', 'md', 'auslit', 'braided']
+    corpra = ["cooee", "ace", "ice", "monash", 'griffith', 'md', 'auslit', 'braided', 'paradisec']
   else:
     corpra = argsv[1:]
   return corpra

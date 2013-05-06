@@ -1,5 +1,5 @@
-from ausnc_ingest.annotations.annotated_text import *
-from ausnc_ingest.annotations.annotation import *
+from hcsvlab_robochef.annotations.annotated_text import *
+from hcsvlab_robochef.annotations.annotation import *
 from pyparsing import *
 
 def slurpParser(exclusions):
@@ -208,7 +208,7 @@ def cooeeParagraphParser():
 
 import unittest
 import doctest
-from ausnc_ingest import utils
+from hcsvlab_robochef import utils
 
 if __name__ == "__main__":
   doctext.testmod()

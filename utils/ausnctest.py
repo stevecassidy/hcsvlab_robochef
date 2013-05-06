@@ -1,4 +1,4 @@
-from ausnc_ingest.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal, DADA
+from hcsvlab_robochef.rdf.map import FOAF, DBPEDIA, BIO, SCHEMA, Namespace, DC, Literal, DADA
 import rdflib
 import unittest
 

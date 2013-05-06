@@ -4,14 +4,14 @@ import re
 import xml.dom
 import codecs
 
-from ausnc_ingest.ingest_base import IngestBase
-from ausnc_ingest.ingest_exception import IngestException
-from ausnc_ingest import utils
-from ausnc_ingest import metadata
-from ausnc_ingest.annotations import *
-from ausnc_ingest.utils.serialiser import *
-from ausnc_ingest.utils.statistics import *
-from ausnc_ingest.utils.filehandler import *
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.ingest_exception import IngestException
+from hcsvlab_robochef import utils
+from hcsvlab_robochef import metadata
+from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.utils.serialiser import *
+from hcsvlab_robochef.utils.statistics import *
+from hcsvlab_robochef.utils.filehandler import *
 
 from xml.dom.minidom import parse, parseString
 from xml.dom import Node
@@ -44,7 +44,7 @@ class AuslitIngest(IngestBase):
   
     for f in files_to_process:
       (rawtext, meta, body, annotations) = self.ingestDocument(srcdir, f)
-    
+      print meta
       source_file = f
       f = f.replace(srcdir, outdir, 1)
       try:
@@ -71,11 +71,11 @@ class AuslitIngest(IngestBase):
   
     meta = xml_tree.findall("teiHeader")
     if (len(meta) != 1):
-      raise Error("wrong number (" + str(len(meta)) + ") of teiHeader tags")
-
+      raise Exception("wrong number (" + str(len(meta)) + ") of teiHeader tags")
+    
     meta = metadata.xml2dict(meta[0], ignore_root=True)
     meta['sampleid'] = os.path.basename(sourcepath)
-  
+    
     # Check to see if there is some additional meta data, if so grab some fields from there    
     (meta_text, meta_tree) = self.__get_meta_tree(srcdir, os.path.basename(sourcepath))
     if meta_tree is not None:
@@ -86,7 +86,7 @@ class AuslitIngest(IngestBase):
   
     raw = xml_tree.findall("text")
     if (len(raw) != 1):
-      raise Error("wrong number (" + str(len(raw)) + ") of text tags")
+      raise Exception("wrong number (" + str(len(raw)) + ") of text tags")
   
     cleansed_text = self.__cleanse_text(et.tostring(raw[0]).encode("utf-8"))
   

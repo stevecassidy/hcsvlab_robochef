@@ -1,5 +1,6 @@
 import os
-import ausnc_ingest
+import hcsvlab_robochef
+#import hcsvlab_robochef.annotations
 import string
 
 from abc import ABCMeta, abstractmethod
@@ -50,7 +51,7 @@ class AnnotationSerialiser(GraphSerialiser):
     This graph is then serialised to disk.
     '''
     if ann_dict is not None and len(ann_dict) > 0:
-      acol = ausnc_ingest.annotations.AnnotationCollection(ann_dict, sampleid, meta_map)
+      acol = hcsvlab_robochef.annotations.AnnotationCollection(ann_dict, sampleid, meta_map)
       ann_graph = acol.to_rdf()
 
       # write out annotations

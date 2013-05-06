@@ -48,7 +48,7 @@ def xml2tuplelist(xml_tree, ignorelist=[], strip_qual=False, flatten_attr=False)
     __strip_qual__(node)
     __flatten_attr__(node)
     if node.tag not in ignorelist:
-      result.append((node.tag, node.text));
+      result.append((node.tag, node.text.strip()));
   return result
       
 

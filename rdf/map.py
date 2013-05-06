@@ -6,6 +6,8 @@ from rdflib.term import URIRef
 from hcsvlab_robochef.utils.parsing import toXMLName
 from namespaces import *
 
+import time
+
 from hcsvlab_robochef import configmanager
 configmanager.configinit()
 
@@ -296,6 +298,7 @@ class MetadataMapper(FieldMapper):
             elif  metadata[key] != '':
                 # convert and add the property/value   
                 for (prop, value) in self.map(key, metadata[key]):
+                    print prop, value
                     if prop:
                         #print itemuri, prop, value
                         graph.add((itemuri, prop, value))

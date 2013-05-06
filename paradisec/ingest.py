@@ -23,7 +23,7 @@ from xml.dom.minidom import parse, parseString
 from xml.dom import Node
 from xml.etree import ElementTree as ET
 
-#from rdf import paradisecMap
+from rdf import paradisecMap
 
 
 class ParadisecIngest(IngestBase):
@@ -43,27 +43,27 @@ class ParadisecIngest(IngestBase):
     total = len(files_to_process)
     sofar = 0
   
-#    for f in files_to_process:
-#      meta_dict = self.ingestDocument(srcdir, f)
-#      source_file = f
-#      f = f.replace(srcdir, outdir, 1)
-#      try:
-#        os.makedirs(os.path.dirname(f))
-#      except:
-#        pass
-#    
-#      ff = os.path.splitext(os.path.abspath(f))[0]
+    for f in files_to_process:
+      meta_dict = self.ingestDocument(srcdir, f)
+      source_file = f
+      f = f.replace(srcdir, outdir, 1)
+      try:
+        os.makedirs(os.path.dirname(f))
+      except:
+        pass
+    
+      ff = os.path.splitext(os.path.abspath(f))[0]
       
 #      serialiser = Serialiser(os.path.dirname(ff))
 #      serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, paradisecMap, meta, annotations, source_file)
-#      serialiser = MetaSerialiser()
-#      serialiser.serialise(os.path.basename(ff), meta_dict['sampleid'], paradisecMap, meta_dict)
+      serialiser = MetaSerialiser()
+      serialiser.serialise(outdir, meta_dict['sampleid'], paradisecMap, meta_dict)
     
     
-#    sofar = sofar + 1
-#    print "\033[2K   ", sofar, "of", total, f, "\033[A"
-#    
-#  print "\033[2K   ", total, "files processed"
+    sofar = sofar + 1
+    print "\033[2K   ", sofar, "of", total, f, "\033[A"
+    
+    print "\033[2K   ", total, "files processed"
 
 
   def setMetaData(self, rcdir):
@@ -128,7 +128,8 @@ class ParadisecIngest(IngestBase):
   def __tuplelist2dict__(self, tuplelist):
     result = dict()
     for (k, v) in tuplelist:
-      result[k] = v
+      if k and v:
+        result[k] = v
     return result
 
   def __load_xml_tree(self, sourcepath):

@@ -1,7 +1,6 @@
 import os
 import hcsvlab_robochef
-#import hcsvlab_robochef.annotations
-import string
+#import string
 
 from abc import ABCMeta, abstractmethod
 from rdflib import plugin

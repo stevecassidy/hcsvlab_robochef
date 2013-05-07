@@ -189,6 +189,24 @@ class FieldMapper:
         return graph
     
     
+    def map_tuplelist(self, metadata):
+        graph = Graph(identifier=self.corpus_uri())
+        graph = bind_graph(graph)
+#        itemuri = self.item_uri('test')
+        itemuri = Namespace([v for k,v in metadata if 'URI' in k][0])
+#        print metadata
+        for k, v in metadata:
+            if type(v) == str and v.strip() != "":
+                # convert and add the property/value 
+#                print k, v
+                for (prop, value) in self.map(k, v):
+                    if prop: 
+                        graph.add((itemuri, prop, value))
+        
+        self.update_schema(graph)
+        return graph
+      
+    
     def update_schema(self, graph):
         """Generate a list of classes and properties used in this graph
         which might form the basis of a schema, store them in 
@@ -296,12 +314,15 @@ class MetadataMapper(FieldMapper):
 
                 
             elif  metadata[key] != '':
-                # convert and add the property/value   
-                for (prop, value) in self.map(key, metadata[key]):
-                    print prop, value
-                    if prop:
-                        #print itemuri, prop, value
-                        graph.add((itemuri, prop, value))
+                # convert and add the property/value
+                try: 
+                  for (prop, value) in self.map(key, metadata[key]):
+                      if prop:
+                          #print itemuri, prop, value
+                          graph.add((itemuri, prop, value))
+                except ValueError:
+#                  print key
+                  pass
 
         # type infos:
         graph.add((itemuri, RDF.type, AUSNC.AusNCObject))

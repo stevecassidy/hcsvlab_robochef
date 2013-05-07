@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as etree
 import re
 
+import sys
+
 def write_metadata(d, xmlfile):
     """Generate our little XML metadata format
     from a dictionary of properties. Writes
@@ -43,7 +45,6 @@ def xml2dict(xml_tree, pre = "", ignore_root = False):
 
 def xml2tuplelist(xml_tree, ignorelist=[], strip_qual=False, flatten_attr=False):
   result = []
-#  etree.dump(xml_tree)
   for node in xml_tree.iter():
     __strip_qual__(node)
     __flatten_attr__(node)
@@ -51,7 +52,6 @@ def xml2tuplelist(xml_tree, ignorelist=[], strip_qual=False, flatten_attr=False)
       result.append((node.tag, node.text.strip()));
   return result
       
-
 
 def get_on_path(elts, d):
   """

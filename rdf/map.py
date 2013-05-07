@@ -200,7 +200,6 @@ class FieldMapper:
           for k, v in metadata:
               if type(v) == str and v.strip() != "":
                   # convert and add the property/value 
-  #                print k, v
                   for (prop, value) in self.map(k, v):
                       if prop: 
                           graph.add((itemuri, prop, value))

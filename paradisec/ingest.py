@@ -1,30 +1,11 @@
-'''
-Created on 02/05/2013
-
-@author: ilya
-'''
-
-import os
-import shutil
-import re
-import xml.dom
-import codecs
-
-from hcsvlab_robochef.ingest_base import IngestBase
-from hcsvlab_robochef.ingest_exception import IngestException
-from hcsvlab_robochef import utils
-from hcsvlab_robochef import metadata
 from hcsvlab_robochef.annotations import *
+from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.utils.filehandler import *
 from hcsvlab_robochef.utils.serialiser import *
 from hcsvlab_robochef.utils.statistics import *
-from hcsvlab_robochef.utils.filehandler import *
-
-from xml.dom.minidom import parse, parseString
-from xml.dom import Node
-from xml.etree import ElementTree as ET
-
 from rdf import paradisecMap
-
+from xml.etree import ElementTree as ET
+import codecs
 
 class ParadisecIngest(IngestBase):
 
@@ -116,6 +97,5 @@ class ParadisecIngest(IngestBase):
     text = text.replace('&oelig;', u"\u0153")
     text = text.replace('&aelig;', u"\u00E6")
     text = text.replace('&hellip;', u"\u2026")
-#    print sourcepath
+    
     return ET.fromstring(text.encode("utf-8"))
-#    return ET.fromstring(text)

@@ -1,9 +1,3 @@
-'''
-Created on 02/05/2013
-
-@author: ilya
-'''
-
 from hcsvlab_robochef.rdf.map import *
 
 PARADISEC = "PARADISEC"

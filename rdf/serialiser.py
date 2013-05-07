@@ -14,7 +14,7 @@ class GraphSerialiser(object):
   '''
 
   @abstractmethod
-  def serialise(self, outdir, sampleid, meta_map, ann_dict, tuple=False): 
+  def serialise(self, outdir, sampleid, meta_map, ann_dict): 
     '''
     All serialisers implement this method which produces the relevant serial form
     '''
@@ -23,14 +23,14 @@ class GraphSerialiser(object):
     
 class MetaSerialiser(GraphSerialiser):
   
-  def serialise(self, outdir, sampleid, meta_map, meta_dict, tuple): 
+  def serialise(self, outdir, sampleid, meta_map, meta_dict, tuplelist=False): 
     '''
     This function converts a dictionary of meta values to a graph representing such values.
     This graph is then serialised to disk.
     '''
     if meta_dict is not None and len(meta_dict) > 0:
       
-      if tuple:  
+      if tuplelist:  
         metadata_graph = meta_map.map_tuplelist(meta_dict)
       else:
         metadata_graph = meta_map.mapdict(meta_dict)

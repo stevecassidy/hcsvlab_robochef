@@ -29,6 +29,8 @@ def get_generic_doc_mapper():
     docMapper.add('filename', mapto=DC.identifier)
     
     docMapper.add('documenttitle', mapto=DC.title)
+    
+    docMapper.add('language', mapto=OLAC.language)
   
     return docMapper
 
@@ -189,27 +191,6 @@ class FieldMapper:
         return graph
     
     
-    def map_tuplelist(self, metadata):
-        graph = Graph(identifier=self.corpus_uri())
-        graph = bind_graph(graph)
-        
-        itemuris = [v for k,v in metadata if 'URI' in k]
-        
-        if itemuris:
-          itemuri = Namespace(itemuris[0])
-          for k, v in metadata:
-              if type(v) == str and v.strip() != "":
-                  # convert and add the property/value 
-                  for (prop, value) in self.map(k, v):
-                      if prop: 
-                          graph.add((itemuri, prop, value))
-          
-          self.update_schema(graph)
-        else:
-          graph = None
-        return graph
-      
-    
     def update_schema(self, graph):
         """Generate a list of classes and properties used in this graph
         which might form the basis of a schema, store them in 
@@ -349,6 +330,30 @@ class MetadataMapper(FieldMapper):
         self.update_schema(graph)
         
         return graph
+
+    def map_tuplelist(self, metadata):
+        graph = Graph(identifier=self.corpus_uri())
+        graph = bind_graph(graph)
+        
+        itemuris = [v for k,v in metadata if 'URI' in k]
+        
+        if itemuris:
+          itemuri = Namespace(itemuris[0])
+          for k, v in metadata:
+              if type(v) == str and v.strip() != "":
+                  # convert and add the property/value 
+                  for (prop, value) in self.map(k, v):
+                      if prop: 
+                          graph.add((itemuri, prop, value))
+          
+          corpusuri = self.corpus_uri()
+          graph.add((itemuri, DC.isPartOf, corpusuri))
+          
+          self.update_schema(graph)
+        else:
+          graph = None
+        return graph
+
 
     def speaker(self, metadata, graph):
         """Generate the description of a speaker from a metadata dictionary

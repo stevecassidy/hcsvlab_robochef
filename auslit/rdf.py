@@ -20,6 +20,7 @@ auslitMap.add('fileDesc_publicationStmt_pubPlace', mapto=AUSLITNS.location)
 auslitMap.add('fileDesc_profileDesc_creation_date', mapto=DC.created)
 auslitMap.add('profileDesc_creation_date', mapto=DC.created)
 auslitMap.add('fileDesc_sourceDesc_bibl_imprint_biblScope', mapto=AUSLITNS.volume)
+metadata_defaults(auslitMap)
 
 
 def map_genre(prop, value):

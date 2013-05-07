@@ -19,6 +19,7 @@ braidPerson = FieldMapper(BRAID)
 braidPerson.add('name', mapto=FOAF.name)
  
 braidedMap = MetadataMapper(BRAID, documentMap = get_generic_doc_mapper(), speakerMap=braidPerson) 
+metadata_defaults(braidedMap)
 
 braidedMap.add('Date transcription last modified', mapto=DC.created)
 braidedMap.add('Place of recording', mapto=BRAIDNS.place)

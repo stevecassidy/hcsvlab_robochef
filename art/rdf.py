@@ -28,3 +28,4 @@ artSpeakerM.add('gender', mapper=map_gender)
 artSpeakerM.add('age', mapto=FOAF.age)
 
 artMapper = MetadataMapper(ART, artSpeakerM, documentMap = get_generic_doc_mapper())
+metadata_defaults(artMapper)

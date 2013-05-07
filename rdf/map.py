@@ -30,11 +30,10 @@ def get_generic_doc_mapper():
     
     docMapper.add('documenttitle', mapto=DC.title)
     
-    docMapper.add('language', mapto=OLAC.language)
-  
     return docMapper
 
-
+def metadata_defaults(metadataMapper):
+  metadataMapper.add('language', mapto=OLAC.language)
 
 
 def dictmapper(dictionary):

@@ -76,4 +76,5 @@ aceMap.add('Author', mapto=DC.contributor)
 aceMap.add('Publisher', mapto=DC.publisher)  # is this right??
 aceMap.add('PublicationDate', mapto=DC.created)
 aceMap.add('Word Count', ignore=True)
+metadata_defaults(aceMap)
 

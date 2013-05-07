@@ -23,6 +23,7 @@ from rdf import braidedMap
 class BraidedIngest(IngestBase):
   
   filemetadata = {}
+  META_DEFAULTS = {'language': 'eng'}
   
   def setMetaData(self, dirpath):
     ''' Braided obtains meta data during the ingest as there is not separate meta data file '''
@@ -107,6 +108,7 @@ class BraidedIngest(IngestBase):
     ''' Ingests the meta data from the source XML document '''
     xml_tree = et.parse(filename)
     d =  metadata.xml2dict(xml_tree.getroot(), ignore_root = True)
+    d.update(self.META_DEFAULTS)
     d[u'sampleid'] = d["BC_identifier"]
     return d
     

@@ -22,8 +22,9 @@ from rdf import auslitMap
 
 class AuslitIngest(IngestBase):
 
+  META_DEFAULTS = {'language': 'eng'}
 
-  def setMetaData(srcdir):
+  def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
     pass
     
@@ -75,6 +76,7 @@ class AuslitIngest(IngestBase):
     
     meta = metadata.xml2dict(meta[0], ignore_root=True)
     meta['sampleid'] = os.path.basename(sourcepath)
+    meta.update(self.META_DEFAULTS)
     
     # Check to see if there is some additional meta data, if so grab some fields from there    
     (meta_text, meta_tree) = self.__get_meta_tree(srcdir, os.path.basename(sourcepath))
@@ -112,7 +114,7 @@ class AuslitIngest(IngestBase):
     lookup = ('encodingDesc_editorialDecl_p', 'fileDesc_extent', 'fileDesc_publicationStmt_availability_p', 'fileDesc_publicationStmt_availability', 'fileDesc_publicationStmt_idno', 'fileDesc_titleStmt_funder', 'fileDesc_titleStmt_respStmt_name', 'fileDesc_titleStmt_respStmt_resp', 'fileDesc_publicationStmt_date', 'profileDesc_textClass_classCode', 'profileDesc_textClass_keywords_term', 'fileDesc_sourceDesc_bibl_author', 'fileDesc_sourceDesc_bibl_imprint_date', 'fileDesc_sourceDesc_bibl_title', 'fileDesc_titleStmt_title+', 'fileDesc_sourceDesc_p', 'profileDesc_particDesc_person_p', 'fileDesc_publicationStmt_availability_p_hi', 'revisionDesc_change_item', 'revisionDesc_change_respStmt_resp', 'revisionDesc_change_date', 'revisionDesc_change_respStmt_name', 'fileDesc_titleStmt_editor', 'fileDesc_titleStmt_author+')
 
     # These are the supported fields
-    supported_fields = ('fileDesc_publicationStmt_date', 'fileDesc_publicationStmt_pubPlace', 'fileDesc_publicationStmt_publisher', 'fileDesc_sourceDesc_p',    'fileDesc_titleStmt_author_name', 'fileDesc_titleStmt_title', 'profileDesc_creation_date', 'sampleid', 'fileDesc_sourceDesc_bibl_imprint_biblScope', 'fileDesc_profileDesc_creation_date', 'fileDesc_titleStmt_author', 'profileDesc_langUsage_language', 'collection')
+    supported_fields = ('language', 'fileDesc_publicationStmt_date', 'fileDesc_publicationStmt_pubPlace', 'fileDesc_publicationStmt_publisher', 'fileDesc_sourceDesc_p',    'fileDesc_titleStmt_author_name', 'fileDesc_titleStmt_title', 'profileDesc_creation_date', 'sampleid', 'fileDesc_sourceDesc_bibl_imprint_biblScope', 'fileDesc_profileDesc_creation_date', 'fileDesc_titleStmt_author', 'profileDesc_langUsage_language', 'collection')
 
     # Remove the superfluous keys from the dictionary
     for item in lookup:

@@ -24,6 +24,8 @@ class ARTIngest(IngestBase):
     person_no = 1
     file_meta = {}
     
+    META_DEFAULTS = {'language': 'eng'}
+    
     presenter_meta = {
         1: {12: 'name', 13: 'gender', 14: 'age'}, 
         2: {15: 'name', 16: 'gender', 17: 'age'}
@@ -62,6 +64,7 @@ class ARTIngest(IngestBase):
                     
                     # Extract linear fields from spreadsheet
                     self.file_meta[sampleid] = { 'sampleid': sampleid }
+                    self.file_meta[sampleid].update(self.META_DEFAULTS)
                     self.file_meta[sampleid]['location'] = self.__convert(row[1])
                     self.file_meta[sampleid]['station'] = self.__convert(row[2])
                     self.file_meta[sampleid]['program'] = self.__convert(row[3])

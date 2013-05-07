@@ -23,7 +23,7 @@ class ACEIngest(IngestBase):
 
   filemetadata = {}
   status  = ""
-
+  META_DEFAULTS = {'language': 'eng'}
   
   def setMetaData(self, srcdir):
     '''
@@ -72,7 +72,7 @@ class ACEIngest(IngestBase):
           
       for s in samples:
         (rawtext, meta, text, anns) = samples[s]
-      
+        meta.update(self.META_DEFAULTS)
         # update this meta data by grabbing the equivalent key items from
         # the global meta data file
         if meta['sampleid'] in self.filemetadata:

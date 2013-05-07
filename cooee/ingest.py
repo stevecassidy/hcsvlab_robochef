@@ -17,6 +17,7 @@ class CooeeIngest(IngestBase):
   
   status = ""
   filemetadata = {}
+  META_DEFAULTS = {'language': 'eng'}
 
   def setMetaData(self, filename):
       """
@@ -74,6 +75,7 @@ class CooeeIngest(IngestBase):
       for f in files:
           
           (sampleid, rawtext, body, meta, anns) = self.ingestDocument(os.path.join(srcdir, f))
+          meta.update(self.META_DEFAULTS)
           self.__serialise(outdir, sampleid, rawtext, body, meta, anns, os.path.join(srcdir, f))
         
           sofar = sofar + 1

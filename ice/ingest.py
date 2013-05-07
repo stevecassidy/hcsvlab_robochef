@@ -20,7 +20,7 @@ class ICEIngest(IngestBase):
   
   filemetadata = {}
   book_date_mode = 0
-
+  META_DEFAULTS = {'language': 'eng'}
 
   def ingest(self, corpus_basedir, output_dir): 
      """Perform the ingest process for this corpus"""    
@@ -509,7 +509,9 @@ class ICEIngest(IngestBase):
       if ( f.endswith(".txt") ): 
           print "ICE:", f
           (sampleid, rawtext, body, meta, anns) = self.ingestDocument(f)
-
+          
+          meta.update(self.META_DEFAULTS)
+          
           thisoutdir = os.path.dirname(f.replace(srcdir, outdir, 1))
           self.__serialise(thisoutdir, sampleid, body, meta, anns)
           

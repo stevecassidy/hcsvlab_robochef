@@ -22,6 +22,7 @@ from rdf import griffMap
 class GriffithIngest(IngestBase):
   
   filemetadata = {}
+  META_DEFAULTS = {'language': 'eng'}
 
   def setMetaData(self, dirpath):
     ''' Load the meta data from the XML documents provided for the Griffith corpus '''
@@ -99,7 +100,7 @@ class GriffithIngest(IngestBase):
       print sofar, "of", total, f , "\033[A"
       
       (rawtext, body, meta, anns) = self.ingestDocument(f)
-    
+      meta.update(self.META_DEFAULTS)
       # Set the output location and make the directory if is not present
       source_file = f
       f = f.replace(srcdir, outdir, 1)

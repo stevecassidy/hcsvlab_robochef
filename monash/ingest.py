@@ -21,6 +21,8 @@ from rdf import monashMap
 class MonashIngest(IngestBase):
 
 
+  META_DEFAULTS = {'language': 'eng'}
+
   def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
     pass
@@ -45,6 +47,7 @@ class MonashIngest(IngestBase):
       print "\033[2K   ",sofar, "of", total, f, "\033[A"
       
       (basename, rawtext, body, meta, annotations) = self.ingestDocument(f)
+      meta.update(self.META_DEFAULTS)
     
       source_file = f
       f = f.replace(srcdir, outdir, 1)

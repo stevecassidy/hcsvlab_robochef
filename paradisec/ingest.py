@@ -41,7 +41,7 @@ class ParadisecIngest(IngestBase):
       sofar = sofar + 1
       print "\033[2K   ", sofar, "of", total, f, "\033[A"
       
-      print "\033[2K   ", total, "files processed"
+    print "\033[2K   ", total, "files processed"
 
 
   def setMetaData(self, rcdir):

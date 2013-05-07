@@ -45,7 +45,6 @@ class AuslitIngest(IngestBase):
   
     for f in files_to_process:
       (rawtext, meta, body, annotations) = self.ingestDocument(srcdir, f)
-      print meta
       source_file = f
       f = f.replace(srcdir, outdir, 1)
       try:

@@ -20,6 +20,7 @@ from copy import deepcopy
 class MDIngest(IngestBase):
   
   filemetadata = {}
+  META_DEFAULTS = {'language': 'eng'}
 
   def setMetaData(self, filepath):
     '''
@@ -75,7 +76,9 @@ class MDIngest(IngestBase):
   
     sampleid = self.__extract_sampleid(name)
     meta_dict = self.__extract_metadata(sampleid, sourcepath)
-     
+    
+    meta_dict.update(self.META_DEFAULTS)
+    
     (rawtext, meta, body, annotations) = ("", meta_dict, "", [])
     meta['sampleid'] = sampleid
     metagraph = mdMap.mapdict(meta)

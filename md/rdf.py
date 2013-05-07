@@ -38,6 +38,7 @@ mdSpeakerM.add('fathers_occupation', mapto=AUSNC.fathers_occupation)
 mdSpeakerM.add('mothers_birthplace', mapto=AUSNC.mothers_birthplace)
 
 mdMap = MetadataMapper(MD, mdSpeakerM, documentMap = get_generic_doc_mapper()) 
+metadata_defaults(mdMap)
 mdMap.add('genre', mapper=map_genre)
 
 

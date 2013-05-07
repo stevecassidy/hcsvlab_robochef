@@ -153,6 +153,7 @@ cooeePerson.add('abode', mapto=COOEENS.abode)
 cooeePerson.add('place', mapto=BIO.place, mapper=dictmapper(PLACE_TRANSLATION))
 
 cooeeMap = MetadataMapper(COOEE, cooeePerson, documentMap = get_generic_doc_mapper())
+metadata_defaults(cooeeMap)
 cooeeMap.add('table_text_year_of_writing', mapto=DC.created)
 cooeeMap.add('table_text_place_of_writing', mapto=SCHEMA.localityName, mapper=dictmapper(PLACE_TRANSLATION))
 cooeeMap.add('table_text_register', mapto=COOEENS.register, mapper=dictmapper(REGISTER_TRANSLATION))

@@ -145,6 +145,7 @@ def genre_subject_mapper(prop, value):
             (DC.subject, Literal(subject.strip())))
 
 iceM = MetadataMapper(ICE, iceSpeakerM, documentMap = get_generic_doc_mapper())
+metadata_defaults(iceM)
 iceM.add('table_category', mapper=genre_mapper)
 iceM.add('table_letter_genre', mapper=letter_genre_mapper)
 iceM.add('table_date_of_recording', mapto=DC.created)

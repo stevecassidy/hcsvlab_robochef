@@ -27,7 +27,8 @@ monashSpkr = FieldMapper(MONASH)
 monashSpkr.add("gender", mapper=map_gender)
 monashSpkr.add("age", FOAF.age)
 
-monashMap = MetadataMapper(MONASH, monashSpkr, documentMap = get_generic_doc_mapper()) 
+monashMap = MetadataMapper(MONASH, monashSpkr, documentMap = get_generic_doc_mapper())
+metadata_defaults(monashMap) 
 # ignore fields that have been copied to person descriptions
 monashMap.add("SEX:", ignore=True)
 monashMap.add("SCHOOL:", ignore=True)

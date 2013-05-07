@@ -45,7 +45,6 @@ class ParadisecIngest(IngestBase):
   
     for f in files_to_process:
       meta_dict = self.ingestDocument(srcdir, f)
-#      source_file = f
       f = f.replace(srcdir, outdir, 1)
       try:
         os.makedirs(os.path.dirname(f))
@@ -73,12 +72,7 @@ class ParadisecIngest(IngestBase):
     """ Read and process a corpus document """
   
     xml_tree = self.__load_xml_tree(sourcepath)
-    
     meta_dict = metadata.xml2tuplelist(xml_tree, ['olac', 'metadata'], True, False)
-#    meta_dict = self.__tuplelist2dict__(meta)
-
-#    (sampleid, _) = os.path.splitext(os.path.basename(sourcepath))
-#    meta_dict['sampleid'] = sampleid
     return meta_dict
 
 

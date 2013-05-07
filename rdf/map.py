@@ -192,18 +192,22 @@ class FieldMapper:
     def map_tuplelist(self, metadata):
         graph = Graph(identifier=self.corpus_uri())
         graph = bind_graph(graph)
-#        itemuri = self.item_uri('test')
-        itemuri = Namespace([v for k,v in metadata if 'URI' in k][0])
-#        print metadata
-        for k, v in metadata:
-            if type(v) == str and v.strip() != "":
-                # convert and add the property/value 
-#                print k, v
-                for (prop, value) in self.map(k, v):
-                    if prop: 
-                        graph.add((itemuri, prop, value))
         
-        self.update_schema(graph)
+        itemuris = [v for k,v in metadata if 'URI' in k]
+        
+        if itemuris:
+          itemuri = Namespace(itemuris[0])
+          for k, v in metadata:
+              if type(v) == str and v.strip() != "":
+                  # convert and add the property/value 
+  #                print k, v
+                  for (prop, value) in self.map(k, v):
+                      if prop: 
+                          graph.add((itemuri, prop, value))
+          
+          self.update_schema(graph)
+        else:
+          graph = None
         return graph
       
     

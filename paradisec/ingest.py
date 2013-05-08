@@ -1,15 +1,27 @@
 from hcsvlab_robochef.annotations import *
 from hcsvlab_robochef.ingest_base import IngestBase
+from hcsvlab_robochef.rdf.map import *
 from hcsvlab_robochef.utils.filehandler import *
 from hcsvlab_robochef.utils.serialiser import *
 from hcsvlab_robochef.utils.statistics import *
 from rdf import paradisecMap
 from xml.etree import ElementTree as ET
 import codecs
-import urllib
 import mimetypes
+import urllib
 
 class ParadisecIngest(IngestBase):
+
+  olac_role_map = {'annotator' : OLAC.annotator, 'author' : OLAC.author, 'compiler' : OLAC.compiler,
+                  'consultant' : OLAC.consultant, 'data_inputter' : OLAC.data_inputter,
+                  'depositor' : OLAC.depositor, 'developer' : OLAC.developer, 'editor' : OLAC.editor,
+                  'illustrator' : OLAC.illustrator, 'interpreter' : OLAC.interpreter,
+                  'interviewer' : OLAC.interviewer, 'participant' : OLAC.participant,
+                  'performer' : OLAC.performer, 'photographer' : OLAC.photographer,
+                  'recorder' : OLAC.recorder, 'researcher' : OLAC.researcher,
+                  'research_participant' : OLAC.research_participant, 'responder' : OLAC.responder,
+                  'signer' : OLAC.signer, 'singer' : OLAC.singer, 'speaker' : OLAC.speaker,
+                  'sponsor' : OLAC.sponsor, 'transcriber' : OLAC.transcriber, 'translator' : OLAC.translator }
 
 
   def ingestCorpus(self, srcdir, outdir):
@@ -57,6 +69,8 @@ class ParadisecIngest(IngestBase):
     xml_tree = self.__load_xml_tree(sourcepath)
     meta_dict = metadata.xml2tuplelist(xml_tree, ['olac', 'metadata'])
     self.__get_documents(meta_dict)
+    self.__get_people(meta_dict)
+#    print meta_dict
     return meta_dict
 
 
@@ -66,17 +80,18 @@ class ParadisecIngest(IngestBase):
         filetype = self.__get_type(v) 
         file_meta = {'id' : v, 'filename' : v, 'filetype' : filetype}
         meta_dict.append(('table_document_' + v, file_meta))
+    meta_dict[:] = [(k, v) for k, v in meta_dict if 'tableOfContents' not in k]
+        
         
   def __get_people(self, meta_dict):
     # TODO: maybe this belongs elsewhere
-    people_fields = ['annotator', 'author', 'compiler', 'consultant', 'data_inputter',
-                    'depositor', 'developer', 'editor', 'illustrator', 'interpreter',
-                    'interviewer', 'participant', 'performer', 'photographer', 'recorder',
-                    'researcher', 'research_participant', 'responder', 'signer', 'singer',
-                    'speaker', 'sponsor', 'transcriber', 'translator']
+    roles = self.olac_role_map.keys()
     for k, v in meta_dict:
-      if k in people_fields:
-        
+      if k in roles:
+        person = {'role' : self.olac_role_map[k], 'id' : v, 'name' : v}
+        meta_dict.append(('table_person_' + k, person))
+    meta_dict[:] = [(k, v) for k, v in meta_dict if k.strip() not in roles]
+  
   
   # TODO: this could be moved to somewhere like ../utils where other modules could use it      
   def __get_type(self, filepath):

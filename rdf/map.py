@@ -349,6 +349,11 @@ class MetadataMapper(FieldMapper):
                     docid = docmeta['filename']
                     uri = URIRef(baseuri + self.corpusID + "/" + docid)
                     graph.add((docuri, DC.source, URIRef(uri))) 
+              elif k.startswith("table_person"):
+                speakermeta = v
+                # make a speaker uri
+                speakeruri = self.speaker(speakermeta, graph)
+                graph.add((itemuri, speakermeta['role'], speakeruri))
               else:
                 for (prop, value) in self.map(k, v):
                     if prop: 

@@ -43,7 +43,7 @@ def xml2dict(xml_tree, pre = "", ignore_root = False):
   return d
 
 
-def xml2tuplelist(xml_tree, ignorelist=[], strip_qual=False, flatten_attr=False):
+def xml2tuplelist(xml_tree, ignorelist=[]):
   result = []
   for node in xml_tree.iter():
     __strip_qual__(node)

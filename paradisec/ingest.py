@@ -6,6 +6,8 @@ from hcsvlab_robochef.utils.statistics import *
 from rdf import paradisecMap
 from xml.etree import ElementTree as ET
 import codecs
+import urllib
+import mimetypes
 
 class ParadisecIngest(IngestBase):
 
@@ -53,8 +55,39 @@ class ParadisecIngest(IngestBase):
     """ Read and process a corpus document """
   
     xml_tree = self.__load_xml_tree(sourcepath)
-    meta_dict = metadata.xml2tuplelist(xml_tree, ['olac', 'metadata'], True, False)
+    meta_dict = metadata.xml2tuplelist(xml_tree, ['olac', 'metadata'])
+    self.__get_documents(meta_dict)
     return meta_dict
+
+
+  def __get_documents(self, meta_dict):
+    for k, v in meta_dict:
+      if k == 'tableOfContents':
+        filetype = self.__get_type(v) 
+        file_meta = {'id' : v, 'filename' : v, 'filetype' : filetype}
+        meta_dict.append(('table_document_' + v, file_meta))
+        
+  def __get_people(self, meta_dict):
+    # TODO: maybe this belongs elsewhere
+    people_fields = ['annotator', 'author', 'compiler', 'consultant', 'data_inputter',
+                    'depositor', 'developer', 'editor', 'illustrator', 'interpreter',
+                    'interviewer', 'participant', 'performer', 'photographer', 'recorder',
+                    'researcher', 'research_participant', 'responder', 'signer', 'singer',
+                    'speaker', 'sponsor', 'transcriber', 'translator']
+    for k, v in meta_dict:
+      if k in people_fields:
+        
+  
+  # TODO: this could be moved to somewhere like ../utils where other modules could use it      
+  def __get_type(self, filepath):
+    url = urllib.pathname2url(filepath)
+    mime_type, _ = mimetypes.guess_type(url)
+    filetype = None
+    if mime_type:
+      filetype = mime_type.split('/')[0].title()
+    else:
+      filetype = 'Other'
+    return filetype
 
 
   def __get_files(self, srcdir):

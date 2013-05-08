@@ -1,9 +1,23 @@
 from hcsvlab_robochef.rdf.map import *
 
+
+def map_type(prop, value):
+  value = value.lower().strip()
+  if value == 'sound':
+    value = 'Audio'
+  elif value == 'movingimage':
+    value = 'Video'
+  elif value == 'instrumental music':
+    value = 'Audio'
+  print value
+  return ((prop, Literal(value)),)
+
+
 PARADISEC = "PARADISEC"
 PARADISECNS = corpus_property_namespace(PARADISEC)
 
-paradisecMap = MetadataMapper(PARADISEC)
+
+paradisecMap = MetadataMapper(PARADISEC, documentMap = get_generic_doc_mapper())
 paradisecMap.add('Box', mapto=DC.box)
 paradisecMap.add('DCMIType', mapto=DC.type)
 paradisecMap.add('ISO3166', mapto=DC.coverage)
@@ -31,6 +45,6 @@ paradisecMap.add('rights', mapto=DC.rights)
 paradisecMap.add('speaker', mapto=OLAC.speaker)
 paradisecMap.add('tableOfContents', ignore=True)
 paradisecMap.add('title', mapto=DC.title)
-paradisecMap.add('type', mapto=DC.type)
+paradisecMap.add('type', mapto=DC.type, mapper=map_type, ignore=True)
 
 

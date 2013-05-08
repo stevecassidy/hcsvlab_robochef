@@ -84,8 +84,8 @@ def main():
             
         elif c == "paradisec":
             print "converting paradisec"
-            braided = ParadisecIngest()
-            braided.ingestCorpus(corpus_basedir+"paradisec", output_dir+"paradisec")
+            pardisec = ParadisecIngest()
+            pardisec.ingestCorpus(corpus_basedir+"paradisec", output_dir+"paradisec")
 
 if __name__ == "__main__":
     main()

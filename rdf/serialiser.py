@@ -23,6 +23,7 @@ class GraphSerialiser(object):
     
 class MetaSerialiser(GraphSerialiser):
   
+  # TODO: can replace the tuplelist param with a check if meta_dict is of type dict or list
   def serialise(self, outdir, sampleid, meta_map, meta_dict, tuplelist=False): 
     '''
     This function converts a dictionary of meta values to a graph representing such values.

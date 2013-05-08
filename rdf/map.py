@@ -339,12 +339,21 @@ class MetadataMapper(FieldMapper):
         if itemuris:
           itemuri = Namespace(itemuris[0])
           for k, v in metadata:
-              if type(v) == str and v.strip() != "":
-                  # convert and add the property/value 
-                  for (prop, value) in self.map(k, v):
-                      if prop: 
-                          graph.add((itemuri, prop, value))
-          
+              if k.startswith("table_document"):
+                docmeta = v
+                docuri = self.document(docmeta, graph)
+                graph.add((itemuri, AUSNC.document, docuri)) 
+    
+                baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
+                if not baseuri == "": 
+                    docid = docmeta['filename']
+                    uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                    graph.add((docuri, DC.source, URIRef(uri))) 
+              else:
+                for (prop, value) in self.map(k, v):
+                    if prop: 
+                        graph.add((itemuri, prop, value))
+        
           corpusuri = self.corpus_uri()
           graph.add((itemuri, DC.isPartOf, corpusuri))
           

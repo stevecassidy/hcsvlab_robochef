@@ -1,10 +1,10 @@
 # HCSvLab RoboChef #
 
+## Installation ##
+
 ```
 git clone git@github.com:IntersectAustralia/hcsvlab.git
 ```
-
-## Installation ##
 
 ## Install the Dependencies ##
 

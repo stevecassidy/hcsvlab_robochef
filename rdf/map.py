@@ -343,7 +343,6 @@ class MetadataMapper(FieldMapper):
                 docmeta = v
                 docuri = self.document(docmeta, graph)
                 graph.add((itemuri, AUSNC.document, docuri)) 
-    
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
@@ -351,7 +350,6 @@ class MetadataMapper(FieldMapper):
                     graph.add((docuri, DC.source, URIRef(uri))) 
               elif k.startswith("table_person"):
                 speakermeta = v
-                # make a speaker uri
                 speakeruri = self.speaker(speakermeta, graph)
                 graph.add((itemuri, speakermeta['role'], speakeruri))
               else:
@@ -360,8 +358,8 @@ class MetadataMapper(FieldMapper):
                         graph.add((itemuri, prop, value))
         
           corpusuri = self.corpus_uri()
+          graph.add((itemuri, RDF.type, AUSNC.AusNCObject))
           graph.add((itemuri, DC.isPartOf, corpusuri))
-          
           self.update_schema(graph)
         else:
           graph = None

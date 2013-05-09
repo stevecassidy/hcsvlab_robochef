@@ -9,6 +9,7 @@ from xml.etree import ElementTree as ET
 import codecs
 import mimetypes
 import urllib
+import re
 
 class ParadisecIngest(IngestBase):
 
@@ -70,7 +71,6 @@ class ParadisecIngest(IngestBase):
     meta_dict = metadata.xml2tuplelist(xml_tree, ['olac', 'metadata'])
     self.__get_documents(meta_dict)
     self.__get_people(meta_dict)
-#    print meta_dict
     return meta_dict
 
 
@@ -78,7 +78,7 @@ class ParadisecIngest(IngestBase):
     for k, v in meta_dict:
       if k == 'tableOfContents':
         filetype = self.__get_type(v) 
-        file_meta = {'id' : v, 'filename' : v, 'filetype' : filetype}
+        file_meta = {'id' : v, 'filename' : v, 'filetype' : filetype, 'documenttitle' : v}
         meta_dict.append(('table_document_' + v, file_meta))
     meta_dict[:] = [(k, v) for k, v in meta_dict if 'tableOfContents' not in k]
         
@@ -88,7 +88,7 @@ class ParadisecIngest(IngestBase):
     roles = self.olac_role_map.keys()
     for k, v in meta_dict:
       if k in roles:
-        person = {'role' : self.olac_role_map[k], 'id' : v, 'name' : v}
+        person = {'role' : self.olac_role_map[k], 'id' : re.sub(' ', '_', v), 'name' : v}
         meta_dict.append(('table_person_' + k, person))
     meta_dict[:] = [(k, v) for k, v in meta_dict if k.strip() not in roles]
   

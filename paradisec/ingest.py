@@ -100,7 +100,7 @@ class ParadisecIngest(IngestBase):
     filetype = None
     if mime_type:
       filetype = mime_type.split('/')[0].title()
-    else:
+    if not filetype or filetype == 'Application':
       filetype = 'Other'
     return filetype
 

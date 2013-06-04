@@ -109,7 +109,7 @@ class EopasTestIngest(IngestBase):
     ''' This function retrieves a list of files that the HCSvLab ingest should actually process '''
     filehandler = FileHandler()
     
-    files = filehandler.getFiles(srcdir, r'^NT.+\.xml$')
+    files = filehandler.getFiles(srcdir, r'^.+?(?:pas|box).xml$')
     return_files = [os.path.join(srcdir, f) for f in files]
     return return_files    
 

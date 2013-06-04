@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><metadata>
+		<olac:olac xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:olac="http://www.language-archives.org/OLAC/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.language-archives.org/OLAC/1.1/dc.xsd http://purl.org/dc/terms/ http://www.language-archives.org/OLAC/1.1/dcterms.xsd">
+			<dc:contributor olac:code="compiler" xsi:type="olac:role">
+				Nick Thieberger
+			</dc:contributor>
+			<dc:contributor olac:code="depositor" xsi:type="olac:role">
+				Nick Thieberger
+			</dc:contributor>
+			<dc:contributor olac:code="depositor" xsi:type="olac:role">
+				Nick Thieberger
+			</dc:contributor>
+			<dc:contributor olac:code="researcher" xsi:type="olac:role">
+				Nick Thieberger
+			</dc:contributor>
+			<dc:coverage xsi:type="dcterms:ISO3166">
+				VU
+			</dc:coverage>
+			<dc:coverage xsi:type="dcterms:Box">
+				northlimit=-17.585; southlimit=-17.83; westlimit=168.159; eastlimit=168.594
+			</dc:coverage>
+			<dc:date xsi:type="dcterms:W3CDTF">
+				2000-03-31
+			</dc:date>
+			<dc:created xsi:type="dcterms:W3CDTF">
+				2000-03-31
+			</dc:created>
+			<dc:description>
+				Tokelau Takau making thatch. Language as given: 
+			</dc:description>
+			<dc:tableOfContents>
+				Multi_Video_Toolbox_video_1.ogg
+			</dc:tableOfContents>
+			<dc:tableOfContents>
+				Multi_Video_Toolbox_video_2.ogg
+			</dc:tableOfContents>
+			<dc:tableOfContents>
+				Multi_Video_Toolbox_transcript_1.xml
+			</dc:tableOfContents>
+			<dc:tableOfContents>
+				Multi_Video_Toolbox_transcript_2.xml
+			</dc:tableOfContents>
+			<dc:format>
+				Digitised: no
+			</dc:format>
+			<dc:identifier>
+				Multi_Both_Video_Toolbox
+			</dc:identifier>
+			<dc:identifier xsi:type="dcterms:URI">
+				http://catalog.paradisec.org.au/repository/NT5/TokelauThatch
+			</dc:identifier>
+			<dc:bibliographicCitation>
+				Nick Thieberger (collector), Nick Thieberger (depositor, researcher), 2000; Tokelau Takau making thatch, X-DV,  http://catalog.paradisec.org.au/collections/NT5/items/TokelauThatch 2013-04-16.
+			</dc:bibliographicCitation>
+			<dc:language olac:code="erk" xsi:type="olac:language"/>
+			<dc:rights>
+				As yet unspecified
+			</dc:rights>
+			<dc:accessRights>
+				As yet unspecified
+			</dc:accessRights>
+			<dc:subject olac:code="language_documentation" xsi:type="olac:linguistic-field"/>
+			<dc:subject olac:code="erk" xsi:type="olac:language"/>
+			<dc:subject olac:code="text_and_corpus_linguistics" xsi:type="olac:linguistic-field"/>
+			<dc:title>
+				Tokelau Takau making thatch
+			</dc:title>
+			<dc:type olac:code="primary_text" xsi:type="olac:linguistic-type"/>
+			<dc:type xsi:type="dcterms:DCMIType">
+				Sound
+			</dc:type>
+		</olac:olac>
+	</metadata>

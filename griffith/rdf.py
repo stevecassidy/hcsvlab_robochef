@@ -44,7 +44,7 @@ griffDocument.add('description', ignore = True)
 griffDocument.add('conversion', ignore = True)
 griffDocument.add('GCSAusEUniqueID', ignore = True)
 
-griffMap = MetadataMapper(GRIFFNS, griffPerson, griffDocument)
+griffMap = MetadataMapper(GRIFF, griffPerson, griffDocument)
 metadata_defaults(griffMap)
 griffMap.add('Date transcription last modified', mapto=DC.created)
 griffMap.add('Place of recording', mapto=GRIFFNS.place)

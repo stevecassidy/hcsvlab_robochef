@@ -204,7 +204,7 @@ def cooeeParagraphParser():
       ...
   ParseException: Expected W:(0123...) (at char 1), (line:1, col:2)
   """
-  return (Suppress(u'[') + Word(u"0123456789.") + Suppress(u"]")).setParseAction(lambda s, loc, toks: AnnotatedText('', [annotation.Annotation('pageno', toks[0], 0, 0)]))
+  return (Suppress(u'[') + Or([Word(u"0123456789"), Literal(u'...'), CharsNotIn(u']')]) + Suppress(u"]")).setParseAction(lambda s, loc, toks: AnnotatedText('', [annotation.Annotation('pageno', toks[0], 0, 0)]))
 
 import unittest
 import doctest

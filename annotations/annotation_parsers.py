@@ -1,6 +1,7 @@
 from hcsvlab_robochef.annotations.annotated_text import *
 from hcsvlab_robochef.annotations.annotation import *
 from pyparsing import *
+import re
 
 def slurpParser(exclusions):
   """
@@ -204,7 +205,20 @@ def cooeeParagraphParser():
       ...
   ParseException: Expected W:(0123...) (at char 1), (line:1, col:2)
   """
-  return (Suppress(u'[') + Or([Word(u"0123456789"), Literal(u'...'), CharsNotIn(u']')]) + Suppress(u"]")).setParseAction(lambda s, loc, toks: AnnotatedText('', [annotation.Annotation('pageno', toks[0], 0, 0)]))
+  return (Suppress(u'[') + Or([Word(u"0123456789"), Literal(u'...'), CharsNotIn(u']')]) + Suppress(u"]")).setParseAction(cooeeAnnotationBuilder)
+
+
+def cooeeAnnotationBuilder(s, loc, toks):
+  tok = toks[0]
+  type = 'correction'
+  if re.match('^\d+$', tok):
+    type = 'pageno'
+  elif tok == '...':
+    type = 'ellipsis'
+    tok = None
+  return AnnotatedText('', [annotation.Annotation(type, tok, 0, 0)])
+
+  
 
 import unittest
 import doctest

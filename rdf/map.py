@@ -292,7 +292,10 @@ class MetadataMapper(FieldMapper):
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
-                    uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                    if 'subdir' in metadata:
+                      uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
+                    else:
+                      uri = URIRef(baseuri + self.corpusID + "/" + docid)
                     graph.add((docuri, DC.source, URIRef(uri)))
 
                 
@@ -346,7 +349,10 @@ class MetadataMapper(FieldMapper):
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
-                    uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                    if 'subdir' in metadata:
+                      uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
+                    else:
+                      uri = URIRef(baseuri + self.corpusID + "/" + docid)
                     graph.add((docuri, DC.source, URIRef(uri))) 
               elif k.startswith("table_person"):
                 speakermeta = v

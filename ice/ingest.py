@@ -512,7 +512,12 @@ class ICEIngest(IngestBase):
           
           meta.update(self.META_DEFAULTS)
           
+          subdir = f.replace(srcdir, '', 1)
+          subdir = subdir.replace(os.path.basename(subdir), '')
+          meta['subdir'] = subdir
+          
           thisoutdir = os.path.dirname(f.replace(srcdir, outdir, 1))
+          
           self.__serialise(thisoutdir, sampleid, body, meta, anns)
           
           #if total > 10:
@@ -537,7 +542,6 @@ class ICEIngest(IngestBase):
     # letters (eg. W1A) and denotes the type of sample
     samplename = re.search("[SW].*\d[A-Z]?", os.path.basename(sourcepath)).group()
     meta = {'sampleid': samplename, 'category': samplename[:3]}
-
     if (samplename in self.filemetadata):
         meta.update(self.filemetadata[samplename])
   

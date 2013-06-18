@@ -122,7 +122,7 @@ class GriffithIngest(IngestBase):
 
   def ingestDocument(self, f):
     
-    text = subprocess.check_output(["/usr/local/bin/antiword", '-m', 'UTF-8.txt',"-f",f])
+    text = subprocess.check_output(["antiword", '-m', 'UTF-8.txt',"-f",f])
     text = text.decode('utf-8')
     fh = open("last_processed_file", "w")
     fh.write(text.encode('utf-8'))

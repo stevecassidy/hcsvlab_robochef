@@ -33,7 +33,7 @@ CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
 # puts them into a dictionary that we can use in bind_graph
 import sys
 NAMESPACES = dict()
-namespaces = [n for n in sys.modules[__name__].__dict__.keys() if n.isupper()]
+namespaces = [n for n in sys.modules[__name__].__dict__.keys() if n.isupper() and 'NAMESPACES' not in n]
 for ns in namespaces:
     NAMESPACES[ns.lower()] = eval(ns)
 

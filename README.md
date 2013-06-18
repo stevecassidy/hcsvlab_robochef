@@ -3,7 +3,7 @@
 ## Installation ##
 
 ```
-git clone git@github.com:IntersectAustralia/hcsvlab.git
+git clone git@github.com:IntersectAustralia/hcsvlab_robochef.git
 ```
 
 ## Install the Dependencies ##
@@ -37,7 +37,7 @@ brew install xpdf
 Use [pip](http://www.pip-installer.org/) or [easy_install](https://pypi.python.org/pypi/setuptools) to install `pyparsing`, `xlrd`, and `rdflib`, e.g:
 
 ```
-pip install pyparsing<=1.5.7 xlrd rdflib
+pip install "pyparsing<=1.5.7" xlrd rdflib httplib2
 ```
 
 NOTE: `pyparsing` currently defaults to v2.0 which only works with Python 3
@@ -51,13 +51,13 @@ CORPUS_BASEDIR = /Users/ilya/workspace/corpora/
 CORPUS_OUTPUTDIR = /Users/ilya/workspace/corpora_processed/
 ```
 
-Add the `hcsvlab-robochef` parent directory to your `PYTHONPATH`, e.g:
+Add the `hcsvlab_robochef` parent directory to your `PYTHONPATH`, e.g:
 
 ```
 export PYTHONPATH=$PYTHONPATH:/Users/ilya/workspace/
 ```
 
-Run `main.py` in the `hcsvlab-robochef` directory:
+Run `main.py` in the `hcsvlab_robochef` directory:
 
 ```
 python main.py

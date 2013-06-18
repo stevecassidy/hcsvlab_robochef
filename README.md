@@ -32,6 +32,70 @@ rmdir /usr/local/share/antiword/Resources
 brew install xpdf
 ```
 
+### CentOS ###
+
+Firstly, if you have not done so already, you will need to enable the [EPEL repository](http://fedoraproject.org/wiki/EPEL). The easiest way is to install the latest appropriate RPM for you version and architecture from [here](http://dl.fedoraproject.org/pub/epel/), eg:
+
+```
+$ curl -O http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+$ sudo rpm -Uvh epel-release-6-8.noarch.rpm
+```
+
+#### AntiWord and Xpdf ####
+
+```
+$ sudo yum install antiword xpdf
+```
+
+#### Python 2.7 ####
+
+Enter the following into the command line:
+
+```
+$ python -V
+```
+
+If it tells you that you have anything other than 2.7 installed, you will need to compile it from source by following these steps.
+
+##### Install the Development Tools #####
+
+```
+$ sudo yum groupinstall 'Development tools'
+$ sudo yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+
+```
+
+##### Download Build and Install Python 2.7 #####
+
+```
+$ curl -O http://python.org/ftp/python/2.7.5/Python-2.7.5.tgz
+$ tar xvf Python-2.7.5.tgz
+$ cd Python-2.7.5
+$ ./configure --prefix=/usr/local
+$ sudo make && sudo make altinstall
+```
+
+You will make your life a million times easier if you also install VirtualEnv
+
+##### SetupTools and VirtualEnv #####
+
+```
+$ curl -O https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.2.tar.gz
+$ tar xvf setuptools-0.7.2.tar.gz 
+$ cd setuptools-0.7.2
+$ sudo /usr/local/bin/python2.7 ez_setup.py 
+$ sudo easy_install-2.7 virtualenv
+$ sudo /usr/local/bin/easy_install-2.7 virtualenv
+```
+
+Next, create a VirtualEnv for RoboChef in its directory:
+
+```
+$ virtualenv hcsvlab_robochef/
+$ cd hcsvlab_robochef/
+$ source bin/activate
+```
+
 ## Install the Python Libraries ##
 
 Use [pip](http://www.pip-installer.org/) or [easy_install](https://pypi.python.org/pypi/setuptools) to install `pyparsing`, `xlrd`, and `rdflib`, e.g:

@@ -81,7 +81,6 @@ class MDIngest(IngestBase):
     
     (rawtext, meta, body, annotations) = ("", meta_dict, "", [])
     meta['sampleid'] = sampleid
-    print meta
     metagraph = mdMap.mapdict(meta)
   
     # all samples are interviews

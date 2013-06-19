@@ -7,6 +7,7 @@ from hcsvlab_robochef.utils.parsing import toXMLName
 from namespaces import *
 
 import time
+import urllib
 
 from hcsvlab_robochef import configmanager
 configmanager.configinit()
@@ -292,6 +293,7 @@ class MetadataMapper(FieldMapper):
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
+                    docid = urllib.quote(docid)
                     if 'subdir' in metadata:
                       uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
                     else:
@@ -349,6 +351,7 @@ class MetadataMapper(FieldMapper):
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
+                    docid = urllib.quote(docid)
                     if 'subdir' in metadata:
                       uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
                     else:

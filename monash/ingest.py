@@ -74,7 +74,6 @@ class MonashIngest(IngestBase):
     """
   
     text = subprocess.check_output(["antiword",f])
-    print text
     text = text.decode('utf-8')
 
     u = open("monash_last_data.txt", 'w')

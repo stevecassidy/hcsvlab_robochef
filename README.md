@@ -84,7 +84,6 @@ $ curl -O https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.2.
 $ tar xvf setuptools-0.7.2.tar.gz 
 $ cd setuptools-0.7.2
 $ sudo /usr/local/bin/python2.7 ez_setup.py 
-$ sudo easy_install-2.7 virtualenv
 $ sudo /usr/local/bin/easy_install-2.7 virtualenv
 ```
 

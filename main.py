@@ -11,6 +11,7 @@ from hcsvlab_robochef.braided.ingest import *
 from hcsvlab_robochef.art.ingest import *
 from hcsvlab_robochef.paradisec.ingest import *
 from hcsvlab_robochef.eopas_test.ingest import *
+from hcsvlab_robochef.avozes.ingest import *
 
 
 def main():
@@ -92,6 +93,12 @@ def main():
             print "converting eopas_test"
             pardisec = EopasTestIngest()
             pardisec.ingestCorpus(corpus_basedir+"eopas_test", output_dir+"eopas_test")
+            
+        elif c == "avozes":
+            print "converting avozes"
+            avozes = AvozesIngest()
+            avozes.setMetaData(corpus_basedir+"avozes/Avozes.xls")
+            avozes.ingestCorpus(corpus_basedir+"avozes", output_dir+"avozes")
 
 if __name__ == "__main__":
     main()

@@ -21,7 +21,6 @@ class AvozesIngest(IngestBase):
   META_DEFAULTS = {
       'created':  'August 2000',
       'language': 'eng',
-      'type':     'TYPE_Blah'
   }
   conversions = { # The conversion calculator would get these wrong, so we cache the correct answers 
       'CVCWords': u'CVC Words',

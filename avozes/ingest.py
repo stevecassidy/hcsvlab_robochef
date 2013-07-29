@@ -56,7 +56,7 @@ class AvozesIngest(IngestBase):
 
       print "    processing files..."
 
-      dirs = os.walk(srcdir)
+      #dirs = os.walk(srcdir)
       items = self.findItems(srcdir)
       total = len(items)
 
@@ -75,7 +75,7 @@ class AvozesIngest(IngestBase):
 
       items = []
 
-      for root, dirs, files in os.walk(directory):
+      for root, dirs, files in os.walk(directory, followlinks=True):
           if len(files) >= 2:
               breadcrumbs = root.replace(directory, "", 1).split('/')
               self.checkForItems(root, files, breadcrumbs, items)

@@ -44,44 +44,52 @@ def main():
             print "converting COOEE"
             cooee = CooeeIngest()
             cooee.setMetaData(corpus_basedir+"COOEE/COOEE.XLS")
+            cooee.copy_collection_metadata(corpus_basedir, output_dir, "cooee.n3", "cooee.n3")
             cooee.ingestCorpus(corpus_basedir+"COOEE/data", output_dir+"cooee")
             
         elif c == "ace":
             print "converting ace"
             ace = ACEIngest()
             ace.setMetaData(corpus_basedir+"ace/Manual")
+            ace.copy_collection_metadata(corpus_basedir, output_dir, "ace.n3", "ace.n3")
             ace.ingestCorpus(corpus_basedir+"ace", output_dir+"ace")
             
         elif c == "ice":
             print "converting ice"      
             ice = ICEIngest()
+            ice.copy_collection_metadata(corpus_basedir, output_dir, "ice.n3", "ice.n3")
             ice.ingest(os.path.join(corpus_basedir, "ICE"), os.path.join(output_dir, "ice")) 
             
         elif c == "monash": 
             print "converting monash"
             monash = MonashIngest()
+            monash.copy_collection_metadata(corpus_basedir, output_dir, "monash.n3", "monash.n3")
             monash.ingestCorpus(corpus_basedir+"Monash Corpus of Australian English/Transcripts-sanitised", output_dir+"monash")
             
         elif c == "griffith":
             print "converting griffith"
             griffith = GriffithIngest()
             griffith.setMetaData(corpus_basedir+"griffith/metadata")
+            griffith.copy_collection_metadata(corpus_basedir, output_dir, "gcsause.n3", "gcsause.n3")
             griffith.ingestCorpus(corpus_basedir+"griffith", output_dir+"griffith")
             
         elif c == "md":
             print "converting mitchell & delbridge"
             md = MDIngest()
             md.setMetaData(corpus_basedir+"MD/flatfilesrc.txt")
+            md.copy_collection_metadata(corpus_basedir, output_dir, "md.n3", "mitcheldelbridge.n3")
             md.ingestCorpus(corpus_basedir+"MD", output_dir+"md")
             
         elif c == "auslit":
             print "converting auslit"
             auslit = AuslitIngest()
+            auslit.copy_collection_metadata(corpus_basedir, output_dir, "austlit.n3", "austlit.n3")
             auslit.ingestCorpus(corpus_basedir+"AusLit", output_dir+"auslit")
             
         elif c == "braided":
             print "converting braided channels"
             braided = BraidedIngest()
+            braided.copy_collection_metadata(corpus_basedir, output_dir, "braided_channels.n3", "braidedchannels.n3")
             braided.ingestCorpus(corpus_basedir+"braided_channels", output_dir+"braided")
             
         elif c == "paradisec":

@@ -100,10 +100,12 @@ $ source bin/activate
 Use [pip](http://www.pip-installer.org/) or [easy_install](https://pypi.python.org/pypi/setuptools) to install `pyparsing`, `xlrd`, and `rdflib`, e.g:
 
 ```
-pip install "pyparsing<=1.5.7" xlrd rdflib httplib2
+pip install "pyparsing<=1.5.7" xlrd "rdflib<=3.4.0" httplib2
 ```
 
 NOTE: `pyparsing` currently defaults to v2.0 which only works with Python 3
+
+NOTE: `rdflib` versions higher than 3.4.0 have given us errors when processing Paradisec
 
 ## Generating RDF with HCSvLab RoboChef ##
 

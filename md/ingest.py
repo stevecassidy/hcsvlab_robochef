@@ -80,7 +80,7 @@ class MDIngest(IngestBase):
     meta_dict.update(self.META_DEFAULTS)
     
     (rawtext, meta, body, annotations) = ("", meta_dict, "", [])
-    meta['sampleid'] = sampleid
+    meta['sampleid'] = os.path.splitext(name)[0]
     metagraph = mdMap.mapdict(meta)
   
     # all samples are interviews

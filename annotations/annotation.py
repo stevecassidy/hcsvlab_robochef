@@ -54,7 +54,7 @@ class Annotation(DictMixin):
   of the source region defined by start and end offsets.
   By default (this class) these are interpreted as UTF8 character
   offsets from the start of the file. Subclasses define alternate
-  interpretations, eg. millisecond times in an audio file.
+  interpretations, eg. second times in an audio file.
   """
   
   uniqueid = 0
@@ -166,8 +166,8 @@ class Annotation(DictMixin):
 
 
 
-class MillisecondAnnotation(Annotation):
-    """An annotation on a audio/video document with endpoints defined by offsets in milli-seconds, 
+class SecondAnnotation(Annotation):
+    """An annotation on a audio/video document with endpoints defined by offsets in seconds, 
     defines the serialisation of the locator"""
   
   
@@ -176,7 +176,7 @@ class MillisecondAnnotation(Annotation):
         for this annotation"""
           
         
-        graph.add((locatoruri, RDF.type, DADA.MillisecondRegion))
+        graph.add((locatoruri, RDF.type, DADA.SecondRegion))
         graph.add((locatoruri, DADA.start, Literal(float(self.start), datatype=XSD.float)))
         graph.add((locatoruri, DADA.end, Literal(float(self.end), datatype=XSD.float)))
         return locatoruri

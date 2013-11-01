@@ -23,9 +23,9 @@ dada:Region a owl:Class, rdfs:Class .
 dada:UTF8Region a owl:Class, rdfs:Class;
     owl:subclassOf dada:Region .
     
-dada:MillisecondRegion a owl:Class, rdfs:Class;
+dada:SecondRegion a owl:Class, rdfs:Class;
     owl:subclassOf dada:Region;
-    rdfs:label "Region defined by start and end in milliseconds" .
+    rdfs:label "Region defined by start and end in seconds" .
 
 dada:HMSRegion a owl:Class, rdfs:Class;
     owl:subclassOf dada:Region;

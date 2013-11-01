@@ -191,7 +191,7 @@ class MDIngest(IngestBase):
   
       for item in phonemes:
         if not item['word'] in ('#','B','+'):
-          anns.append(MillisecondAnnotation(tipe, item['word'], item['start'], item['end']))
+          anns.append(SecondAnnotation(tipe, item['word'], item['start'], item['end']))
   
       return anns
   
@@ -216,7 +216,7 @@ class MDIngest(IngestBase):
 
   def __extract_sampleid(self, name):
     ''' Extracts the sample identifier from the file name. The assumption is that sample ids are 4 digit numbers. '''
-    
+
     match = re.findall('\d{4}', name) # The sample id is a 4 digit number
 
     if len(match) > 0:

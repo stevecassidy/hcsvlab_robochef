@@ -72,10 +72,9 @@ class MonashIngest(IngestBase):
     function will grow to build more suitable data structures as we need them.  In fact, by now
     it might already be doing so.
     """
-  
-    text = subprocess.check_output(["antiword",f])
-    text = text.decode('utf-8')
 
+    text = subprocess.check_output(["antiword", '-m', 'UTF-8.txt', "-f", f])
+    text = text.decode('utf-8')
     u = open("monash_last_data.txt", 'w')
     u.write(text.encode('utf-8'))
     u.close

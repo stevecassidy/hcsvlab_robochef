@@ -7,178 +7,343 @@
                     The Talk of Young People in Melbourne
 
 
-    |CODE:           |BH3M.1          |INTERVIEWER     |JC (RF3)        |
+    |CODE:           |BH1M.A          |INTERVIEWER     |                |
 |                |                |(if relevant):  |                |
-|STUDENT’S       |PR              |SCHOOL:         |BH              |
+|STUDENT’S       |JF              |SCHOOL:         |BH              |
 |INITIALS:       |                |                |                |
-|AGE:            |16              |SEX:            |M               |
-|TRANSCRIBER:    |SE              |BIRTHPLACE      |Born in         |
-|                |                |                |Australia       |
-|Mother’s Ethnicity:               |Born in Australia                 |
-|Father’s Ethnicity:               |Born in Australia                 |
-|Maternal Grandmother’s Ethnicity: |Not asked about grandparents’     |
-|                                  |ethnicity                         |
+|AGE:            |15              |SEX:            |M               |
+|TRANSCRIBER:    |SE              |BIRTHPLACE:     |Born in         |
+|                |                |                |Australia?      |
+|                |                |                |(Presumably, but|
+|                |                |                |the question was|
+|                |                |                |not actually    |
+|                |                |                |asked)          |
+|Mother’s Ethnicity:               |British or German                 |
+|Father’s Ethnicity:               |British or German                 |
+|Maternal Grandmother’s Ethnicity: |(Mentions a grandmother who died  |
+|                                  |in Australia, but also others who |
+|                                  |are living in England and         |
+|                                  |Scotland)                         |
 |Maternal Grandfather’s Ethnicity: |                                  |
 |Paternal Grandmother’s Ethnicity: |                                  |
 |Paternal Grandfather’s Ethnicity: |                                  |
 |Language(s) Spoken at home:       |English                           |
 
-{The family language is English. The informant has studied Japanese and
-French at school and stopped learning French at Year 7. He enjoys talking
-to America on-line.}
-
+{Doesn’t know where his parents were born - says that one was born in
+Germany and one in England, or maybe both in England. Mentions grandparents
+in England and Scotland}
 
 Participants:
-BH3M
-RF3
+
+BH1M
+BH1MMo
+BH1MFa
 
 
 
-RF3:  Okay [IDENTIFYING MATERIAL REMOVED]. Where do you live?
-BH3M: Um, I live in [IDENTIFYING MATERIAL REMOVED].
-RF3:  Right.
-BH3M: That’s where I live.
-RF3:  And do you have any brothers and sisters?
-BH3M: Yeah, I’ve got two other brothers, one’s 18 and one’s 17.
-RF3:  So they’re both older?
-BH3M: Yeah.
-RF3:  Do you get along well with them?
-BH3M: Oh yeah, kind of.  But some-
-RF3:  Sometimes you have arguments?
-BH3M: Yeah.
-RF3:  What sort of things do you fight about?
-BH3M: Oh, just anything really, just heaps of different of different stuff.
-
-
-RF3:  The usual family things.
-BH3M: Yeah.
-RF3:  Do you like being the youngest?
-BH3M: No, not at all.
-RF3:  Why is that?
-BH3M: Oh, because you get told what to do all the time, you can’t do much.
-RF3:  And ah do you enjoy coming to this school?
-BH3M: Yeah, it’s not bad.
-RF3:  Yeah?  What sort of subjects do you do?
-BH3M: Um, just the usual Maths, English and Science, I’ve got two VCE
-         subjects um Info Tech and Industry and Enterprise Studies, and just
-         um PE and don’t really remember the rest.
-RF3:  Right.  Do you have any idea what you’d like to do when you finish
-         school?
-BH3M: Um, probably something like a draftsmen, maybe like or something to
-         do with drawing. Or if, if not that, um maybe in computers,
-         something like that.
-RF3:  Do you have a computer at home?
-BH3M: Yep, I do.
-RF3:  Do you use it all the time?
-BH3M: Yeah.  All the time, usually use play games or the internet,
-         something like that.
-RF3:  So you enjoy surfing the net.
-BH3M: Yep.
-RF3:  What sort of things do you enjoy looking up?
-BH3M: Oh um just all the like things when you talk to people on the line
-         and all that or talk to people in America and all that.
-RF3:  Do you have regular people that you talk to?
-BH3M: Oh yeah, yeah.
-RF3:  Are they about the same age?
-BH3M: Oh, sometimes they can be older but you don’t really know how much
-         older or anything like that.  You don’t really know the names of
-         them, just talk to --
-RF3:  Right.  Where were you born?
-BH3M: Um, in [IDENTIFYING MATERIAL REMOVED].
-RF3:  Right.  And what about your parents?
-BH3M: I don’t know.  I wouldn’t have a clue.
-RF3:  In Australia?
-BH3M: Yeah, oh yeah.
-RF3:  So do you speak any languages apart from English in your family?
-BH3M: Oh no, no.
-RF3:  But you studied a few languages at school?
-BH3M: Yeah.  Oh I studied Japanese mostly but I have um have um spoken a
-         bit of French but not that much.
-RF3:  So when did you drop French?
-BH3M: Oh in Year 7, at the end of Year 7.
-RF3:  Well when you go on to become a draftsmen, or whatever you choose to
-         do um have you thought about which university you’d like to go to?
-BH3M: Um no, not really.  I haven’t thought of that yet.
-RF3:  Yep, it’s sort of a long way off isn’t it?
-BH3M: Yep.  Sort of.
-RF3:  What sort of hobbies have you got, [IDENTIFYING MATERIAL REMOVED]?
-BH3M: Um, mostly drawing, that’s probably about it and just oh yeah that’s
-         probably about it, just drawing.
-RF3:  Do you play sport?
-BH3M: Yeah, I play Basketball and golf.
-RF3:  Golf?
-BH3M: Yeah.
-RF3:  Do you play golf in a team or is that something you do at school.
-BH3M: Um, no oh well no we don’t play that at school but we I play every
-         Saturdays in in a group but it’s in a competition.
-RF3:  Right, is it a regular, because I don’t really understand a lot about
-         golf and is it a regular group of people that you play with?
-BH3M: Well, you just put your name down in the in the comp and then right
-         it’s whoever puts their name down with you, like so you play with
-         anyone really.
-RF3:  Do you play it with any members of your family?
-BH3M: Oh my dad plays as well but I don’t play with him all the time, just
-         sometimes.
-RF3:  Yeah, it’s a pretty good game, isn’t it? Golf.
-BH3M: Yeah, I don’t mind it. It’s pretty good.
-RF3:  And what about watching um sport on television?  Or going to see a
-         sport, do you enjoy -
-BH3M: Oh, I watch a lot of basketball and that on TV and that and a bit of
-         golf but nothing really else.
-RF3:  Right.  Well, friends, [IDENTIFYING MATERIAL REMOVED].  Do you have a
-         best friend or a group of best friends?
-BH3M: Oh probably a group of best friends, I don’t have one really good
-         friend.
-RF3:  What sort of things do you like to do with your friends?
-BH3M: Oh we always play basketball on the courts.
-RF3:  Do you?
-BH3M: At lunchtime and recess.
-RF3:  It seems to be a very popular sport these days, basketball.
-BH3M: Oh yeah.
-RF3:  Do you follow a particular team?
-BH3M: Um, yeah for NBL I like the Melbourne Tigers and in the NBA I like
-         the --
-RF3:  Do you ever get to see a live game in Melbourne?
-BH3M: Yeah my dad used to have a box seat for them and like he always used
-         to give us tickets and stuff, we watched heaps of games so that was
-         really good, but we don’t do that much more any more.
-End of side
-RF3:   What would you do if you won Tattslotto?
-BH3M: Um probably buy a huge house and car and all that for when I’m older
-         or something like that.  I don’t know really.
-RF3:  Obviously you had a note passed under the door so we haven’t had much
-         luck, we’ve had a few interruptions.  And what about over summer.
-         Did you do anything exciting over summer?
-BH3M: Um no not really I just went out with a few friends and stuff, but
-         nothing really big.  We didn’t go on holidays or anything like
-         that, just the usual stuff.
-RF3:  Right.  What about Christmas.  Did you celebrate Christmas in a big?
-BH3M: Um well we went to ah oh we had a Christmas party at our house, that
-         was on um Boxing Day and we went to our cousins on actual Christmas
-         Day, that was my Dad’s um like sister and all of that.  And then on
-         Boxing Day it was my mums.
-RF3:  So you basically had Christmas that went for a couple of days rather
-         [than just one day.]
-BH3M: [Yeah] So it wasn’t too bad.
-RF3:  Did you get any exciting presents?
-BH3M: Um, oh I just got some um golf clubs and um clothes and money and -
-RF3:  Sounds like you did very well.
-BH3M: Yeah.  I did.
-RF3:  That’s good.  Have you ever been in hospital?
-BH3M: Yes I have been to hospital heaps of times.
-RF3:  Oh have you?
-BH3M: Yeah.
-RF3:  Is it something ongoing?
-BH3M: Oh no not really, just every time a problem goes another one comes.
-         Just keeps going and going.
-RF3:  Have you ever thought you were dieing?
-BH3M: No, no way.
-RF3:  Hasn’t been that traumatic?
-BH3M: No.
-RF3:  So what do you think of hospital?
-BH3M: Oh I hate it.  It’s horrible.
-RF3:  It’s a bit of a silly question, isn’t it?  No one would enjoy being
-         in hospital.   Well, I think that’s about it.  So thank you very
-         much for that.
-
+BH1M: .. the tenth of
+BH1MMo:     August
+BH1M: ninety-seven . and the time is nine o’clock my name’s [IDENTIFYING
+         MATERIAL REMOVED]. tape with my parents .. well people in the room
+         are
+BH1MMo:     my name’s [IDENTIFYING MATERIAL REMOVED]
+BH1MFa:     my name is [IDENTIFYING MATERIAL REMOVED]
+BH1M: and we’re the [IDENTIFYING MATERIAL REMOVED] family
+BH1MMo:     part of the [IDENTIFYING MATERIAL REMOVED] family
+BH1M: part of . always corrected by my Mum . just the way she is
+BH1MMo:     that’s what Mum’s are for
+BH1M: .. um . well basically I’d just be asking some questions and you guys
+         will just be having a normal conversation . as we would any other
+         day  just . no pressure or anything that there’s a microphone
+         staring right at you in front of you .. that’s about all there is
+         to say
+BH1MMo:     OK [IDENTIFYING MATERIAL REMOVED] well what would you like to
+         know
+BH1MFa:     do we go in the normal subjects and how you’re always in
+         trouble @ or do we do you want other subjects
+BH1M: ah other subjects [would be nice]
+BH1MFa:     [other subjects]
+BH1M: but school I don’t mind
+BH1MMo:     [well]
+BH1MFa:     [school] how’s school going
+BH1M: school’s going OK . I’m trying hard
+BH1MFa:     are you
+BH1M: yep
+BH1MMo:     well go on [IDENTIFYING MATERIAL REMOVED] you’re supposed ask
+         the questions
+BH1M: I don’t have to ask ask the questions it’s just a conversation
+BH1MMo:     OK what would you like to talk about
+BH1M: .. let’s talk about politics ...
+BH1MMo:     OK .. Australian politics or global politics
+BH1M: lets talk about .. politics to do with immigration
+BH1MMo:     well you start it off
+BH1M: your thoughts on Pauline Hanson
+BH1MMo:     ... problematic .. she .. I think too many people take .. to
+         heart what she has to say without looking at the real issues and I
+         think Pauline Hanson whitewashes the issues .. doesn’t look at the
+         real meaning of what she’s talking about . but then again I haven’t
+         been and actually listened to Pauline Hanson I’ve only seen what’s
+         on the media and perhaps the media reports unfairly . so it’s
+         really difficult to say you shouldn’t judge people unless you can .
+         really sit down and listen to what they have to say . and make a
+         judgement by listening to all sides of the argument . and I think
+         that’s the problem we don’t listen to all sides of the argument
+         we’re listening to the media coverage on Pauline Hanson
+BH1M: OK . Dad any other thoughts?
+BH1MFa:     I think that everybody has the right to say and . feel what
+         they want and I think that everybody is entitled to free speech the
+         thing that annoys me is that when the the you have these
+         demonstrations and ah people go along and abuse and carry on and I
+         thought the Australian way was to to be able to speak your mind ..
+         um she has just as much right to to have an opinion to something as
+         everybody else and she needs to be respected for that
+BH1M: mm hm . what do you guys think about the One Party Nation
+BH1MMo:     well I think [IDENTIFYING MATERIAL REMOVED] you’re not really
+         sure about what that question means and I think if you want
+         opinions from us what you should do is a little bit more reading
+         and establish what One Party Nation means and then ask the question
+BH1MFa:     what do you feel about One Party na- . what what do you see the
+         polic- the policies of ah that particular party to be
+BH1M: um .. I can’t really say because of Mum was saying . I don’t read up
+         enough on it
+BH1MFa:     yeah but you’ve seen things in the media . how do you feel
+         about that
+BH1M: well I’ve got a lot of friends who are Asian and I . I say if they’re
+         bringing in money to the economy so be it
+BH1MMo:     but is that all people are good for . to bring money into the
+         economy [IDENTIFYING MATERIAL REMOVED]?
+BH1M: no I wouldn’t say that is all people are good for but . Asians should
+         be treated like Australians Aborigines and everybody else I think
+         .. Australia is .. a cultural society
+BH1MMo:     what is a cultural society?
+BH1M: mixed group
+BH1MMo:     well we’re a mixed cultural society [IDENTIFYING MATERIAL
+         REMOVED]
+BH1MFa:     and so you reckon that everybody has the same rights as all the
+         others
+BH1M: yep
+BH1MFa:     does that also apply then when when Australians go overseas do
+         they have the same rights as every[body else]
+BH1M: [I think] I think they should but I think some of them . I think one
+         of the reasons why people are coming over here is coz overse- we’ve
+         got it easy compared to overseas in economy wise we’re a cheaper
+         country . to to live in but also .. laws and regulations are a lot
+         . a . lot less stricter
+BH1MMo:     well we’re not a cheap country to live in .. but human rights
+         issues perhaps you know we follow human rights issues a lot more
+         closely to what we should . and a lot of nations do
+BH1M: yeah
+BH1MMo:     but again that’s something that you really need to study on and
+         really look into so that you can make a qualified judgement on that
+         . so you’ve got a lot of newspaper reading and current affairs
+         reading to do and also look at some more history before you can
+         make your judgements
+BH1M: mm hm . you guys got any questions for me
+BH1MMo:     oh not really [IDENTIFYING MATERIAL REMOVED]. no this is . it’s
+         pretty hard to just come up with questions like that I mean during
+         the day I ask you questions about all sorts of things
+BH1M: yeah
+BH1MMo:     but when you’re put in front of a microphone it’s pretty hard
+BH1M: well . how have you guys been coping this week
+BH1MMo:     how have we been coping . not too badly but very stressed out .
+         it’s been a very busy week
+BH1M: Dad?
+BH1MFa:     I agree with your mother it has been a very busy week but we
+         get through . week by week
+BH1M: OK
+BH1MMo:     and next week will be even busier and I’ll just be glad when
+         August is over and done with and you kids are on school holidays
+         and we can all sort of sit back for a week or two and relax and not
+         have all the running around to do and trying to get projects in and
+         things done and . and we can all just take a breather for a while
+BH1M: well I’ll agree on that
+BH1MFa:     just think of the amount of work that you have to do between
+         now and then
+BH1M: um . I’m trying my hardest to catch up this term .. what are you guys
+         how do you guys feel about . buying a block of land up in Inverloch
+         and buying a house
+BH1MMo:     oh well I’m .. excited about . having some sort of investment
+BH1M: yep
+BH1MMo:     but it’s also a worrying time because you have to think about
+         what that means um economically to you at the at the moment and you
+         don’t want to get too involved in something and um you know you’ve
+         just got to be very careful and you have to look at all the
+         different things when you’re buying something and you have to work
+         out what is best not only for yourself but for the whole family
+BH1M: yep
+BH1MMo:     so it’s exciting but it’s also a bit of a worry and there’s a
+         lot of running around to do to make sure that you get everything
+         done properly
+BH1M: yep fair enough . Dad?
+BH1MFa:     yeah very much the same I think that you just have to be
+         extremely careful about how you commit yourself financially wise
+         because um . in times when it’s tough  you still need to get by and
+         when times are good and the times
+BH1M: but do you think do you think this investment will grow on us
+BH1MMo:     well if we didn’t think it was a worthwhile investment we
+         wouldn’t be going into it [IDENTIFYING MATERIAL REMOVED]
+BH1M: true
+BH1MMo:     and it’s something we’ve thought about for a while so we’ve
+         just decided now is probably a good time to do it
+BH1M: yep
+BH1MFa:     the one thing about having an investment down in Inverloch I
+         mean it’s somewhere where we can go and for a holiday and something
+         that even you you kids if you want to can use it in the future
+BH1M: mm hm so does that mean when we’re a bit older we’ll get our own key
+         to the property and be able to throw big big parties
+BH1MMo:     look I don’t know about that [IDENTIFYING MATERIAL REMOVED] but
+         the investment is not just a financial one it’s an investment in
+         the family being able to stay together for many years to come . we
+         hope that we’ll have this property in many years time and that you
+         and your family will be able to come and visit and want to come
+         down and spend weekends with us there and it’ll be a base where
+         everyone can get away and relax and still keep the family
+         connections . rather than everyone goes off all the time in
+         separate ways and you know we’re hoping this’ll be just a real
+         centre for the families . and not just a financial thing certainly
+         you know when Dad and I have passed away well that’ll still be
+         there for you to use or to sell if you feel that’s what you need to
+         do at that stage . but it’s a long term thing and you know we’ll
+         just have to wait and see how much use we get out of it and what we
+         do with it and you know we might not get a lot of use out of it .
+         if we don’t get a lot of use it’s a financial investment . if we do
+         get a lot out well that’s great but it’s more than just looking at
+         the finances it’s a way of . trying to ensure that there’s always
+         something there for the family to come to and to relax and have a
+         little bit of social life and when things get too stressful
+         somewhere to just go away and get away from the hustle and bustle
+         of the city and things like that
+BH1MFa:     so how do you feel about it [IDENTIFYING MATERIAL REMOVED]
+BH1M: um I can’t really say how I feel about it because I haven’t seen the
+         finished product
+BH1MMo:     neither have we but
+BH1MFa:     no but the idea of of having somewhere to go
+BH1M: I reckon it’s fine because that way if I’m ever in trouble at home
+         when I’m say nineteen . and I’ve got work but I’ve got holidays and
+         I’m just getting in trouble at home just hop in the car drive down
+         there for the weekend to let you guys cool off
+BH1MFa:     [@@ so you you plan on]
+BH1MMo:     [@@ well that’s not really the idea]
+BH1MFa:     do you plan on getting into a lot of trouble when you’re
+         nineteen
+BH1M: no I don’t plan on getting in a lot of trouble but trouble as you
+         know through my years trouble has a tendency to look for me
+BH1MFa:     oh does it
+BH1M: yah
+BH1MFa:     oh OK
+BH1M: so
+BH1MFa:     you don’t give it directions?
+BH1M: no . I don’t try to no
+BH1MMo:     anyway . we’ll see what happens
+BH1M: yep
+BH1MMo:     so what have you got planned for the week [IDENTIFYING MATERIAL
+         REMOVED]?
+BH1M: work work and more work
+BH1MFa:     what sort of work
+BH1M: catch up work and all of the above . [all of the above]
+BH1MFa:     [all of the above] what . be more specific in about what you’re
+         going to do try and plan out what you’re going to do
+BH1M: basically . get all my homework in and . catch up on work that needs
+         doing if there is any
+BH1MMo:     OK well it’s going to be a tough week so you know we’re going
+         to be out a fair bit and we’ve a lot to do
+BH1M: yep
+BH1MMo:     but we’ve all got a lot of commitments this week and it’s going
+         to be hard to get some family time together
+BH1M: especially with [IDENTIFYING MATERIAL REMOVED] and ‘Godspell’  and
+         everything
+BH1MMo:     yeah so [you]
+BH1M: [what] nights are you guys going
+BH1MMo:     Thursday
+BH1M: Thursday night and [IDENTIFYING MATERIAL REMOVED]’s going .
+         [IDENTIFYING MATERIAL REMOVED]’s parents are going Friday is it
+BH1MMo:     something like that
+BH1M: or Saturday I’m not sure
+BH1MMo:     so you know we’re just going to have to really try and get some
+         time together of a weekend since we’re not going to have a lot of
+         quality time as a family through the week this week . and it’s up
+         to each one of us to do what we’re responsible for so just make
+         sure you get everything done that needs to be done without us
+         getting on your back
+BH1M: I intend to
+BH1MMo:     anyway . have we just about used up our time [IDENTIFYING
+         MATERIAL REMOVED]
+BH1M: well we started at nine and we’re just coming up to fifteen minutes
+         now
+BH1MFa:     five more minutes of torture . do you mean we have to talk to
+         you for five more minutes
+BH1M: I’m getting sick of you guys voices
+BH1MMo:     [@]
+BH1MFa:     [@]
+BH1MMo:     @ oh it’s not very pleasant having to sit and talk in a
+         microphone
+BH1MFa:     no
+BH1M: or listen to Dad through a microphone considering he’s done it for
+         many years
+BH1MFa:     no . so you’re going to get your school work done this week?
+BH1M: I am
+BH1MFa:     you sure?
+BH1M: yep
+BH1MFa:     have you planned out what you’re going to have to do?
+BH1M: I can’t really plan out all what I’m going to do this weekend this
+         week because I’m not sure what I’m going to do be doing
+BH1MFa:     well the thing is though that it’s
+BH1MFa:     I’ve got my paper round to do through the week
+BH1MFa:     no but you still have to plan out you need to know what you’re
+         going to do beforehand so that you can get it done . if you just
+         wait until you get something and say ‘oh well I’d better do this’
+         it’ll never get done or you’ll never get the amount of work done
+         that you need to get done .. so you should understand that
+BH1M: yeah
+BH1MMo:     you should always have goals [IDENTIFYING MATERIAL REMOVED]
+         [with what you’re doing]
+BH1M: [I’ve always got goals]
+BH1MMo:     for your short term and your long term . so you really need to
+         have a weekly plan . and know what you’re doing and where you’re
+         going with it . and everything else should be fitted into it
+BH1M: yeah OK weekly plan I’ve got tennis Friday nights . tennis this
+         Saturday . morning . coming up . ah .. maybe ball room dancing
+         Friday night after tennis depends how I go . it’s a big maybe .
+         church Sunday morning and the rest of the time is either paper run
+         or homework .. after school
+BH1MFa:     well you just mentioned about three or four things which you
+         can feel comfortable with because they’re planned items that you’re
+         going to do you know you’re going to have to do them
+BH1M: yeah
+BH1MFa:     if you could feel that confident about your school work would
+         that help you . if you knew that for instance by Monday or like
+         today with this tape if you knew by Monday you have to hand this
+         tape in to to um to qualify for whatever might be the tape before
+         then you’ve got a situation where you can get it done like if you
+         had the same the same ideas or the same planning to go with the
+         rest of your school work it wouldn’t be a problem because you’d
+         know OK come Tuesday you have to do English and Maths come
+         Wednesday you have to do Science and RE or whatever the other
+         subjects are so you’d be able to handle it in small little chunks
+         subsequently getting the whole um of the work done . comfortably .
+         people don’t plan to fail they plan to fail they fail to plan
+BH1M: mm hm
+BH1MFa:     do you understand what that means
+BH1M: ah people don’t [people don’t ]
+BH1MFa:     [people never]
+BH1M: people don’t want to fail but they don’t sometimes they don’t have a
+         choice they don’t plan ahead enough to [stop that]
+BH1MFa:     [the people] that’s exactly right people um who um plan their
+         lives out and get things done then in a lot of cases they don’t
+         fail in the overall picture but people who never plan drift along
+         and in a lot of cases they just fail
+BH1M: OK
+BH1MFa:     so it’s a very important idea that you plan out what you should
+         be doing
+BH1MMo:     and I think on that note we’ve probably quite gone long enough
+         on this
+BH1MFa:     we have coming up to twenty minutes
+BH1MMo:     so
+BH1M: yeah well but you had we had we had to stop for
+BH1MMo:     no that’s fine that’s long that’s long enough
+BH1M: yep
+BH1MMo:     so I think you can pack this up now and get yourself organised
+         it’s getting late . and um get yourself ready for tomorrow
+BH1M: yeah sure
+BH1MFa:     OK and that’s the end of this interview.
 

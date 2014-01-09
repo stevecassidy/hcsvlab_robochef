@@ -16,6 +16,9 @@ class ACEIngest(IngestBase):
     status = ""
     META_DEFAULTS = {'language': 'eng'}
 
+    def __init__(self):
+        super(ACEIngest, self).__init__('ACE')
+
     def setMetaData(self, srcdir):
         """
         This method uses the AceHTMLParser to extract the meta data for the Ace corpus. This meta data is stored

@@ -24,6 +24,9 @@ class AuslitIngest(IngestBase):
 
   META_DEFAULTS = {'language': 'eng'}
 
+  def __init__(self):
+    super(AuslitIngest, self).__init__('AUSLIT')
+
   def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
     pass

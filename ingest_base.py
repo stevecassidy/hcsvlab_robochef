@@ -1,7 +1,9 @@
 import os
 import shutil
+import logging
 
 from abc import ABCMeta, abstractmethod
+from hcsvlab_robochef import configmanager
 
 
 class IngestBase(object):
@@ -9,6 +11,18 @@ class IngestBase(object):
     '''
     This abstract class is a representation of an ingest. It is being used in-lieu of an interface
     '''
+
+    configmanager.configinit()
+    logger = logging.getLogger('parsers')
+    handler = logging.FileHandler('corpus_parsers.log', mode='w')
+    logger.addHandler(handler)
+
+    def __init__(self, corpus):
+        self.corpus = corpus
+        self.raw_plain_const = configmanager.get_config('C_' + self.corpus, 0)
+        self.raw_plain_th_ratio = configmanager.get_config('TH_' + self.corpus, 0.3)
+
+
     @abstractmethod
     def setMetaData(srcdir):
         ''' Loads the meta data for use during ingest '''
@@ -30,7 +44,17 @@ class IngestBase(object):
         '''
         return None
       
-    
+    def check_filesize_ratio(self, plain_text, raw_text, filename):
+        """
+        Performs a sanity check to see if there is a massive difference between the raw text and plain
+        text files, which might indicate that something has gone wrong in the parsing.
+        """
+        ratio = (len(plain_text) + 0.0) / (len(raw_text) - self.raw_plain_const)
+        if ratio < self.raw_plain_th_ratio:
+             self.logger.warn("%s: plain to raw ratio warning(%.2f < %.2f): %s" % (self.corpus, ratio,
+                                                                                   self.raw_plain_th_ratio, filename))
+
+
     def clear_output_dir(self, outdir):
         ''' Clears the output directory '''
         if os.path.exists(outdir):

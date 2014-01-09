@@ -24,7 +24,10 @@ class BraidedIngest(IngestBase):
   
   filemetadata = {}
   META_DEFAULTS = {'language': 'eng'}
-  
+
+  def __init__(self):
+    super(BraidedIngest, self).__init__('BRAIDED')
+
   def setMetaData(self, dirpath):
     ''' Braided obtains meta data during the ingest as there is not separate meta data file '''
     pass

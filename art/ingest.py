@@ -37,6 +37,8 @@ class ARTIngest(IngestBase):
         5: {26: 'name', 27: 'gender', 28: 'age', 29: 'role'}
     } 
 
+    def __init__(self):
+        super(ARTIngest, self).__init__('ART')
 
     def setMetaData(self, srcdir):
         ''' Loads the meta data for use during ingest '''

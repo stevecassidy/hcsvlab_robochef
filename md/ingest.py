@@ -22,6 +22,9 @@ class MDIngest(IngestBase):
   filemetadata = {}
   META_DEFAULTS = {'language': 'eng'}
 
+  def __init__(self):
+    super(MDIngest, self).__init__('MD')
+
   def setMetaData(self, filepath):
     '''
     Function processes the flat file to extract the meta data for the MD source files

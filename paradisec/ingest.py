@@ -24,6 +24,8 @@ class ParadisecIngest(IngestBase):
                   'signer' : OLAC.signer, 'singer' : OLAC.singer, 'speaker' : OLAC.speaker,
                   'sponsor' : OLAC.sponsor, 'transcriber' : OLAC.transcriber, 'translator' : OLAC.translator }
 
+  def __init__(self):
+    super(ParadisecIngest, self).__init__('PARADISEC')
 
   def ingestCorpus(self, srcdir, outdir):
     ''' This function will initiate the ingest process for the Auslit corpus '''

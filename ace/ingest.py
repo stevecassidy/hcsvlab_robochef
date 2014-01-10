@@ -66,6 +66,7 @@ class ACEIngest(IngestBase):
 
             for s in samples:
                 (rawtext, meta, text, anns) = samples[s]
+
                 meta.update(self.META_DEFAULTS)
                 # update this meta data by grabbing the equivalent key items from
                 # the global meta data file
@@ -73,11 +74,12 @@ class ACEIngest(IngestBase):
                     for key, value in meta.iteritems():
                         if not key.capitalize() in self.filemetadata[meta['sampleid']]:
                             self.filemetadata[meta['sampleid']][key] = value
-
+                    self.check_filesize_ratio(text, rawtext, meta['sampleid'])
                     serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, self.filemetadata[meta['sampleid']],
                                                 anns, f)
 
                 else:
+                    self.check_filesize_ratio(text, rawtext, f)
                     serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, meta, anns, f)
 
             sofar += 1

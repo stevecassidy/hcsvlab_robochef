@@ -116,8 +116,6 @@ class ARTIngest(IngestBase):
         parsedContent = parseCompleteDocument(fileContent)
         
         sofar = total = 1
-        body = ''
-        anns = []
         serialiser = Serialiser(self.outdir)
         
         for rawSample in ArtIterator(parsedContent):
@@ -128,6 +126,8 @@ class ARTIngest(IngestBase):
             
             if meta is not None:
                 rawText = sample.extractRawText()
+                body = ''
+                anns = []
             
                 # Now we iterates through the speaker turns in a sample and collect
                 # annotations and body (minus meta data) from the sample

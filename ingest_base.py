@@ -19,8 +19,8 @@ class IngestBase(object):
 
     def __init__(self, corpus):
         self.corpus = corpus
-        self.raw_plain_const = configmanager.get_config('C_' + self.corpus, 0)
-        self.raw_plain_th_ratio = configmanager.get_config('TH_' + self.corpus, 0.3)
+        self.raw_plain_const = float(configmanager.get_config('C_' + corpus, 0))
+        self.raw_plain_th_ratio = float(configmanager.get_config('TH_' + corpus, 0.3))
 
 
     @abstractmethod
@@ -50,8 +50,9 @@ class IngestBase(object):
         text files, which might indicate that something has gone wrong in the parsing.
         """
         ratio = (len(plain_text) + 0.0) / (len(raw_text) - self.raw_plain_const)
+        print "%s, %s, %s" % (self.corpus, ratio, self.raw_plain_th_ratio)
         if ratio < self.raw_plain_th_ratio:
-             self.logger.warn("%s: plain to raw ratio warning(%.2f < %.2f): %s" % (self.corpus, ratio,
+             self.logger.warn("%s: plain to raw ratio warning (%.2f < %.2f): %s" % (self.corpus, ratio,
                                                                                    self.raw_plain_th_ratio, filename))
 
 

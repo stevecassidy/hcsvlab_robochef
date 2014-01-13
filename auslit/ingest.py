@@ -58,6 +58,7 @@ class AuslitIngest(IngestBase):
       ff = os.path.splitext(os.path.abspath(f))[0]
       
       serialiser = Serialiser(os.path.dirname(ff))
+      self.check_filesize_ratio(body, rawtext, ff)
       serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, auslitMap, meta, annotations, source_file)
     
       sofar = sofar + 1

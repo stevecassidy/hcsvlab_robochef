@@ -64,7 +64,8 @@ class BraidedIngest(IngestBase):
       meta = self.ingestMetaData(f)
       transcript_files = self.__get_transcript(f, metadata, meta)
       raw, body, meta, anns, attachments = self.ingestDocument(f, meta)
-      
+
+
       # Initialise the serialiser which produces all the output documents for this corpus
       ser = Serialiser(outdir)
       file_handler = FileHandler()
@@ -133,7 +134,9 @@ class BraidedIngest(IngestBase):
       body = parsed.pop("body")
       meta.update(parsed)
       at = self.parse_annotations(body)
-       
+
+      self.check_filesize_ratio(body, text, meta['sampleid'])
+
       # the participants property will have some people in it
       if meta.has_key('infile_participants'):
           participants = meta['infile_participants'][0]

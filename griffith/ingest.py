@@ -158,8 +158,13 @@ class GriffithIngest(IngestBase):
                 + (OneOrMore(self.__possibleLine()).leaveWhitespace().setParseAction(
             lambda s, loc, toks: "\n".join(toks))).setResultsName("body") \
                 + StringEnd()
+        try:
+            result = whole.parseString(data)
+        except Exception, e:
+            self.logger.exception(e)
 
-        return whole.parseString(data)
+        return result
+
 
 
     def __serialise(self, srcdir, outdir, source_file, name, rawtext, body, meta, anns):

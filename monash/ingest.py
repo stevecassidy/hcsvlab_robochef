@@ -59,7 +59,8 @@ class MonashIngest(IngestBase):
       except:
         pass
       ff = os.path.abspath(f)
-    
+
+      self.check_filesize_ratio(body, rawtext, f)
       # Serialise the documents to rdf documents and write the output to disk
       self.__serialise(srcdir, os.path.dirname(ff), source_file, basename, name, rawtext, body, meta, annotations)
          

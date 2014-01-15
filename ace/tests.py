@@ -10,6 +10,9 @@ def unittests():
 
 
 class UnitTest(unittest.TestCase):
+    configmanager.configinit()
+    corpus_basedir = configmanager.get_config("CORPUS_BASEDIR", "../input/")
+
     ingest = ACEIngest()
 
     def testAnnotationExtraction(self):
@@ -42,7 +45,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleA01(self):
 
-        file_handle = open('../input/ace/Manual/KATA.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATA.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -62,7 +65,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleA22f(self):
 
-        file_handle = open('../input/ace/Manual/KATA.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATA.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -81,7 +84,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleA23b(self):
 
-        file_handle = open('../input/ace/Manual/KATA.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATA.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -102,7 +105,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleA38(self):
 
-        file_handle = open('../input/ace/Manual/KATA.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATA.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -121,7 +124,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleA44(self):
 
-        file_handle = open('../input/ace/Manual/KATA.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATA.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -139,7 +142,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB01a(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -158,7 +161,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB01b(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -178,7 +181,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB13a(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -195,7 +198,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB13b(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -213,7 +216,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB03c(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -232,7 +235,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleB03g(self):
 
-        file_handle = open('../input/ace/Manual/KATB.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATB.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -251,7 +254,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATC(self):
 
-        file_handle = open('../input/ace/Manual/KATC.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATC.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -262,7 +265,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATD(self):
 
-        file_handle = open('../input/ace/Manual/KATD.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATD.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -273,7 +276,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATE(self):
 
-        file_handle = open('../input/ace/Manual/KATE.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATE.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -284,7 +287,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATF(self):
 
-        file_handle = open('../input/ace/Manual/KATF.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATF.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -295,7 +298,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATG(self):
 
-        file_handle = open('../input/ace/Manual/KATG.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATG.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -306,7 +309,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATH(self):
 
-        file_handle = open('../input/ace/Manual/KATH.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATH.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -317,7 +320,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATJ(self):
 
-        file_handle = open('../input/ace/Manual/KATJ.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATJ.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -328,7 +331,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleK01(self):
 
-        file_handle = open('../input/ace/Manual/KATK.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATK.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -346,7 +349,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleKL07(self):
 
-        file_handle = open('../input/ace/Manual/KATL.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATL.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -364,7 +367,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATMN(self):
 
-        file_handle = open('../input/ace/Manual/KATMN.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATMN.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -375,7 +378,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATP(self):
 
-        file_handle = open('../input/ace/Manual/KATP.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATP.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -393,7 +396,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATR(self):
 
-        file_handle = open('../input/ace/Manual/KATR.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATR.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -404,7 +407,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATS(self):
 
-        file_handle = open('../input/ace/Manual/KATS.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATS.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -415,7 +418,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleR01(self):
 
-        file_handle = open('../input/ace/Manual/KATR.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATR.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -434,7 +437,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleR05(self):
 
-        file_handle = open('../input/ace/Manual/KATR.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATR.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -454,7 +457,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnSampleR14f(self):
 
-        file_handle = open('../input/ace/Manual/KATR.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATR.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -473,7 +476,7 @@ class UnitTest(unittest.TestCase):
 
     def testHtmlParseOnKATW(self):
 
-        file_handle = open('../input/ace/Manual/KATW.HTM', 'r')
+        file_handle = open(self.corpus_basedir + 'ace/Manual/KATW.HTM', 'r')
         input_str = file_handle.read()
 
         parser = AceHTMLParser()
@@ -500,5 +503,5 @@ class UnitTest(unittest.TestCase):
     @unittest.skip("This test is more of a systems test and should not be invoked unless required.")
     def testProcessAce_a(self):
         ingest = ACEIngest()
-        ingest.setMetaData('../input/ace/Manual')
-        ingest.ingestCorpus('../input/ace', '../output/ace')
+        ingest.setMetaData(self.corpus_basedir + 'ace/Manual')
+        ingest.ingestCorpus(self.corpus_basedir + 'ace', '../output/ace')

@@ -46,15 +46,14 @@ def main():
     suite.addTests([BasicTests("testIsAlive"),
                     monash.unittests(),
                     cooee.unittests(),
-                    # griffith.unittests(),
+                    griffith.unittests(),
                     ice.unittests(),
                     utils.unittests(),
                     annotations.unittests(),
                     ace.unittests(),
                     braided.unittests(),
-                    utils.unittests(),
                     metadata.unittests(),
-                    upload.unittests(),
+                    # upload.unittests(), TODO: The upload facilities could possibly be removed for HCSvLab
                     rdf.unittests()])
     unittest.TextTestRunner(verbosity=2).run(suite)
 

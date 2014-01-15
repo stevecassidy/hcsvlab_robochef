@@ -19,7 +19,7 @@ import doctest
 
 class UnitTest(unittest.TestCase):
   def testCorporaArgs(self):
-    self.assertEqual(getCorporaArgs(["main"]), ["cooee", "ace", "ice", "monash", "griffith", "md", "auslit", "braided"])
+    self.assertEqual(getCorporaArgs(["main"]), ["cooee", "ace", "ice", "monash", "griffith", "md", "auslit", "braided", "paradisec"])
 
   standardMetaDataTop = \
     """

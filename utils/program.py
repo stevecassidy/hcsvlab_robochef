@@ -10,7 +10,7 @@ def getCorporaArgs(argsv):
   >>> getCorporaArgs([])
   []
   >>> getCorporaArgs(["main"])
-  ['cooee', 'ace', 'ice', 'monash', 'griffith', 'md', 'auslit', 'braided']
+  ['cooee', 'ace', 'ice', 'monash', 'griffith', 'md', 'auslit', 'braided', 'paradisec']
   >>> getCorporaArgs(['main', 'one'])
   ['one']
   """

@@ -19,8 +19,6 @@ class CooeeIngest(IngestBase):
   filemetadata = {}
   META_DEFAULTS = {'language': 'eng'}
 
-  def __init__(self):
-    super(CooeeIngest, self).__init__('COOEE')
 
   def setMetaData(self, filename):
       """
@@ -79,7 +77,6 @@ class CooeeIngest(IngestBase):
           
           (sampleid, rawtext, body, meta, anns) = self.ingestDocument(os.path.join(srcdir, f))
           meta.update(self.META_DEFAULTS)
-          self.check_filesize_ratio(body, rawtext, f)
           self.__serialise(outdir, sampleid, rawtext, body, meta, anns, os.path.join(srcdir, f))
         
           sofar = sofar + 1

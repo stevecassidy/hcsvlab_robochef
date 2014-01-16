@@ -16,9 +16,6 @@ class GriffithIngest(IngestBase):
     filemetadata = {}
     META_DEFAULTS = {'language': 'eng'}
 
-    def __init__(self):
-        super(GriffithIngest, self).__init__('GRIFFITH')
-
     def setMetaData(self, dirpath):
         """ Load the meta data from the XML documents provided for the Griffith corpus """
 
@@ -104,8 +101,6 @@ class GriffithIngest(IngestBase):
                 pass
 
             ff = os.path.abspath(f)
-
-            self.check_filesize_ratio(body, rawtext, f)
 
             # Serialise the documents to rdf documents and write the output to disk
             self.__serialise(srcdir, os.path.dirname(ff), source_file, name, rawtext, body, meta, anns)

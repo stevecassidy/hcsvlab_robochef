@@ -24,9 +24,6 @@ class AuslitIngest(IngestBase):
 
   META_DEFAULTS = {'language': 'eng'}
 
-  def __init__(self):
-    super(AuslitIngest, self).__init__('AUSLIT')
-
   def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
     pass
@@ -58,7 +55,6 @@ class AuslitIngest(IngestBase):
       ff = os.path.splitext(os.path.abspath(f))[0]
       
       serialiser = Serialiser(os.path.dirname(ff))
-      self.check_filesize_ratio(body, rawtext, ff)
       serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, auslitMap, meta, annotations, source_file)
     
       sofar = sofar + 1

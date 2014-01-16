@@ -16,9 +16,6 @@ class ACEIngest(IngestBase):
     status = ""
     META_DEFAULTS = {'language': 'eng'}
 
-    def __init__(self):
-        super(ACEIngest, self).__init__('ACE')
-
     def setMetaData(self, srcdir):
         """
         This method uses the AceHTMLParser to extract the meta data for the Ace corpus. This meta data is stored
@@ -74,12 +71,10 @@ class ACEIngest(IngestBase):
                     for key, value in meta.iteritems():
                         if not key.capitalize() in self.filemetadata[meta['sampleid']]:
                             self.filemetadata[meta['sampleid']][key] = value
-                    self.check_filesize_ratio(text, rawtext, meta['sampleid'])
                     serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, self.filemetadata[meta['sampleid']],
                                                 anns, f)
 
                 else:
-                    self.check_filesize_ratio(text, rawtext, f)
                     serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, meta, anns, f)
 
             sofar += 1

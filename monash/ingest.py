@@ -23,8 +23,6 @@ class MonashIngest(IngestBase):
 
   META_DEFAULTS = {'language': 'eng'}
 
-  def __init__(self):
-    super(MonashIngest, self).__init__('MONASH')
 
   def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
@@ -60,7 +58,6 @@ class MonashIngest(IngestBase):
         pass
       ff = os.path.abspath(f)
 
-      self.check_filesize_ratio(body, rawtext, f)
       # Serialise the documents to rdf documents and write the output to disk
       self.__serialise(srcdir, os.path.dirname(ff), source_file, basename, name, rawtext, body, meta, annotations)
          

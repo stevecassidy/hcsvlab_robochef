@@ -27,8 +27,6 @@ class AvozesIngest(IngestBase):
       'VCVWords': u'VCV Words'
   }
 
-  def __init__(self):
-    super(AvozesIngest, self).__init__('AVOZES')
 
   def setMetaData(self, filename):
       """

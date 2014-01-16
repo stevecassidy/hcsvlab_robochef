@@ -25,8 +25,6 @@ class BraidedIngest(IngestBase):
   filemetadata = {}
   META_DEFAULTS = {'language': 'eng'}
 
-  def __init__(self):
-    super(BraidedIngest, self).__init__('BRAIDED')
 
   def setMetaData(self, dirpath):
     ''' Braided obtains meta data during the ingest as there is not separate meta data file '''
@@ -134,8 +132,6 @@ class BraidedIngest(IngestBase):
       body = parsed.pop("body")
       meta.update(parsed)
       at = self.parse_annotations(body)
-
-      self.check_filesize_ratio(body, text, meta['sampleid'])
 
       # the participants property will have some people in it
       if meta.has_key('infile_participants'):

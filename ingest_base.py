@@ -1,6 +1,5 @@
 import os
 import shutil
-import logging
 
 from abc import ABCMeta, abstractmethod
 from hcsvlab_robochef import configmanager
@@ -13,14 +12,6 @@ class IngestBase(object):
     '''
 
     configmanager.configinit()
-    logger = logging.getLogger('parsers')
-    handler = logging.FileHandler('corpus_parsers.log', mode='w')
-    logger.addHandler(handler)
-
-    def __init__(self, corpus):
-        self.corpus = corpus
-        self.raw_plain_const = float(configmanager.get_config('C_' + corpus, 0))
-        self.raw_plain_th_ratio = float(configmanager.get_config('TH_' + corpus, 0.3))
 
 
     @abstractmethod
@@ -43,22 +34,6 @@ class IngestBase(object):
         Ingest a specific source document, from which meta-data annotations and raw data is produced
         '''
         return None
-      
-    def check_filesize_ratio(self, plain_text, raw_text, filename):
-        """
-        Performs a sanity check to see if there is a massive difference between the raw text and plain
-        text files, which might indicate that something has gone wrong in the parsing.
-        """
-        plain_len = float(len(plain_text))
-        raw_len = float(len(raw_text))
-        ratio = plain_len / (raw_len - self.raw_plain_const)
-        print "%s, %s, %s" % (self.corpus, ratio, self.raw_plain_th_ratio)
-        if plain_len > raw_len:
-            self.logger.warn("%s: plain text longer than raw text warning (%d > %d)" % (self.corpus, plain_len, raw_len))
-        if ratio < self.raw_plain_th_ratio:
-             self.logger.warn("%s: plain to raw ratio warning (%.2f < %.2f): %s" % (self.corpus, ratio,
-                                                                                   self.raw_plain_th_ratio, filename))
-
 
 
     def clear_output_dir(self, outdir):

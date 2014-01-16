@@ -37,8 +37,6 @@ class ARTIngest(IngestBase):
         5: {26: 'name', 27: 'gender', 28: 'age', 29: 'role'}
     } 
 
-    def __init__(self):
-        super(ARTIngest, self).__init__('ART')
 
     def setMetaData(self, srcdir):
         ''' Loads the meta data for use during ingest '''
@@ -139,7 +137,6 @@ class ARTIngest(IngestBase):
                     for ann in result[1]:
                         anns.append(ann)
 
-                self.check_filesize_ratio(unicode(body), unicode(rawText), meta['sampleid'])
                 # Serialise the documents to rdf documents and write the output to disk
                 serialiser.serialise_single(meta['sampleid'], 'art', unicode(rawText), unicode(body), artMapper, meta, anns)
                 

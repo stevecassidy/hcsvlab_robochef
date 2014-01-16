@@ -25,8 +25,6 @@ class EopasTestIngest(IngestBase):
                   'sponsor' : OLAC.sponsor, 'transcriber' : OLAC.transcriber, 'translator' : OLAC.translator }
 
 
-  def __init__(self):
-    super(EopasTestIngest, self).__init__('EOPAS')
 
   def ingestCorpus(self, srcdir, outdir):
     ''' This function will initiate the ingest process for the Auslit corpus '''

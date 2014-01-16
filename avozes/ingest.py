@@ -27,6 +27,7 @@ class AvozesIngest(IngestBase):
       'VCVWords': u'VCV Words'
   }
 
+
   def setMetaData(self, filename):
       """
       Set the spreadsheet file from which avozes metadata is read.  This data will

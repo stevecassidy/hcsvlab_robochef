@@ -1,5 +1,6 @@
 import os
 import shutil
+import logging
 import hcsvlab_robochef
 
 from hcsvlab_robochef import metadata
@@ -11,7 +12,9 @@ from hcsvlab_robochef.rdf.serialiser import *
 
 
 class Serialiser(object):
-  
+
+  configmanager.configinit()
+  logger = logging.getLogger('parsers')
   
   def __init__(self, outdir):
     self.outdir = outdir
@@ -125,6 +128,9 @@ class Serialiser(object):
       txthandle.write(text.encode("utf-8"))
       txthandle.close()
 
+    if text and rawtext:
+        self.__check_filesize_ratio(text, rawtext, sampleid, collection_name)
+
     # If there is also a source document copy this to the output directory
     if source:
       shutil.copy2(source, self.outdir)
@@ -183,3 +189,19 @@ class Serialiser(object):
     ann_graph = ann_serialiser.serialise(self.outdir, sampleid, meta_map, ann_dict)
     
     return (meta_graph, ann_graph)
+
+  def __check_filesize_ratio(self, plain_text, raw_text, sample_id, corpus):
+    """
+    Performs a sanity check to see if there is a massive difference between the raw text and plain
+    text files, which might indicate that something has gone wrong in the parsing.
+    """
+    raw_plain_const = float(configmanager.get_config('C_' + corpus, 0))
+    raw_plain_th_ratio = float(configmanager.get_config('TH_' + corpus, 0.3))
+
+    plain_len = float(len(plain_text))
+    raw_len = float(len(raw_text))
+    ratio = plain_len / (raw_len - raw_plain_const)
+    if plain_len > raw_len:
+        self.logger.warn("%s: plain text longer than raw text warning (%d > %d): %s" % (corpus, plain_len, raw_len, sample_id))
+    if ratio < raw_plain_th_ratio:
+        self.logger.warn("%s: plain to raw ratio warning (%.2f < %.2f): %s" % (corpus, ratio, raw_plain_th_ratio, sample_id))

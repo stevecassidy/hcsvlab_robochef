@@ -2,6 +2,7 @@ import os
 import shutil
 
 from abc import ABCMeta, abstractmethod
+from hcsvlab_robochef import configmanager
 
 
 class IngestBase(object):
@@ -9,6 +10,10 @@ class IngestBase(object):
     '''
     This abstract class is a representation of an ingest. It is being used in-lieu of an interface
     '''
+
+    configmanager.configinit()
+
+
     @abstractmethod
     def setMetaData(srcdir):
         ''' Loads the meta data for use during ingest '''
@@ -29,8 +34,8 @@ class IngestBase(object):
         Ingest a specific source document, from which meta-data annotations and raw data is produced
         '''
         return None
-      
-    
+
+
     def clear_output_dir(self, outdir):
         ''' Clears the output directory '''
         if os.path.exists(outdir):

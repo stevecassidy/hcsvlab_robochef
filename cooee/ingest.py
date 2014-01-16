@@ -8,7 +8,7 @@ from hcsvlab_robochef import utils
 from hcsvlab_robochef.ingest_base import IngestBase
 from hcsvlab_robochef.cooee.rdf import cooeeMap
 from hcsvlab_robochef.annotations import *
-from hcsvlab_robochef.ice.rdf import iceM
+# from hcsvlab_robochef.ice.rdf import iceM
 from hcsvlab_robochef.utils.serialiser import *
 from hcsvlab_robochef.utils.statistics import *
 
@@ -18,6 +18,7 @@ class CooeeIngest(IngestBase):
   status = ""
   filemetadata = {}
   META_DEFAULTS = {'language': 'eng'}
+
 
   def setMetaData(self, filename):
       """

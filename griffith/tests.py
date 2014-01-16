@@ -1,5 +1,6 @@
 # coding: utf-8
 import unittest
+import doctest
 
 from hcsvlab_robochef.griffith.ingest import *
 from hcsvlab_robochef.griffith import ingest
@@ -13,13 +14,15 @@ def unittests():
 
 
 class UnitTest(unittest.TestCase):
-  
+
+  configmanager.configinit()
+  corpus_basedir = configmanager.get_config("CORPUS_BASEDIR", "../input/")
   griffith = GriffithIngest()
-  griffith.setMetaData("../input/griffith/metadata")
-  
+  griffith.setMetaData(corpus_basedir + "griffith/metadata")
+
   def test_meta_extract(self):
-    # We do not assert anything here, we call this to make sure it runs and does not fall over
-    self.griffith.setMetaData('../input/griffith/metadata')
+     # We do not assert anything here, we call this to make sure it runs and does not fall over
+    self.griffith.setMetaData(self.corpus_basedir + "griffith/metadata")
   
   
   def testPossibleLine(self):
@@ -101,10 +104,12 @@ class UnitTest(unittest.TestCase):
        
   
   def testOneParticularDocumentGCSAusE22(self):  
-    (text, body, meta, anns) = self.griffith.ingestDocument('../input/griffith/GCSAusE22.doc')
+    (text, body, meta, anns) = self.griffith.ingestDocument(self.corpus_basedir + 'griffith/GCSAusE22.doc')
     self.assertEqual(anns[0], Annotation("elongation", "", 1, 1))
   
-    (meta_graph, ann_graph) = self.griffith._GriffithIngest__serialise('../input/griffith/', '/tmp', '../input/griffith/GCSAusE22.doc', 'GCSAusE22.doc', text, body, meta, anns)
+    (meta_graph, ann_graph) = self.griffith._GriffithIngest__serialise(self.corpus_basedir + 'griffith/',
+                                                                       '/tmp', self.corpus_basedir + 'griffith/GCSAusE22.doc',
+                                                                       'GCSAusE22.doc', text, body, meta, anns)
   
     root_id = griffMap.item_uri(meta['sampleid'])
     
@@ -114,7 +119,7 @@ class UnitTest(unittest.TestCase):
   
   def testOneParticularDocumentGCSAusE01(self):
     
-    (text, body, meta, anns) = self.griffith.ingestDocument('../input/griffith/GCSAusE01.doc')
+    (text, body, meta, anns) = self.griffith.ingestDocument(self.corpus_basedir + 'griffith/GCSAusE01.doc')
     
     # Has 2 participants only
     self.assertTrue(meta.has_key('table_person_Participant_1'))

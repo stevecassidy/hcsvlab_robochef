@@ -22,6 +22,7 @@ class ICEIngest(IngestBase):
   book_date_mode = 0
   META_DEFAULTS = {'language': 'eng'}
 
+
   def ingest(self, corpus_basedir, output_dir): 
      """Perform the ingest process for this corpus"""    
       

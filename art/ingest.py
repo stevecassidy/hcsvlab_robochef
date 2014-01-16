@@ -136,7 +136,7 @@ class ARTIngest(IngestBase):
                     body += result[0] + '\n'
                     for ann in result[1]:
                         anns.append(ann)
-            
+
                 # Serialise the documents to rdf documents and write the output to disk
                 serialiser.serialise_single(meta['sampleid'], 'art', unicode(rawText), unicode(body), artMapper, meta, anns)
                 
@@ -172,6 +172,7 @@ class ARTIngest(IngestBase):
                 return metaItem
         
         # This means we have not been able to find the meta, this is a problem
+        # TODO: This should probably go in the corpus parser log too
         print 'Problem, could not find meta data for sample starting with primary speaker ', speaker1 , \
         ' and secondary speaker ', speaker2
 

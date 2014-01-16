@@ -23,6 +23,7 @@ class MonashIngest(IngestBase):
 
   META_DEFAULTS = {'language': 'eng'}
 
+
   def setMetaData(self, srcdir):
     ''' Loads the meta data for use during ingest '''
     pass
@@ -56,7 +57,7 @@ class MonashIngest(IngestBase):
       except:
         pass
       ff = os.path.abspath(f)
-    
+
       # Serialise the documents to rdf documents and write the output to disk
       self.__serialise(srcdir, os.path.dirname(ff), source_file, basename, name, rawtext, body, meta, annotations)
          
@@ -72,10 +73,9 @@ class MonashIngest(IngestBase):
     function will grow to build more suitable data structures as we need them.  In fact, by now
     it might already be doing so.
     """
-  
-    text = subprocess.check_output(["antiword",f])
-    text = text.decode('utf-8')
 
+    text = subprocess.check_output(["antiword", '-m', 'UTF-8.txt', "-f", f])
+    text = text.decode('utf-8')
     u = open("monash_last_data.txt", 'w')
     u.write(text.encode('utf-8'))
     u.close

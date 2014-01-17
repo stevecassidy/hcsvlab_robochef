@@ -166,7 +166,8 @@ class CooeeIngest(IngestBase):
     Function serialises the graphs to disc and returns the object graph to the caller
     '''
     serialiser = Serialiser(outdir)
-    return serialiser.serialise_single(sampleid, 'cooee', rawtext, body, cooeeMap, meta, anns, source_file)
+    # note we send None as rawtext here as for COOEE rawtext == source 
+    return serialiser.serialise_single(sampleid, 'cooee', None, body, cooeeMap, meta, anns, source_file)
 
 
   def __extractAnnotations(self, data):

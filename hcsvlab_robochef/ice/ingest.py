@@ -591,7 +591,8 @@ class ICEIngest(IngestBase):
           ann = Annotation(type, None, start, end, id=id)
           # add properties
           for p in node.findall('property'):
-              ann[p.attrib['name']] = p.text
+              if p.text != None:
+                  ann[p.attrib['name']] = p.text
           anns.append(ann)
 
       return anns

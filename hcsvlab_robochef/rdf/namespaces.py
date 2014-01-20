@@ -29,6 +29,19 @@ AUSNC = Namespace(SCHEMA[u"ausnc_md_model/"])
 # corpus is used as a prefix for all corpus items
 CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
 
+# annotation namespaces
+ANNOTATION = Namespace(SCHEMA[u'annotation/'])
+
+ICEA = Namespace(ANNOTATION['ice/'])
+ARTA = Namespace(ANNOTATION['art/'])
+ACEA = Namespace(ANNOTATION['ace/'])
+CA = Namespace(ANNOTATION['conversation/'])
+COOEEA = Namespace(ANNOTATION['cooee/'])
+MONASHA = Namespace(ANNOTATION['monash/'])
+MDA = Namespace(ANNOTATION['mda/'])
+
+
+
 # this hack finds all of the namespaces defined above and 
 # puts them into a dictionary that we can use in bind_graph
 import sys

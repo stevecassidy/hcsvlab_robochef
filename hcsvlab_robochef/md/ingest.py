@@ -133,7 +133,7 @@ class MDIngest(IngestBase):
   
     # If there are annotations for words then add them to the collection
     if word:  
-      word_anns = self.__parse_annotation('word', word)
+      word_anns = self.__parse_annotation('words', word)
       for word_ann in word_anns:
         anns.append(word_ann)
  

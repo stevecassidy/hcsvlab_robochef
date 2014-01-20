@@ -4,6 +4,7 @@ from uuid import uuid4
 from rdflib import Namespace, Graph, Literal, XSD
 from hcsvlab_robochef.rdf.namespaces import *
  
+from hcsvlab_robochef.annotations.annotation_names import NAMEMAP
 
 def _subnode_(node, name, text, attr={}):
     """Utility fn to create a child node called 'name'
@@ -66,8 +67,14 @@ class Annotation(DictMixin):
     else:
         self.id = str(Annotation.uniqueid)
         Annotation.uniqueid = Annotation.uniqueid + 1
-        
-    self.tipe = tipe
+    
+    # here we map the string type onto a URI 
+
+    if NAMEMAP.has_key(tipe):    
+       self.tipe = NAMEMAP[tipe]
+    else:
+        raise Exception("Annotation name '%s' not in the list in annotation_names.py" % tipe )
+       
     self.start = start
     self.end = end
     
@@ -146,11 +153,12 @@ class Annotation(DictMixin):
       locatoruri = self.locator_rdf(locatoruri, g)
       g.add((annoturi, DADA.targets, locatoruri))
       
-      g.add((annoturi, DADA.type, Literal(self.tipe))) # need a type namespace
+      g.add((annoturi, DADA.type, self.tipe)) 
+      
       for key in self.keys():
           if self[key] != '':
               if key == "speakerid":
-                  g.add((annoturi, property_namespace[key], metaMap.speaker_uri(self[key])))
+                  g.add((annoturi, AUSNC.speakerid, metaMap.speaker_uri(self[key])))
               else:
                   g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  # need to translate
       

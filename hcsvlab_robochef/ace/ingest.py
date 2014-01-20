@@ -184,7 +184,7 @@ class ACEIngest(IngestBase):
                                      ^ markupParser("misc", "misc")
                                      ^ markupParser("list", "extended list")
                                      ^ markupParser("note", "note")
-                                     ^ markupParser("bl", "by line")
+                                     ^ markupParser("bl", "byline")
                                      ^ exactParser("<")
                                      ^ pyparsing.Literal("+").setParseAction(
                                      lambda s, loc, toks: AnnotatedText('', [Annotation('special character', 'linebreak', 0, 0)]))

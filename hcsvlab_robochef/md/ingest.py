@@ -12,6 +12,8 @@ from hcsvlab_robochef.utils.filehandler import *
 from hcsvlab_robochef.utils.serialiser import *
 from hcsvlab_robochef.utils.statistics import *
 from hcsvlab_robochef.utils.parsing import *
+from hcsvlab_robochef.md.textgrid import TextGrid
+
 
 from rdf import mdMap #, annotation_rdf
 from pyparsing import *
@@ -121,23 +123,21 @@ class MDIngest(IngestBase):
     '''
     anns = []
 
-    flab = self.__get_annotation_file_path(file_name, full_path, '.flab')
-    if flab:
-      anns = self.__parse_annotation('phonetic', flab)
-  
-    # Word files are more accurate than fword files, so in the event
-    # both exist favour the word file
-    word = self.__get_annotation_file_path(file_name, full_path, '.word')
-    if word == None:
-      word = self.__get_annotation_file_path(file_name, full_path, '.fword')
-  
-    # If there are annotations for words then add them to the collection
-    if word:  
-      word_anns = self.__parse_annotation('words', word)
-      for word_ann in word_anns:
-        anns.append(word_ann)
+    tgfile = self.__get_annotation_file_path(file_name, full_path, '.TextGrid')
  
-    
+    if tgfile != None:
+        tg = TextGrid.load(tgfile)
+        
+        for i, tier in enumerate(tg):
+            # generate annotations for this tier
+            
+            for row in tier.simple_transcript:
+                (start, end, label) = row
+                if label == "":
+                    label = "#"
+                anns.append(SecondAnnotation(tier.nameid, label, start, end))
+                #print tier.nameid, label, start, end
+            
     return anns
 
 
@@ -156,48 +156,6 @@ class MDIngest(IngestBase):
     else:
       return None
 
-
-  def __parse_annotation(self, tipe, file_path):
-    '''
-    This function extracts the annotation information from the audio annotation files
-    This function is generic and can work on the flab, fword and word files as they
-    all share a similar enough format.
-    '''
-    annotations_found = False
-    phonemes = []
-    anns = []
-
-    # Check to see if the flab file exists
-    if os.path.exists(file_path):
-      f = codecs.open(file_path, encoding='latin-1')
-
-      for line in f:    
-        if annotations_found:
-          time = re.findall(r'[0-9]*\.?[0-9]+', line)
-          if len(phonemes) > 0:
-            phoneme = re.findall(r'[\w:#\+]+\n', line)
-            phonemes[len(phonemes)-1] =  merge_dictionaries(phonemes[len(phonemes)-1], {'end': time[0], 'word': phoneme[0].rstrip()})
-      
-          phonemes.append({'start': time[0]})
-     
-        match = re.search('^#\w*$', line)
-    
-        if match:
-          annotations_found = True
-  
-      # Because of the way I parse and the nature of the file I need to remove the last two entries from the list
-      phonemes.pop()
-      phonemes.pop()
-  
-      for item in phonemes:
-        if not item['word'] in ('#','B','+'):
-          anns.append(SecondAnnotation(tipe, item['word'], item['start'], item['end']))
-  
-      return anns
-  
-    else:
-    
-      return None
 
 
   def __extract_metadata(self, sampleid, current_path):

@@ -19,7 +19,7 @@ NAMEMAP = {
              'footnote': ICEA.footnote,
              'footnote-ref': ICEA.footnoteref,
              'foreign': ICEA.foreign,
-             'format': ICEA.format,
+             'format': ICEA['format'],
              'heading': ICEA.heading,
              'incomplete': ICEA.incomplete,
              'inserted': ICEA.inserted,
@@ -48,7 +48,6 @@ NAMEMAP = {
              'pageno': COOEEA.pageno,
              'paragraph': ICEA.paragraph,
              'pause': ICEA.pause,
-             'phonetic': MDA.phonetic,
              'quote': ICEA.quote,
              'redacted': MONASHA.redacted,
              'roman': ICEA.roman,
@@ -72,5 +71,8 @@ NAMEMAP = {
              'unuseable-char': ICEA.unuseable_char,
              'volume': CA.volume,
              'word': ICEA.word,
-             'words': MDA.word,
+             'MAU' : MAUS.phonetic,
+             'KAN' : MAUS.canonical,
+             'ORT' : MAUS.orthography,
+             
  }

@@ -38,7 +38,7 @@ ACEA = Namespace(ANNOTATION['ace/'])
 CA = Namespace(ANNOTATION['conversation/'])
 COOEEA = Namespace(ANNOTATION['cooee/'])
 MONASHA = Namespace(ANNOTATION['monash/'])
-MDA = Namespace(ANNOTATION['mda/'])
+MAUS = Namespace(ANNOTATION['maus/'])
 
 
 

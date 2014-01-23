@@ -22,7 +22,8 @@ from copy import deepcopy
 class MDIngest(IngestBase):
   
   filemetadata = {}
-  META_DEFAULTS = {'language': 'eng'}
+  META_DEFAULTS = {'language': 'eng',
+                   }
 
   def setMetaData(self, filepath):
     '''
@@ -85,8 +86,11 @@ class MDIngest(IngestBase):
     meta['sampleid'] = os.path.splitext(name)[0]
     metagraph = mdMap.mapdict(meta)
   
-    # all samples are interviews
-    meta['genre'] = 'interview'
+    # s1, s2 and s3 are read, n is interview
+    if sampleid.endswith('n'):
+        meta['genre'] = 'interview'
+    else:
+        meta['genre'] = 'read'
   
     file_name = os.path.splitext(name)[0]
     anns = self.__get_annotations(name, sourcepath)

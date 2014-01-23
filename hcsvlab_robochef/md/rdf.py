@@ -24,8 +24,23 @@ def map_gender(prop, value):
   return ((FOAF.gender, Literal(value)),)
 
 def map_genre(prop, value):
-  return ((AUSNC.discourse_type, OLAC.interactive_discourse),)
-  
+    """Generate the genre description, for MD, this is 
+    the same for every item"""
+    
+    result = [(AUSNC.mode, AUSNC.spoken),
+              (AUSNC.communication_context, AUSNC.face_to_face),
+              (AUSNC.audience, AUSNC.individual),
+              (OLAC.discourse_type, OLAC.interactive_discourse)]
+    
+    if value == 'interview':
+        result += [(AUSNC.speech_style, AUSNC.spontaneous),
+                   (AUSNC.interactivity, AUSNC.interview)]
+    else:
+        result += [(AUSNC.speech_style, AUSNC.scripted),
+                   (AUSNC.interactivity, AUSNC.read)]
+    
+    
+    return result
       
 MD = "MITCHELDELBRIDGE"
       
@@ -40,5 +55,7 @@ mdSpeakerM.add('mothers_birthplace', mapto=AUSNC.mothers_birthplace)
 mdMap = MetadataMapper(MD, mdSpeakerM, documentMap = get_generic_doc_mapper()) 
 metadata_defaults(mdMap)
 mdMap.add('genre', mapper=map_genre)
+
+
 
 

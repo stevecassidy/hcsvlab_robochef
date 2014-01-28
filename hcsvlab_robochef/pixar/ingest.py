@@ -86,7 +86,7 @@ class PixarIngest(IngestBase):
         '''
         serialiser = Serialiser(outdir)
 
-        return serialiser.serialise_single_nontext(sampleid, 'pixar', source, "mp3", pixarMap, self.metadata[sampleid], [])
+        return serialiser.serialise_single_nontext(sampleid, 'pixar', source, "Audio", pixarMap, self.metadata[sampleid], [])
 
     def __convert(self, cell):
         ''' There are no float values in the Excel sheet. Cut hem here to int before converting to unicode. '''

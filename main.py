@@ -13,6 +13,7 @@ from hcsvlab_robochef.paradisec.ingest import *
 from hcsvlab_robochef.eopas_test.ingest import *
 from hcsvlab_robochef.avozes.ingest import *
 from hcsvlab_robochef.pixar.ingest import *
+from hcsvlab_robochef.rirusyd.ingest import *
 
 
 def main():
@@ -109,12 +110,20 @@ def main():
             avozes = AvozesIngest()
             avozes.setMetaData(corpus_basedir + "avozes/Avozes.xls")
             avozes.ingestCorpus(corpus_basedir + "avozes", output_dir + "avozes")
+
         elif c == "pixar":
             print "converting Pixar Film Excerpts"
             pixar = PixarIngest()
             pixar.setMetaData(corpus_basedir+"pixar/PixarFilmExcerpts.xls")
             pixar.copy_collection_metadata(corpus_basedir, output_dir, "pixar.n3", "pixar.n3")
             pixar.ingestCorpus(corpus_basedir+"pixar", output_dir+"pixar")
+
+        elif c == "rirusyd":
+            print "converting Room Impulse Response"
+            rir = RirIngest()
+            rir.setMetaData(corpus_basedir+"rirusyd/room_impulse_responses.xlsx")
+            rir.copy_collection_metadata(corpus_basedir, output_dir, "rirusyd.n3", "rirusyd.n3")
+            rir.ingestCorpus(corpus_basedir+"rirusyd", output_dir+"rirusyd")
 
 
 if __name__ == "__main__":

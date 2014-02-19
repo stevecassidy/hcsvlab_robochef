@@ -80,30 +80,30 @@ def main():
             griffith = GriffithIngest()
             griffith.setMetaData(corpus_basedir + "griffith/metadata")
             griffith.copy_collection_metadata(corpus_basedir, output_dir, "gcsause.n3", "gcsause.n3")
-            griffith.ingestCorpus(corpus_basedir + "griffith", output_dir + "griffith")
-            griffith.create_collection_manifest(output_dir + "griffith", "turtle")
+            griffith.ingestCorpus(corpus_basedir + "griffith", output_dir + "gcsause")
+            griffith.create_collection_manifest(output_dir + "gcsause", "turtle")
 
         elif c == "md":
             print "converting mitchell & delbridge"
             md = MDIngest()
             md.setMetaData(corpus_basedir + "MD/flatfilesrc.txt")
             md.copy_collection_metadata(corpus_basedir, output_dir, "md.n3", "mitcheldelbridge.n3")
-            md.ingestCorpus(corpus_basedir + "MD", output_dir + "md")
-            md.create_collection_manifest(output_dir + "md", "turtle")
+            md.ingestCorpus(corpus_basedir + "MD", output_dir + "mitcheldelbridge")
+            md.create_collection_manifest(output_dir + "mitcheldelbridge", "turtle")
 
         elif c == "auslit":
             print "converting auslit"
             auslit = AuslitIngest()
             auslit.copy_collection_metadata(corpus_basedir, output_dir, "austlit.n3", "austlit.n3")
-            auslit.ingestCorpus(corpus_basedir + "AusLit", output_dir + "auslit")
-            auslit.create_collection_manifest(output_dir + "auslit", "turtle")
+            auslit.ingestCorpus(corpus_basedir + "AusLit", output_dir + "austlit")
+            auslit.create_collection_manifest(output_dir + "austlit", "turtle")
 
         elif c == "braided":
             print "converting braided channels"
             braided = BraidedIngest()
             braided.copy_collection_metadata(corpus_basedir, output_dir, "braided_channels.n3", "braidedchannels.n3")
-            braided.ingestCorpus(corpus_basedir + "braided_channels", output_dir + "braided")
-            braided.create_collection_manifest(output_dir + "braided", "turtle")
+            braided.ingestCorpus(corpus_basedir + "braided_channels", output_dir + "braidedchannels")
+            braided.create_collection_manifest(output_dir + "braidedchannels", "turtle")
 
         elif c == "paradisec":
             print "converting paradisec"

@@ -15,6 +15,7 @@ from hcsvlab_robochef.avozes.ingest import *
 from hcsvlab_robochef.pixar.ingest import *
 from hcsvlab_robochef.austalk.ingest import *
 from hcsvlab_robochef.rirusyd.ingest import *
+from hcsvlab_robochef.mbep.ingest import *
 
 
 def main():
@@ -130,6 +131,14 @@ def main():
             rir.setMetaData(corpus_basedir+"rirusyd/room_impulse_responses.xlsx")
             rir.copy_collection_metadata(corpus_basedir, output_dir, "rirusyd.n3", "rirusyd.n3")
             rir.ingestCorpus(corpus_basedir+"rirusyd", output_dir+"rirusyd")
+
+        elif c == "mbep":
+            print "converting Macquarie Battery of Emotional Prosody"
+            mbep = MbepIngest()
+            mbep.setMetaData(corpus_basedir+"mbep/mq_emotional.xlsx")
+            mbep.copy_collection_metadata(corpus_basedir, output_dir, "mbep.n3", "mbep.n3")
+            mbep.ingestCorpus(corpus_basedir+"mbep", output_dir+"mbep")
+            mbep.create_collection_manifest(output_dir + "mbep", "turtle")
 
 if __name__ == "__main__":
     main()

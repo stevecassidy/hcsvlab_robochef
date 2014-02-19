@@ -72,14 +72,6 @@ class PixarIngest(IngestBase):
         print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
         return None
 
-    def copy_collection_metadata(self, srcdir, outdir, filename, savename):
-        ''' Copies the collection level metadata file to output directory '''
-        print "    copying collection level metadata file..."
-        metadata_file = os.path.join(srcdir, filename)
-        if os.path.exists(metadata_file) and os.path.exists(outdir):
-            shutil.copyfile(metadata_file, os.path.join(outdir,savename))
-
-
     def __serialise(self, outdir, sampleid, source):
         '''
         Function serialises the graphs to disc and returns the object graph to the caller

@@ -3,6 +3,7 @@ import shutil
 
 from abc import ABCMeta, abstractmethod
 from hcsvlab_robochef import configmanager
+from hcsvlab_robochef.utils.manifester import *
 
 
 class IngestBase(object):
@@ -48,3 +49,8 @@ class IngestBase(object):
         metadata_file = os.path.join(srcdir, filename)
         if os.path.exists(metadata_file) and os.path.exists(outdir):
             shutil.copyfile(metadata_file, os.path.join(outdir,savename))
+
+    def create_collection_manifest(self, srcdir, format):
+        ''' Creating the manifest file and putting in output directory '''
+        print "    creating collection manifest file for " + srcdir
+        create_manifest(srcdir, format)

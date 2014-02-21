@@ -16,6 +16,8 @@ from hcsvlab_robochef.pixar.ingest import *
 from hcsvlab_robochef.austalk.ingest import *
 from hcsvlab_robochef.rirusyd.ingest import *
 from hcsvlab_robochef.mbep.ingest import *
+from hcsvlab_robochef.jakartan_indonesian.ingest import *
+
 
 
 def main():
@@ -157,6 +159,14 @@ def main():
             mbep.copy_collection_metadata(corpus_basedir, output_dir, "mbep.n3", "mbep.n3")
             mbep.ingestCorpus(corpus_basedir+"mbep", output_dir+"mbep")
             mbep.create_collection_manifest(output_dir + "mbep", "turtle")
+
+        elif c == "jakartan_indonesian":
+            print "converting Jakartan Idonesian"
+            jakartan = JakartanIndonesianIngest()
+            jakartan.setMetaData(corpus_basedir+"jakartan_indonesian/JakartanIndonesian-modified.xlsx")
+            jakartan.copy_collection_metadata(corpus_basedir, output_dir, "jakartan_indonesian.n3", "jakartan_indonesian.n3")
+            jakartan.ingestCorpus(corpus_basedir+"jakartan_indonesian", output_dir+"jakartan_indonesian")
+            jakartan.create_collection_manifest(output_dir + "jakartan_indonesian", "turtle")
 
 if __name__ == "__main__":
     main()

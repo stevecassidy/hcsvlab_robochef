@@ -171,7 +171,7 @@ def knownSpeakerParser(speakers, innerParser):
   """
   def parseInner(data, speaker):
     at = innerParser.parseString(data)[0]
-    at.add_anns([annotation.Annotation('speaker', speaker, 0, len(at.text))])
+    at.add_anns([annotation.Annotation('speaker', '', 0, len(at.text), properties={'speakerid': speaker})])
     return at
 
   speakerToken = Or([Literal(s) for s in speakers]) + Suppress(u":")

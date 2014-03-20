@@ -12,7 +12,7 @@ from hcsvlab_robochef.utils.filehandler import FileHandler
 class RirIngest(IngestBase):
 
     metadata = {}
-    META_DEFAULTS = {'language': 'eng'}
+    META_DEFAULTS = {}
 
     def setMetaData(self, filename):
         """
@@ -26,6 +26,7 @@ class RirIngest(IngestBase):
 
         for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
             sampleid = self.__convert(row[0]).replace(".wav", "")
+
             row_metadata = { 'sampleid': sampleid }
             row_metadata.update(self.META_DEFAULTS)
             for idx in range(1, sheet.ncols):

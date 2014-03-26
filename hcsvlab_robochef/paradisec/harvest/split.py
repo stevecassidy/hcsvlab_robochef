@@ -22,9 +22,14 @@ def main(dom):
 #        write_xml(node)
     for node in dom.getElementsByTagName('record'):
         ident = node.getElementsByTagName('header').item(0).getElementsByTagName('identifier').item(0).firstChild.nodeValue
-        if 'paradisec' in ident:
+        rights = node.getElementsByTagName('dc:rights')[0].firstChild.nodeValue
+
+        # only take paradisec items and those where the rights are 'Open'
+        if 'paradisec' in ident and 'Open' in rights:
             write_xml(node.getElementsByTagName('metadata').item(0))
-        
+        else:
+            print "Rejecting", ident
+
 if __name__ == '__main__':
     if len(argv) == 2:
         dom = parse(open(argv[1]))

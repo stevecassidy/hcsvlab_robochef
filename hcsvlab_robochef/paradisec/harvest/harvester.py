@@ -16,6 +16,7 @@ def oaipmh_response(URL):
 
 # function for getting value of resumptionToken after parsting oai-pmh URL
 def oaipmh_resumptionToken(URL):
+ print "opening", URL
  file = urllib2.urlopen(URL)
  data = file.read()
  file.close()
@@ -51,7 +52,7 @@ def write_xml_file(inputData, outputFile, mode):
 
 # http://catalog.paradisec.org.au/oai/item?verb=ListRecords&metadataPrefix=olac
 
-baseURL = 'http://catalog.paradisec.org.au/oai/item/'
+baseURL = 'http://catalog.paradisec.org.au/oai/item'
 getRecordsURL = str(baseURL+'?verb=ListRecords&metadataPrefix=olac')
  
 # initial parse phase

@@ -84,6 +84,12 @@ class MbepIngest(IngestBase):
         print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
         return None
 
+    def identify_documents(self, documents):
+        # should only be one document, which is the display document
+        if len(documents) == 1:
+            return (None, documents[0]['uri'])
+        return (None, None)
+
     def __serialise(self, outdir, sampleid, source):
         '''
         Function serialises the graphs to disc and returns the object graph to the caller
@@ -96,7 +102,7 @@ class MbepIngest(IngestBase):
             speakerId = self.metadata[sampleid]["Speaker"]
             meta.update(self.speakermetadata[speakerId])
 
-            return serialiser.serialise_single_nontext(sampleid, 'MBEP', source, "Audio", mbepMap, meta, [])
+            return serialiser.serialise_single_nontext(sampleid, 'MBEP', source, "Audio", mbepMap, meta, [], self.identify_documents)
         else:
             print ""
             print "### Error: file '", source, "' with key '", sampleid, "' has no metadata."

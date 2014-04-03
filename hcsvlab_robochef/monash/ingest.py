@@ -161,6 +161,11 @@ class MonashIngest(IngestBase):
     
     return (md['sampleid'], text, body, md, anns)
 
+  def identify_documents(self, documents):
+    for doc in documents:
+      if doc['filetype'] == 'Text':
+        return (doc['uri'], doc['uri'])
+    return (None, None)
 
   def __serialise(self, srcdir, outdir, source_file, basename, name, rawtext, body, meta, annotations):
      '''
@@ -179,7 +184,7 @@ class MonashIngest(IngestBase):
        return serialiser.serialise_multiple(basename, (original_doc, compatriot, ), 'monash', monashMap, meta, annotations)
 
      else:
-       return serialiser.serialise_single(basename, 'monash', rawtext, body, monashMap, meta, annotations, source_file)
+       return serialiser.serialise_single(basename, 'monash', rawtext, body, monashMap, meta, annotations, self.identify_documents, source_file)
          
          
   def __extractAnnotations(self, data, participants):

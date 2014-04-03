@@ -10,6 +10,7 @@ import codecs
 import mimetypes
 import urllib
 import re
+from collections import Counter
 
 class ParadisecIngest(IngestBase):
 
@@ -50,7 +51,7 @@ class ParadisecIngest(IngestBase):
       (sampleid, _) = os.path.splitext(f)
 
       serialiser = MetaSerialiser()
-      serialiser.serialise(outdir, sampleid, paradisecMap, meta_dict, True)
+      serialiser.serialise(outdir, sampleid, paradisecMap, meta_dict, self.identify_documents, True)
     
     
       sofar = sofar + 1
@@ -73,6 +74,31 @@ class ParadisecIngest(IngestBase):
     self.__get_people(meta_dict)
     return meta_dict
 
+  def identify_documents(self, documents):
+    cnt = Counter()
+    display = None
+    indexable = None 
+
+    for doc in documents:
+      cnt[doc['filetype']] += 1
+    if cnt['Video'] == 1:
+      display_type = "Video"
+    elif cnt['Audio'] == 1:
+      display_type = "Audio"
+    elif cnt['Text'] == 1:
+      display_type = "Text"
+    else:
+      display_type = None
+
+    if display_type:
+      for doc in documents:
+        if doc['filetype'] == display_type:
+          display = doc['uri']
+          if display_type == "Text":
+            indexable = doc['uri']
+          break
+
+    return (indexable, display)
 
   def __get_documents(self, meta_dict):
     for k, v in meta_dict:

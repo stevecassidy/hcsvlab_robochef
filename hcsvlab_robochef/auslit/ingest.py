@@ -55,7 +55,7 @@ class AuslitIngest(IngestBase):
       ff = os.path.splitext(os.path.abspath(f))[0]
       
       serialiser = Serialiser(os.path.dirname(ff))
-      serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, auslitMap, meta, annotations, source_file)
+      serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, auslitMap, meta, annotations, self.identify_documents, source_file)
     
       sofar = sofar + 1
       print "\033[2K   ", sofar, "of", total, f, "\033[A"
@@ -93,6 +93,11 @@ class AuslitIngest(IngestBase):
   
     return (text, self.__cleanse_meta(meta), cleansed_text, [])
 
+  def identify_documents(self, documents):
+    for doc in documents:
+      if doc['filetype'] == 'Text':
+        return (doc['uri'], doc['uri'])
+    return (None, None)
 
   def __cleanse_text(self, raw_text):
     '''

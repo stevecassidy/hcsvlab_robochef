@@ -160,7 +160,18 @@ class GriffithIngest(IngestBase):
 
         return result
 
-
+    def identify_documents(self, documents):
+        indexable = None
+        display = None
+        # If audio is present it is the display document, otherwise it is the plain text
+        for doc in documents:
+            if doc.get('filetype') == 'Text':
+                indexable = doc['uri']
+            if doc.get('filetype') == 'Audio':
+                display = doc['uri']
+        if not display:
+            display = indexable
+        return (indexable, display)
 
     def __serialise(self, srcdir, outdir, source_file, name, rawtext, body, meta, anns):
         """
@@ -180,11 +191,11 @@ class GriffithIngest(IngestBase):
                             'sourcepath': source_file}
             compatriot = {'filetype': 'Audio', 'sampleid': meta['sampleid'], 'sourcepath': compatriot}
             return serialiser.serialise_multiple(meta['sampleid'], (original_doc, compatriot, ), 'griffith', griffMap,
-                                                 meta, anns)
+                                                 meta, anns, self.identify_documents)
 
         else:
             return serialiser.serialise_single(meta['sampleid'], 'griffith', rawtext, body, griffMap, meta, anns,
-                                               source_file)
+                                               self.identify_documents, source_file)
 
 
     def __getHeader(self, text):

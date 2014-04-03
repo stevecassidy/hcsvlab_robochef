@@ -254,10 +254,9 @@ class MetadataMapper(FieldMapper):
          
         self.speakerMap = speakerMap
         self.documentMap = documentMap
-        self.docToIndexMap = None
         
     
-    def mapdict(self, metadata):
+    def mapdict(self, metadata, identify_documents):
         '''
         This function takes one metadata dictionary as extracted by the ingest
         module in this package, and returns a rdflib Graph instance.
@@ -269,6 +268,7 @@ class MetadataMapper(FieldMapper):
         itemuri = self.item_uri(metadata['sampleid']) 
         sourceuri = self.item_source_uri(metadata['sampleid'])
         corpusuri = self.corpus_uri()
+        documents = []
      
         for key in metadata.keys():
             if key == 'sampleid':
@@ -286,6 +286,8 @@ class MetadataMapper(FieldMapper):
                 docmeta = metadata[key]
                 # make a document uri
                 docuri = self.document(docmeta, graph)
+                docmeta.update({'uri':docuri})
+                documents.append(docmeta)
                 graph.add((itemuri, AUSNC.document, docuri))  # TODO: what is a document?
                 # add a property recording a URI for the document if
                 # we're given a  DOCUMENT_BASE_URL in the configuration
@@ -295,9 +297,12 @@ class MetadataMapper(FieldMapper):
                     docid = docmeta['filename']
                     docid = urllib.quote(docid)
                     if 'subdir' in metadata:
-                      uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
+                      uri = URIRef(baseuri + self.corpusID.lower() + metadata['subdir'] + docid)
                     else:
-                      uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                      if self.corpusID.lower() == "paradisec":
+                        uri = URIRef(baseuri + self.corpusID.lower() + "/" + docid.split("-")[0] + "/" + docid.split("-")[1] + "/" + docid)
+                      else:
+                        uri = URIRef(baseuri + self.corpusID.lower() + "/" + docid)
                     graph.add((docuri, DC.source, URIRef(uri)))
 
                 
@@ -318,9 +323,14 @@ class MetadataMapper(FieldMapper):
         # we want to say that this item is part of it's corpus
         graph.add((itemuri, DC.isPartOf, corpusuri))
 
+        (indexable_document, display_document) = identify_documents(documents)
+
         # 13/03/2012 SDP: The use of dc:source is not supported as we are using document instead
-        if self.docToIndexMap:
-          graph.add((itemuri, AUSNC.plaintextversion, self.docToIndexMap))
+        if indexable_document:
+          graph.add((itemuri, HCSVLAB.indexable_document, indexable_document))
+
+        if display_document:
+          graph.add((itemuri, HCSVLAB.display_document, display_document))
         
         # graph.add((sourceuri, RDF.type, FOAF.Document))
         # link item to other objects:
@@ -335,9 +345,10 @@ class MetadataMapper(FieldMapper):
         
         return graph
 
-    def map_tuplelist(self, metadata):
+    def map_tuplelist(self, metadata, identify_documents):
         graph = Graph(identifier=self.corpus_uri())
         graph = bind_graph(graph)
+        documents = []
         
         itemuris = [v for k,v in metadata if 'URI' in k]
         
@@ -347,15 +358,20 @@ class MetadataMapper(FieldMapper):
               if k.startswith("table_document"):
                 docmeta = v
                 docuri = self.document(docmeta, graph)
+                docmeta.update({'uri':docuri})
+                documents.append(docmeta)
                 graph.add((itemuri, AUSNC.document, docuri)) 
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
                 if not baseuri == "": 
                     docid = docmeta['filename']
                     docid = urllib.quote(docid)
                     if 'subdir' in metadata:
-                      uri = URIRef(baseuri + self.corpusID + metadata['subdir'] + docid)
+                      uri = URIRef(baseuri + self.corpusID.lower() + metadata['subdir'] + docid)
+                    elif self.corpusID.lower() == "paradisec":
+                      subdir = docid.split("-")[0] + "/" + docid.split("-")[1] + "/"
+                      uri = URIRef(baseuri + self.corpusID.lower() + "/" + subdir + docid)
                     else:
-                      uri = URIRef(baseuri + self.corpusID + "/" + docid)
+                      uri = URIRef(baseuri + self.corpusID.lower() + "/" + docid)
                     graph.add((docuri, DC.source, URIRef(uri))) 
               elif k.startswith("table_person"):
                 speakermeta = v
@@ -369,6 +385,15 @@ class MetadataMapper(FieldMapper):
           corpusuri = self.corpus_uri()
           graph.add((itemuri, RDF.type, AUSNC.AusNCObject))
           graph.add((itemuri, DC.isPartOf, corpusuri))
+
+          (indexable_document, display_document) = identify_documents(documents)
+
+          if indexable_document:
+              graph.add((itemuri, HCSVLAB.indexable_document, indexable_document))
+
+          if display_document:
+              graph.add((itemuri, HCSVLAB.display_document, display_document))
+
           self.update_schema(graph)
         else:
           graph = None
@@ -422,11 +447,5 @@ class MetadataMapper(FieldMapper):
                 for (prop, value) in self.documentMap(key, metadata[key]):
                     if prop:
                         graph.add((uri, prop, value))
-                        
-                        # If the property is document type and the value is "Text" then this is the indexable document
-                        # TODO: This feels like a bit of a hack, is there a better way?
-                        if str(prop) == 'http://purl.org/dc/terms/type' and value == 'Text':
-                          self.docToIndexMap = uri
-                          
 
         return uri

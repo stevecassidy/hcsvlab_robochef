@@ -23,25 +23,25 @@ class Serialiser(object):
         os.makedirs(outdir) 
   
   
-  def serialise_single(self, sampleid, collection_name, rawtext, text, meta_map, meta_dict, ann_dict, source = None):
+  def serialise_single(self, sampleid, collection_name, rawtext, text, meta_map, meta_dict, ann_dict, document_identifier, source = None):
     '''
     This function generates the output files for a single textual source document. This function
     has been left behind for backwards compatibility
     '''
     self.__generate_rawtxt_output(sampleid, collection_name, rawtext, text, meta_map, meta_dict, source)
-    return self.__serialise_dictionaries(sampleid, meta_map, meta_dict, ann_dict)
+    return self.__serialise_dictionaries(sampleid, meta_map, meta_dict, ann_dict, document_identifier)
 
 
-  def serialise_single_nontext(self, sampleid, collection_name, source, tipe, meta_map, meta_dict, ann_dict):
+  def serialise_single_nontext(self, sampleid, collection_name, source, tipe, meta_map, meta_dict, ann_dict, document_identifier):
     '''
     This function generates the output files for a single textual source document. This function
     has been left behind for backwards compatibility (though the name has changed?)
     '''
     self.__generate_nontextual_output(sampleid, collection_name, source, tipe, meta_map, meta_dict)
-    return self.__serialise_dictionaries(sampleid, meta_map, meta_dict, ann_dict)
+    return self.__serialise_dictionaries(sampleid, meta_map, meta_dict, ann_dict, document_identifier)
 
 
-  def serialise_multiple(self, sampleid, source_list, collection_name, meta_map, meta_dict, ann_dict):
+  def serialise_multiple(self, sampleid, source_list, collection_name, meta_map, meta_dict, ann_dict, document_identifier):
     '''
     This function takes the source list of document and a dictionary of meta information and
     annotations and outputs rdf graphs.
@@ -69,7 +69,7 @@ class Serialiser(object):
                                           meta_map, 
                                           new_meta_dict)
 
-    return self.__serialise_dictionaries(sampleid, meta_map, new_meta_dict, ann_dict)
+    return self.__serialise_dictionaries(sampleid, meta_map, new_meta_dict, ann_dict, document_identifier)
 
 
   def __generate_nontextual_output(self, sampleid, collection_name, source, tipe, meta_map, meta_dict):
@@ -177,13 +177,13 @@ class Serialiser(object):
     return sampleid + '#' + tipe
 
 
-  def __serialise_dictionaries(self, sampleid, meta_map, meta_dict, ann_dict):
+  def __serialise_dictionaries(self, sampleid, meta_map, meta_dict, ann_dict, document_identifier):
     ''' 
     This function uses the Meta and Annotation serialiser to produce the RDF documents on disk.
     The serialised graphs are also returned to the caller.
     '''        
     meta_serialiser = MetaSerialiser()
-    meta_graph = meta_serialiser.serialise(self.outdir, sampleid, meta_map, meta_dict)
+    meta_graph = meta_serialiser.serialise(self.outdir, sampleid, meta_map, meta_dict, document_identifier)
 
     ann_serialiser = AnnotationSerialiser()
     ann_graph = ann_serialiser.serialise(self.outdir, sampleid, meta_map, ann_dict)

@@ -24,7 +24,7 @@ class GraphSerialiser(object):
 class MetaSerialiser(GraphSerialiser):
   
   # TODO: can replace the tuplelist param with a check if meta_dict is of type dict or list
-  def serialise(self, outdir, sampleid, meta_map, meta_dict, tuplelist=False): 
+  def serialise(self, outdir, sampleid, meta_map, meta_dict, document_identifier, tuplelist=False): 
     '''
     This function converts a dictionary of meta values to a graph representing such values.
     This graph is then serialised to disk.
@@ -32,9 +32,9 @@ class MetaSerialiser(GraphSerialiser):
     if meta_dict is not None and len(meta_dict) > 0:
       
       if tuplelist:  
-        metadata_graph = meta_map.map_tuplelist(meta_dict)
+        metadata_graph = meta_map.map_tuplelist(meta_dict, document_identifier)
       else:
-        metadata_graph = meta_map.mapdict(meta_dict)
+        metadata_graph = meta_map.mapdict(meta_dict, document_identifier)
 
       if metadata_graph is not None:
         serializer = plugin.get('turtle', Serializer)(metadata_graph)

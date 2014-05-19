@@ -127,6 +127,11 @@ class AvozesIngest(IngestBase):
       print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
       return None
 
+  def identify_documents(self, documents):
+    for doc in documents:
+        if doc.get('filetype') == 'Video':
+            return (None, doc['uri'])
+    return (None, None)
 
   def __serialise(self, outdir, sampleid, module, sequence, speakerid, source_list):
       '''
@@ -138,7 +143,7 @@ class AvozesIngest(IngestBase):
       This function takes the source list of document and a dictionary of meta information and
       annotations and outputs rdf graphs.
       '''
-      return serialiser.serialise_multiple(sampleid, source_list, 'avozes', avozesMap, self.__fileMetadata(sampleid, module, sequence, speakerid, self.speakermetadata), [])
+      return serialiser.serialise_multiple(sampleid, source_list, 'avozes', avozesMap, self.__fileMetadata(sampleid, module, sequence, speakerid, self.speakermetadata), [], self.identify_documents)
 
 
   def __fileMetadata(self, sampleid, module, sequence, speakerid, speakermetadata):

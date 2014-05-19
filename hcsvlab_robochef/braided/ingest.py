@@ -89,17 +89,17 @@ class BraidedIngest(IngestBase):
       
       # Now use these documents to produced the serialised output
       if compatriot_doc is None and original_doc is None:
-        ser.serialise_single(meta['sampleid'], 'braided', raw, body, braidedMap, meta, anns)
+        ser.serialise_single(meta['sampleid'], 'braided', raw, body, braidedMap, meta, anns, self.identify_documents)
         
       else:
         if compatriot_doc is not None and original_doc is not None:
-          ser.serialise_multiple(meta['sampleid'], (original_doc, compatriot_doc, ), 'braided', braidedMap, meta, anns)
+          ser.serialise_multiple(meta['sampleid'], (original_doc, compatriot_doc, ), 'braided', braidedMap, meta, self.identify_documents, anns)
           
         else:
           if original_doc is not None:
-            ser.serialise_single(meta['sampleid'], 'braided', raw, body, braidedMap, meta, anns, transcript_files[0])
+            ser.serialise_single(meta['sampleid'], 'braided', raw, body, braidedMap, meta, anns, self.identify_documents, transcript_files[0])
           else:
-            ser.serialise_multiple(meta['sampleid'], (compatriot_doc, ), 'braided', braidedMap, meta, anns)
+            ser.serialise_multiple(meta['sampleid'], (compatriot_doc, ), 'braided', braidedMap, meta, self.identify_documents, anns)
           
       sofar += 1
       
@@ -151,6 +151,11 @@ class BraidedIngest(IngestBase):
     else:
       return (text, "", meta, "", all_attachments)
   
+  def identify_documents(self, documents):
+    for doc in documents:
+      if doc.get('filetype') == 'Text':
+        return (doc['uri'], doc['uri'])
+    return (None, None)
   
   def speaker_token(self):
     return (Suppress(LineEnd()) + Word(u"ABCDEFGHIJKLMNOPQRSTUVWXYZ")+Suppress(OneOrMore(White(" ")))).leaveWhitespace()

@@ -12,7 +12,7 @@ from hcsvlab_robochef.utils.filehandler import FileHandler
 class RirIngest(IngestBase):
 
     metadata = {}
-    META_DEFAULTS = {'language': 'eng'}
+    META_DEFAULTS = {}
 
     def setMetaData(self, filename):
         """
@@ -26,6 +26,7 @@ class RirIngest(IngestBase):
 
         for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
             sampleid = self.__convert(row[0]).replace(".wav", "")
+
             row_metadata = { 'sampleid': sampleid }
             row_metadata.update(self.META_DEFAULTS)
             for idx in range(1, sheet.ncols):
@@ -68,6 +69,12 @@ class RirIngest(IngestBase):
         print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
         return None
 
+    def identify_documents(self, documents):
+        # should only be one document, which is the display document
+        if len(documents) == 1:
+            return (None, documents[0]['uri'])
+        return (None, None)
+
     def __serialise(self, outdir, sampleid, source):
         '''
         Function serialises the graphs to disc and returns the object graph to the caller
@@ -75,7 +82,7 @@ class RirIngest(IngestBase):
         serialiser = Serialiser(outdir)
 
         if (sampleid in self.metadata):
-            return serialiser.serialise_single_nontext(sampleid, 'RIRUSYD', source, "Audio", rirMap, self.metadata[sampleid], [])
+            return serialiser.serialise_single_nontext(sampleid, 'RIRUSYD', source, "Audio", rirMap, self.metadata[sampleid], [], self.identify_documents)
         else:
             print ""
             print "### Error: file '", source, "' with key '", sampleid, "' has no metadata."

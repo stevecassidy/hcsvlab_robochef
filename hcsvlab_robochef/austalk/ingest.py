@@ -11,7 +11,7 @@ configmanager.configinit()
 FILES_FILE_SUFFIX = "-files"
 DOWNSAMPLED_FILE_SUFFIX = "-ds"
 METADATA_FILE_SUFFIX = "-metadata"
-DOCUMENT_QUERY = """SELECT DISTINCT ?doc
+DOCUMENT_QUERY = """SELECT DISTINCT ?item ?doc
 				   WHERE {
 			   		?item <http://ns.ausnc.org.au/schemas/ausnc_md_model/document> ?doc .
 		   		}"""
@@ -90,7 +90,7 @@ def add_downsampled_document_source(outfile, downsampled_doc):
 	ds_graph.parse(downsampled_doc, format="nt")
 
 	res = ds_graph.query(DOCUMENT_QUERY)
-	write_document_results_to_file(outfile, res)
+	write_document_results_to_file(outfile, res, True)
 
 def add_other_document_sources(outfile, files_metadata):
 	files_graph = Graph()
@@ -99,12 +99,15 @@ def add_other_document_sources(outfile, files_metadata):
 	res = files_graph.query(DOCUMENT_QUERY)
 	write_document_results_to_file(outfile, res)
 
-def write_document_results_to_file(outfile, results):
+def write_document_results_to_file(outfile, results, display=False):
 	g = Graph()
 	for row in results:
-		subject = row[0]
+		item = row[0]
+		document = row[1]
 		predicate = DC.source
-		obj = subject.replace("http://data.austalk.edu.au/", configmanager.get_config("DOCUMENT_BASE_URL") + configmanager.get_config("AUSTALK") + "/")
-		g.add( (subject, predicate, Literal(obj)) )
+		obj = document.replace("http://data.austalk.edu.au/", configmanager.get_config("DOCUMENT_BASE_URL") + configmanager.get_config("AUSTALK") + "/")
+		g.add( (document, predicate, Literal(obj)) )
+		if display:
+			g.add( (item, HCSVLAB.display_document, document) )
 	with open(outfile, "a") as rdf_file:
 		print >> rdf_file, g.serialize(format="nt")

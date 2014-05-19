@@ -36,6 +36,11 @@ class IngestBase(object):
         '''
         return None
 
+    def identify_documents(self, documents):
+        '''
+        Identifies the indexable and display documents from the given documents according to the collection rule
+        '''
+        return (None, None)
 
     def clear_output_dir(self, outdir):
         ''' Clears the output directory '''

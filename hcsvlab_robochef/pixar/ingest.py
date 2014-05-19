@@ -72,13 +72,19 @@ class PixarIngest(IngestBase):
         print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
         return None
 
+    def identify_documents(self, documents):
+        # should only be one document, which is the display document
+        if len(documents) == 1:
+            return (None, documents[0]['uri'])
+        return (None, None)
+
     def __serialise(self, outdir, sampleid, source):
         '''
         Function serialises the graphs to disc and returns the object graph to the caller
         '''
         serialiser = Serialiser(outdir)
 
-        return serialiser.serialise_single_nontext(sampleid, 'pixar', source, "Audio", pixarMap, self.metadata[sampleid], [])
+        return serialiser.serialise_single_nontext(sampleid, 'pixar', source, "Audio", pixarMap, self.metadata[sampleid], [], self.identify_documents)
 
     def __convert(self, cell):
         ''' There are no float values in the Excel sheet. Cut hem here to int before converting to unicode. '''

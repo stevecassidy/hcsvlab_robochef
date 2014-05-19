@@ -549,13 +549,19 @@ class ICEIngest(IngestBase):
     return (meta['sampleid'], text, text, meta, anns)
 
 
+  def identify_documents(self, documents):
+    for doc in documents:
+      if doc['filetype'] == 'Text':
+        return (doc['uri'], doc['uri'])
+    return (None, None)
+
 
   def __serialise(self, outdir, sampleid, body, meta, anns):
     """Write out the various products of ingest to the output
     directory"""
     
     serialiser = Serialiser(outdir)
-    return serialiser.serialise_single(sampleid, 'ice', None, body, iceM, meta, anns)
+    return serialiser.serialise_single(sampleid, 'ice', None, body, iceM, meta, anns, self.identify_documents)
 
 
 

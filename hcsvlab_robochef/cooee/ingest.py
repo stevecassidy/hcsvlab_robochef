@@ -160,6 +160,11 @@ class CooeeIngest(IngestBase):
       # if we get here we've failed to parse the file
       raise Exception("Failed to parse file %s, content '%s'" % (sourcepath, content))
 
+  def identify_documents(self, documents):
+    for doc in documents:
+      if doc['filetype'] == 'Text':
+        return (doc['uri'], doc['uri'])
+    return (None, None)
 
   def __serialise(self, outdir, sampleid, rawtext, body, meta, anns, source_file):
     '''
@@ -167,7 +172,7 @@ class CooeeIngest(IngestBase):
     '''
     serialiser = Serialiser(outdir)
     # note we send None as rawtext here as for COOEE rawtext == source 
-    return serialiser.serialise_single(sampleid, 'cooee', None, body, cooeeMap, meta, anns, source_file)
+    return serialiser.serialise_single(sampleid, 'cooee', None, body, cooeeMap, meta, anns, self.identify_documents, source_file)
 
 
   def __extractAnnotations(self, data):

@@ -89,6 +89,16 @@ class JakartanIndonesianIngest(IngestBase):
         print "Error: calling unsupported operation - ingestDocument(" + sourcepath + ")"
         return None
 
+    def identify_documents(self, documents):
+        indexable = None
+        display = None
+        for doc in documents:
+            if doc.get('filetype') == 'MP3':
+                display = doc['uri']
+            if doc.get('filetype') == 'TXT':
+                indexable = doc['uri']
+        return (indexable, display)
+
     def __serialise(self, outdir, sampleid, source, srcdir):
         '''
         Function serialises the graphs to disc and returns the object graph to the caller
@@ -129,7 +139,7 @@ class JakartanIndonesianIngest(IngestBase):
                     print "### Error:", full_transcript_txt, "Not found"
                     print ""
 
-            return serialiser.serialise_multiple(sampleid, source_list, 'JakartanIndonesian', jakartanIndonesianMap, meta, [])
+            return serialiser.serialise_multiple(sampleid, source_list, 'JakartanIndonesian', jakartanIndonesianMap, meta, [], self.identify_documents)
 
         else:
             print ""

@@ -138,7 +138,7 @@ class ARTIngest(IngestBase):
                         anns.append(ann)
 
                 # Serialise the documents to rdf documents and write the output to disk
-                serialiser.serialise_single(meta['sampleid'], 'art', unicode(rawText), unicode(body), artMapper, meta, anns)
+                serialiser.serialise_single(meta['sampleid'], 'art', unicode(rawText), unicode(body), artMapper, meta, anns, self.identify_documents)
                 
                 print "\033[2K   ", sofar, "of 29", "\033[A"
                 sofar += 1       
@@ -192,7 +192,12 @@ class ARTIngest(IngestBase):
                     
         res = parser.parseString(data)
         return (res[0].text, res[0].anns)
-   
+
+    def identify_documents(self, documents):
+        for doc in documents:
+            if doc['filetype'] == 'Text':
+                return (doc['uri'], doc['uri'])
+        return (None, None)
        
     def __extract_presenter_info(self, sampleid, file_meta, row):
         """ This function interogates the participant information and builds sub-dictionaries which 

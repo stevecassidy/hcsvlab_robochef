@@ -84,7 +84,7 @@ class MDIngest(IngestBase):
     
     (rawtext, meta, body, annotations) = ("", meta_dict, "", [])
     meta['sampleid'] = os.path.splitext(name)[0]
-    metagraph = mdMap.mapdict(meta)
+    metagraph = mdMap.mapdict(meta, self.identify_documents)
   
     # s1, s2 and s3 are read, n is interview
     if sampleid.endswith('n'):
@@ -98,8 +98,15 @@ class MDIngest(IngestBase):
     self.__generate_participant_info(meta)
   
     serialiser = Serialiser(outdir)
-    serialiser.serialise_single_nontext(file_name, 'md', sourcepath, 'Audio', mdMap, meta, anns)
+    serialiser.serialise_single_nontext(file_name, 'md', sourcepath, 'Audio', mdMap, meta, anns, self.identify_documents)
     
+
+  def identify_documents(self, documents):
+    # should only be one document, which is the display document
+    if len(documents) == 1:
+      return (None, documents[0]['uri'])
+    return (None, None)
+
 
   def __generate_participant_info(self, participant):
     '''

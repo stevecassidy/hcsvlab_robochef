@@ -72,10 +72,10 @@ class ACEIngest(IngestBase):
                         if not key.capitalize() in self.filemetadata[meta['sampleid']]:
                             self.filemetadata[meta['sampleid']][key] = value
                     serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, self.filemetadata[meta['sampleid']],
-                                                anns, f)
+                                                anns, self.identify_documents, f)
 
                 else:
-                    serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, meta, anns, f)
+                    serialiser.serialise_single(s, 'ace', rawtext, text, aceMap, meta, anns, self.identify_documents, f)
 
             sofar += 1
             print "\033[2K   ", sofar, "of", total, self.status, "\033[A"
@@ -124,6 +124,11 @@ class ACEIngest(IngestBase):
             res.update(self.__ingestSample(sample))
         return res
 
+    def identify_documents(self, documents):
+        for doc in documents:
+          if doc['filetype'] == 'Text':
+            return (doc['uri'], doc['uri'])
+        return (None, None)
 
     def __ingestSample(self, sample):
         """ Process a single sample from within a corpus document. May be made of subsamples, which are processed independantly. """

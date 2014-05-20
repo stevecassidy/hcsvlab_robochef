@@ -84,6 +84,13 @@ class MDIngest(IngestBase):
     
     (rawtext, meta, body, annotations) = ("", meta_dict, "", [])
     meta['sampleid'] = os.path.splitext(name)[0]
+    
+    sourcefiles = [{'filetype': 'Audio', 'sourcepath': sourcepath}]
+    # locate any TextGrid file and add to documents list
+    tgfile = self.__get_annotation_file_path(name, sourcepath, '.TextGrid')
+    if tgfile != None:
+        sourcefiles.append({'filetype': 'TextGrid', 'sourcepath': tgfile})
+    
     metagraph = mdMap.mapdict(meta, self.identify_documents)
   
     # s1, s2 and s3 are read, n is interview
@@ -98,7 +105,7 @@ class MDIngest(IngestBase):
     self.__generate_participant_info(meta)
   
     serialiser = Serialiser(outdir)
-    serialiser.serialise_single_nontext(file_name, 'md', sourcepath, 'Audio', mdMap, meta, anns, self.identify_documents)
+    serialiser.serialise_multiple(file_name, sourcefiles, 'md', mdMap, meta, anns, self.identify_documents)
     
 
   def identify_documents(self, documents):

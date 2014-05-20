@@ -159,8 +159,10 @@ class Annotation(DictMixin):
           if self[key] != '':
               if key == "speakerid":
                   g.add((annoturi, AUSNC.speakerid, metaMap.speaker_uri(self[key])))
+              elif key == 'val':
+                  g.add((annoturi, DADA.label, Literal(unicode(self[key])))) 
               else:
-                  g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  # need to translate
+                  g.add((annoturi, property_namespace[key], Literal(unicode(self[key]))))  
       
   def locator_rdf(self, locatoruri, graph):
         """Add RDF triples to the graph to represent the locator information

@@ -53,7 +53,7 @@ class AuslitIngest(IngestBase):
         pass
     
       ff = os.path.splitext(os.path.abspath(f))[0]
-      
+
       serialiser = Serialiser(os.path.dirname(ff))
       serialiser.serialise_single(os.path.basename(ff), 'auslit', rawtext, body, auslitMap, meta, annotations, self.identify_documents, source_file)
     
@@ -74,7 +74,8 @@ class AuslitIngest(IngestBase):
       raise Exception("wrong number (" + str(len(meta)) + ") of teiHeader tags")
     
     meta = metadata.xml2dict(meta[0], ignore_root=True)
-    meta['sampleid'] = os.path.basename(sourcepath)
+    ident = os.path.splitext(os.path.basename(sourcepath))[0]
+    meta['sampleid'] = ident
     meta.update(self.META_DEFAULTS)
     
     # Check to see if there is some additional meta data, if so grab some fields from there    

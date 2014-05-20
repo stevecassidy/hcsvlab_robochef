@@ -38,7 +38,7 @@ class MetaSerialiser(GraphSerialiser):
 
       if metadata_graph is not None:
         serializer = plugin.get('turtle', Serializer)(metadata_graph)
-        f = open(os.path.abspath(os.path.join(outdir, sampleid + "-metadata.rdf")), 'w')
+        f = open(os.path.abspath(os.path.join(outdir, sampleid.replace(' ', '_') + "-metadata.rdf")), 'w')
         serializer.serialize(f, encoding='utf-8')
         f.close()
         

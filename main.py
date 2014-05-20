@@ -17,6 +17,7 @@ from hcsvlab_robochef.austalk.ingest import *
 from hcsvlab_robochef.rirusyd.ingest import *
 from hcsvlab_robochef.mbep.ingest import *
 from hcsvlab_robochef.jakartan_indonesian.ingest import *
+from hcsvlab_robochef.llc.ingest import *
 
 
 
@@ -167,6 +168,15 @@ def main():
             jakartan.copy_collection_metadata(corpus_basedir, output_dir, "jakartan_indonesian.n3", "jakartan_indonesian.n3")
             jakartan.ingestCorpus(corpus_basedir+"jakartan_indonesian", output_dir+"jakartan_indonesian")
             jakartan.create_collection_manifest(output_dir + "jakartan_indonesian", "turtle")
+
+        elif c == "llc":
+            print "converting LLC"
+            llc = LLCIngest()
+            llc.setMetaData(corpus_basedir+"LLC/LectureCorpus_OnlineFiles_Mar25 2014.xlsx")
+            llc.copy_collection_metadata(corpus_basedir, output_dir, "llc.n3", "llc.n3")
+            llc.ingestCorpus(corpus_basedir+"LLC", output_dir+"llc")
+            llc.create_collection_manifest(output_dir + "llc", "turtle")
+
 
 if __name__ == "__main__":
     main()

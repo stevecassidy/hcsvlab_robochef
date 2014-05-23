@@ -109,11 +109,12 @@ class MDIngest(IngestBase):
     
 
   def identify_documents(self, documents):
-    # should only be one document, which is the display document
-    if len(documents) == 1:
-      return (None, documents[0]['uri'])
+    # should only be one Audio and one TextGrid document, Audio is the display document
+    for doc in documents:
+      if doc['filetype'] == 'Audio':
+        return (None, doc['uri'])
     return (None, None)
-
+    
 
   def __generate_participant_info(self, participant):
     '''

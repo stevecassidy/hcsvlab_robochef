@@ -90,7 +90,7 @@ class Serialiser(object):
                                                meta_map,
                                                new_meta_dict)
 
-    return self.__serialise_dictionaries(sampleid.replace(' ', '_'), meta_map, new_meta_dict, ann_dict, document_identifier)
+    return self.__serialise_dictionaries(sampleid, meta_map, new_meta_dict, ann_dict, document_identifier)
 
   def __generate_nontextual_output(self, sampleid, collection_name, source, tipe, meta_map, meta_dict):
     '''
@@ -119,7 +119,7 @@ class Serialiser(object):
                                   self.__gen_unique_nontext_document_metadata(tipe, keyname, source))
 
     # Copy the source document to the output folder
-    shutil.copy2(source, os.path.join(self.outdir, keyname.replace(' ', '_')))
+    shutil.copy2(source, os.path.join(self.outdir, keyname))
 
   def __generate_rawtxt_output(self, sampleid, collection_name, rawtext, text, meta_map, meta_dict, source):
     '''

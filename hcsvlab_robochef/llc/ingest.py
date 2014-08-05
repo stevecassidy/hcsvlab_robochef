@@ -27,7 +27,6 @@ class LLCIngest(IngestBase):
             sheet = wb.sheet_by_index(sheet_i)
             tags = map(self.__convert, sheet.row(0))
 
-            print sheet_i , ' has ', sheet.nrows
             for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
                 sampleid = self.__convert(row[0]).strip() # use Recording ID as sampleid, which is what we want as the identifier of the item
                 row_metadata = {'sampleid': sampleid}
@@ -52,10 +51,6 @@ class LLCIngest(IngestBase):
                 self.metadata[(sample_path)] = sampleid
                 count += 1
 
-                print count, sampleid, sample_name, sample_path
-        print len(self.metadata), count
-        print self.metadata.keys()
-
     def ingestCorpus(self, srcdir, outdir):
 
         print "  converting corpus", srcdir, "into normalised data in ", outdir
@@ -66,7 +61,8 @@ class LLCIngest(IngestBase):
         print "    processing files..."
 
         fileHandler = FileHandler()
-        files = fileHandler.getUniqueFiles(srcdir, r'^.+\.(wav|WAV|mp3|MP3|rm|RM|wma|WMA)$')
+        # 3 items in the LLC corpus have transcripts only (no audio), as indicated by Keith Bain
+        files = fileHandler.getUniqueFiles(srcdir, r'^.+\.(wav|WAV|mp3|MP3|rm|RM|wma|WMA)$|^AbnPsycHistandTheoCh4Oct20.xml$|^sip_2010_10_19_1.XML$|^abnpsycspecdisoct13_EML.XML$')
         total = len(files.keys())
         sofar = 0
 
@@ -100,9 +96,7 @@ class LLCIngest(IngestBase):
         Function serialises the graphs to disc and returns the object graph to the caller
         '''
         serialiser = Serialiser(outdir)
-        # print sample_name, source
         sample_path = re.search('/LLC/(.+?)/'+re.escape(sample_name), source).group(1)
-        # print sample_path
 
         if (sample_name, sample_path) in self.metadata:
             sampleid = self.metadata[(sample_name, sample_path)]
@@ -114,17 +108,23 @@ class LLCIngest(IngestBase):
             meta.update(self.metadata[(sampleid)])
 
             source_list = []
-            sampleid_prefix = sampleid + '-'
-            sample_filename = sampleid_prefix + sample_name.replace(' ', '_')
 
-            # handle the 'flat' directory case separately, as they shouldn't do a dir tree walk (just have recording + transcript docs)
-            if sample_path.endswith('Feb_4_2011') or sample_path.endswith('April_2012_Business_Case'):
-                audio = self.metadata[(sampleid)]['Recording']
-                source_list.append({'filetype': 'Audio', 'sourcepath': source, 'keyname': sampleid_prefix + audio})
-                transcript = self.metadata[(sampleid)]['Transcript']
-                filetype = transcript.split('.')[-1].upper()
-                source_list.append({'filetype': filetype, 'sourcepath': os.path.join(os.path.dirname(source), transcript), 'keyname': sampleid_prefix + transcript})
-                return serialiser.serialise_unique_multiple(sample_filename, source_list, 'LLC', llcMap, meta, [], self.identify_documents)
+            if meta['Recording'].lower() == 'no audio':
+                meta['Recording'] = sampleid + ' (No Audio)'
+            else:
+                meta['Recording'] = meta['Recording'].replace(meta['Recording'].split('.')[0], sampleid+'_Audio')
+
+            # handle the 'flat' directories separately, as they shouldn't do a dir tree walk (just have recording + transcript docs)
+            if sample_path.endswith('Feb_4_2011') or sample_path.endswith('April_2012_Business_Case') or \
+                    sample_path.endswith('Stan-Armstrong') or sample_path.endswith('Paul-Erickson') or \
+                    sample_path.endswith('John-Bechtold') or sample_path.endswith('Mike-Wald'):
+                sampleid = self.metadata[(sampleid)]['Recording ID']
+                source_list.append({'filetype': 'Audio', 'sourcepath': source, 'keyname': meta['Recording']})
+                transcript = meta['Transcript']
+                transcript_keyname = transcript.replace(transcript.split('.')[0], sampleid+'_Transcript')
+                source_list.append({'filetype': transcript.split('.')[-1].upper(), 'sourcepath': os.path.join(os.path.dirname(source), transcript), 'keyname': transcript_keyname})
+                meta['Transcript'] = transcript_keyname
+                return serialiser.serialise_unique_multiple(sampleid, source_list, 'LLC', llcMap, meta, [], self.identify_documents)
 
             current_dir = os.path.join(srcdir, self.metadata[(sampleid)]['Root Directory'], self.metadata[(sampleid)]['Folder'])
             for (path, dirs, files) in os.walk(current_dir):
@@ -133,23 +133,26 @@ class LLCIngest(IngestBase):
                     source_path = os.path.join(path, filename)
                     if filename == "raw.txt":
                         filetype = 'Raw'
-                        keyname = sample_name + accuracy + filename
+                        keyname = accuracy + filename
                     elif filename == "ed.txt":
                         filetype = 'TXT'
-                        keyname = sample_name + accuracy + filename
+                        keyname = accuracy + filename
                     elif filename == "raw.cmp":
                         filetype = 'CMP'
-                        keyname = sample_name + accuracy + filename
+                        keyname = accuracy + filename
                     elif filename.lower().endswith('.wav') or filename.lower().endswith('.mp3') or filename.lower().endswith('.rm') or filename.lower().endswith('.wma'):
                         filetype = 'Audio'
-                        keyname = filename
+                        keyname = '_Audio.' + filename.split('.')[-1].upper()
                     else:
                         filetype = filename.split('.')[-1].upper()
-                        keyname = filename
+                        if filename.lower() == meta['Transcript'].lower():
+                            keyname = '_Transcript.' + filetype
+                        else:
+                            keyname = '.' + filetype
 
-                    source_list.append({'filetype': filetype, 'sourcepath': source_path, 'keyname': sampleid_prefix + keyname})
-                    print current_dir, filename
-            return serialiser.serialise_unique_multiple(sample_filename, source_list, 'LLC', llcMap, meta, [], self.identify_documents)
+                    source_list.append({'filetype': filetype, 'sourcepath': source_path, 'keyname': sampleid + keyname})
+            meta['Transcript'] = meta['Transcript'].replace(meta['Transcript'].split('.')[0], sampleid+'_Transcript')
+            return serialiser.serialise_unique_multiple(sampleid, source_list, 'LLC', llcMap, meta, [], self.identify_documents)
         else:
             print ""
             print "### Error: file '", source, "' with key '", sample_name, sampleid, "' has no metadata."

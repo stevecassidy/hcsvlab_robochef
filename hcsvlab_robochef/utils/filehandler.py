@@ -38,6 +38,25 @@ class FileHandler(object):
         
     # We are done
     return returnList
+
+  def getUniqueFiles(self, path, inclusionPredicate = r'\w+\.rdf', exclusionPredicate = r'\w+-raw\.txt'):
+    '''
+    Returns files with the provided extension from the top level directory specified by the path. It
+    also excludes any file whos name matches the exclusion predicate passed in the last parameter.
+    '''
+
+    returnList = {}
+
+    for root, dirs, files in os.walk(path, topdown = True):
+      # We ignore directories and only look at files
+
+      for name in files:
+        # When files can have the same given name, but can still be uniquely identified by their paths
+        if self.isMatch(name, inclusionPredicate, exclusionPredicate):
+          returnList[(name, root)] = os.path.join(root, name)
+
+    # We are done
+    return returnList
  
     
   def isMatch(self, fileName, inclusionPredicate, exclusionPredicate):

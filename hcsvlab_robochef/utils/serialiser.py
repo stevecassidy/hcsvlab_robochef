@@ -62,7 +62,7 @@ class Serialiser(object):
                                       new_meta_dict, 
                                       source['sourcepath'])
       else:
-        self.__generate_nontextual_output(sampleid, 
+        self.__generate_nontextual_output(sampleid,
                                           collection_name, 
                                           source['sourcepath'], 
                                           source['filetype'], 
@@ -71,6 +71,26 @@ class Serialiser(object):
 
     return self.__serialise_dictionaries(sampleid, meta_map, new_meta_dict, ann_dict, document_identifier)
 
+  def serialise_unique_multiple(self, sampleid, source_list, collection_name, meta_map, meta_dict, ann_dict, document_identifier):
+    '''
+    For LLC corpus
+    This function takes the source list of document and a dictionary of meta information and
+    annotations and outputs rdf graphs.
+    '''
+    # We make a copy because we do not want the original to be modified
+    new_meta_dict = meta_dict.copy()
+
+    for source in source_list:
+      # For each output source in a list generate the corresponding output, after which
+      # generate the meta graphs and annotation graphs
+      self.__generate_unique_nontextual_output(source['keyname'],
+                                               collection_name,
+                                               source['sourcepath'],
+                                               source['filetype'],
+                                               meta_map,
+                                               new_meta_dict)
+
+    return self.__serialise_dictionaries(sampleid, meta_map, new_meta_dict, ann_dict, document_identifier)
 
   def __generate_nontextual_output(self, sampleid, collection_name, source, tipe, meta_map, meta_dict):
     '''
@@ -78,7 +98,7 @@ class Serialiser(object):
     '''
     # Add source stats    
     key = 'table_document_' + sampleid + '#' + tipe
-      
+
     meta_dict = add_to_dictionary(key,
                                   meta_dict,
                                   self.__gen_nontext_document_metadata(tipe, sampleid, source))
@@ -86,6 +106,20 @@ class Serialiser(object):
     # Copy the source document to the output folder
     shutil.copy2(source, self.outdir)
 
+  def __generate_unique_nontextual_output(self, keyname, collection_name, source, tipe, meta_map, meta_dict):
+    '''
+    For LLC corpus
+    If we are dealing with non-textual data then copy the required data over generating the meta information
+    '''
+    # Add source stats
+    key = 'table_document_' + keyname
+
+    meta_dict = add_to_dictionary(key,
+                                  meta_dict,
+                                  self.__gen_unique_nontext_document_metadata(tipe, keyname, source))
+
+    # Copy the source document to the output folder
+    shutil.copy2(source, os.path.join(self.outdir, keyname))
 
   def __generate_rawtxt_output(self, sampleid, collection_name, rawtext, text, meta_map, meta_dict, source):
     '''
@@ -150,6 +184,21 @@ class Serialiser(object):
       'filename': os.path.basename(source)
     }
 
+  def __gen_unique_nontext_document_metadata(self, tipe, sampleid, source):
+    '''
+    For LLC corpus
+    Function adds document level meta data to the dictionary
+    '''
+    stats = Statistics()
+
+    sampleid = sampleid.replace(' ', '_')
+    return {
+      'filetype': tipe,
+      'id' : self.__get_title(sampleid, tipe),
+      'documenttitle': self.__get_title(sampleid, tipe),
+      'filesize': stats.get_file_stats(source),
+      'filename': sampleid
+    }
 
   def __gen_text_document_metadata(self, sampleid, tipe, rawtext):
     ''' Function adds document level meta data to the dictionary '''

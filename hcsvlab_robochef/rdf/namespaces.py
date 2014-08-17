@@ -61,9 +61,15 @@ def bind_graph(graph):
 
 def corpus_property_namespace(corpusID):
     """Return a namespace object suitable for use
-    in generating new property names for this corpus"""
+    in generating new property names for this corpus
+    also adds this to the global NAMESPACES list that is bound
+    to the graph for output"""
     
-    return Namespace(SCHEMA[corpusID.lower()+"/"])
+    global NAMESPACES
+    
+    ns = Namespace(SCHEMA[corpusID.lower()+"/"])
+    NAMESPACES[corpusID.lower()] = ns
+    return ns
 
 
 def corpus_prefix_namespace(corpusID):

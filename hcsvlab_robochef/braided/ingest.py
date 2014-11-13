@@ -93,13 +93,13 @@ class BraidedIngest(IngestBase):
         
       else:
         if compatriot_doc is not None and original_doc is not None:
-          ser.serialise_multiple(meta['sampleid'], (original_doc, compatriot_doc, ), 'braided', braidedMap, meta, self.identify_documents, anns)
+          ser.serialise_multiple(meta['sampleid'], (original_doc, compatriot_doc, ), 'braided', braidedMap, meta, anns, self.identify_documents)
           
         else:
           if original_doc is not None:
             ser.serialise_single(meta['sampleid'], 'braided', raw, body, braidedMap, meta, anns, self.identify_documents, transcript_files[0])
           else:
-            ser.serialise_multiple(meta['sampleid'], (compatriot_doc, ), 'braided', braidedMap, meta, self.identify_documents, anns)
+            ser.serialise_multiple(meta['sampleid'], (compatriot_doc, ), 'braided', braidedMap, meta, anns, self.identify_documents)
           
       sofar += 1
       

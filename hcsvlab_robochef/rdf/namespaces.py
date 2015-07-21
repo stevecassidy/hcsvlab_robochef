@@ -1,5 +1,9 @@
 from rdflib import Namespace
 
+from hcsvlab_robochef import configmanager
+configmanager.configinit()
+
+
 # Define namespaces
 RDF = Namespace(u"http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 RDFS = Namespace(u"http://www.w3.org/2000/01/rdf-schema#")
@@ -28,7 +32,9 @@ SCHEMA = Namespace(u"http://ns.ausnc.org.au/schemas/")
 AUSNC = Namespace(SCHEMA[u"ausnc_md_model/"])
 
 # corpus is used as a prefix for all corpus items
-CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
+#CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
+CORPUS = Namespace(configmanager.get_config("CORPUS_BASE_URL"))
+
 
 # annotation namespaces
 ANNOTATION = Namespace(SCHEMA[u'annotation/'])

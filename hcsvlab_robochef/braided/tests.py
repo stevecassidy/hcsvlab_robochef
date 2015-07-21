@@ -1,6 +1,9 @@
 from hcsvlab_robochef.braided.ingest import *
 from hcsvlab_robochef.braided import ingest
 import unittest
+import rdflib
+
+SPKR = rdflib.term.URIRef(u'http://ns.ausnc.org.au/schemas/annotation/ice/speaker')
 
 def unittests():
   #res = doctest.DocTestSuite(ingest)
@@ -10,7 +13,7 @@ def unittests():
 
 
 class UnitTest(unittest.TestCase):
-  
+
   def setUp(self):
       self.braided = BraidedIngest()
 
@@ -27,7 +30,7 @@ class UnitTest(unittest.TestCase):
       self.assertEqual(res["infile_date"], "22 July 1987")
       self.assertEqual(res["infile_notes"], "many notes see, more notes another")
       self.assertEqual(res["body"], "bodytext")
-      
+
   def test1ca050MetaData(self):
       meta = """INTERVIEW WITH JUNE JACKSON
                          5 June 2000
@@ -41,14 +44,14 @@ class UnitTest(unittest.TestCase):
       self.assertEqual(res["infile_title"], "INTERVIEW WITH JUNE JACKSON")
       self.assertEqual(res["infile_date"], "5 June 2000")
       self.assertEqual(res["infile_notes"], "Updated 04/01/10 Timecode from Tape 16_BC_DV Topics in Bold")
-      
+
   def test0bb92MetaData(self):
       meta = """                     INTERVIEW WITH GLADYS CROSS
                                            22 June 2000
                                         Refers to tape 56_BVC_SP
                                               Topics in Bold
                                          TF = Trish GC = Gladys
-	     
+
 	     bodytext
              """
       res = self.braided.parseFile(meta)
@@ -74,15 +77,15 @@ class UnitTest(unittest.TestCase):
   def testSimpleAnnotation(self):
       at = self.braided.parse_annotations("I  This is Tape 16 ")
       self.assertEqual(at[0].text, "This is Tape 16")
-   
+
   def testMoreComplexAnnotations(self):
       at = self.braided.parse_annotations("I  This is Tape 16\n\nR  And this is something else")
       self.assertEqual(at[0].text, "This is Tape 16\n\nAnd this is something else")
-      self.assertEqual(at[0].anns[0].tipe, "speaker")
+      self.assertEqual(at[0].anns[0].tipe, SPKR)
       self.assertEqual(at[0].anns[0]["val"], "I")
       self.assertEqual(at[0].anns[0].start, 0)
       self.assertEqual(at[0].anns[0].end, 16)
-      self.assertEqual(at[0].anns[1].tipe, "speaker")
+      self.assertEqual(at[0].anns[1].tipe, SPKR)
       self.assertEqual(at[0].anns[1]["val"], "R")
       self.assertEqual(at[0].anns[1].start, 17)
       self.assertEqual(at[0].anns[1].end, 43)
@@ -98,13 +101,13 @@ I   This is Tape 16 of camera tape, still on DAT Tape 8, and the DAT time
                 code is 24.44, 5 June 2000, Trish FitzSimons on sound, Erica Addis on
                 camera, interviewing June Jackson in the Boulia Post Office and this is
                 the second tape of June's interview.
-            
+
                 TAPE 16_BC_DV
-            
+
                 So we were talking about your great-grandmother in Charters Towers. Just
                 quickly sketch in your life for me in Charters Towers and then we'll get you
                 back to the Channel Country.
-            
+
 R   Education
                 00:01:14:10    I attended a State School in Charters Towers, then we went to
                 high school at a boarding school in Townsville, came back to Charters
@@ -112,7 +115,7 @@ R   Education
                 on my way to the Territory to governess when I found out that the lady
                 whose children I was going to teach, she had died of leukaemia, so I then
                 stayed here with my Mum and sister instead of travelling on.
-            
+
 I   So in governessing, how did you view your future? Like, what were your
                 dreams as a young woman?
             """
@@ -120,24 +123,36 @@ I   So in governessing, how did you view your future? Like, what were your
       at = self.braided.parse_annotations(parts["body"])
 
       self.assertEqual(at[0].text[:12], "This is Tape")
-      
+
+
       # first speaker
       self.assertEqual(at[0].anns[0].start, 0)
-      self.assertEqual(at[0].anns[0].tipe, "speaker")
+      self.assertEqual(at[0].anns[0].tipe, SPKR)
       self.assertEqual(at[0].anns[0]["val"], "I")
-      self.assertEqual(at[0].anns[0].end, 592)
+      turn = at[0].text[at[0].anns[0].start:at[0].anns[0].end]
+      self.assertEqual(turn[:12], "This is Tape")
+      self.assertEqual(turn[-12:], "el Country.\n")
+      self.assertEqual(at[0].anns[0].end, 556)
 
       # second speaker
-      self.assertEqual(at[0].anns[1].start, 593)
-      self.assertEqual(at[0].anns[1].tipe, "speaker")
+      self.assertEqual(at[0].anns[1].start, 557)
+      self.assertEqual(at[0].anns[1].tipe, SPKR)
       self.assertEqual(at[0].anns[1]["val"], "R")
-      self.assertEqual(at[0].anns[1].end, 1140)
+      turn = at[0].text[at[0].anns[1].start:at[0].anns[1].end]
+      self.assertEqual(turn[:12], "Education\n  ")
+      self.assertEqual(turn[-12:], "velling on.\n")
+      self.assertEqual(at[0].anns[1].end, 1092)
+
 
       # third speaker
-      self.assertEqual(at[0].anns[2].start, 1141)
-      self.assertEqual(at[0].anns[2].tipe, "speaker")
+      self.assertEqual(at[0].anns[2].start, 1093)
+      self.assertEqual(at[0].anns[2].tipe, SPKR)
       self.assertEqual(at[0].anns[2]["val"], "I")
-      self.assertEqual(at[0].anns[2].end, 1252)
+      turn = at[0].text[at[0].anns[2].start:at[0].anns[2].end]
+      self.assertEqual(turn[:12], "So in govern")
+      self.assertEqual(turn[-12:], "young woman?")
+
+      self.assertEqual(at[0].anns[2].end, 1204)
 
   def testfd96cc22Annotations(self):
       raw = """I  Okay, so the time code is 33 seconds, it's now 3945 here. This is Tape 11 camera.
@@ -264,3 +279,8 @@ JH   Are you going to be sitting back?
 
     at = self.braided.parse_annotations(parts["body"])
     self.assertEqual(at[0].text[:5], "We're")
+
+
+if __name__=='__main__':
+
+    unittest.main()

@@ -23,21 +23,21 @@ class UnitTest(unittest.TestCase):
   def test_meta_extract(self):
      # We do not assert anything here, we call this to make sure it runs and does not fall over
     self.griffith.setMetaData(self.corpus_basedir + "griffith/metadata")
-  
-  
+
+
   def testPossibleLine(self):
 	  res = self.griffith._GriffithIngest__possibleLine().parseString("91 hi\n")[0]
 	  self.assertEqual(res, " hi")
-	  
+
 	  res = self.griffith._GriffithIngest__possibleLine().parseString("91 \n")[0]
 	  self.assertEqual(res, " ")
-	
-	
+
+
   def testSimpleAnnotation(self):
     res = self.griffith._GriffithIngest__markupParser().parseString("hi:there")[0]
     self.assertEqual(res.text, "hithere")
     self.assertEqual(res.anns, [Annotation("elongation", "", 2, 2)])
-    
+
     res = self.griffith._GriffithIngest__markupParser().parseString("what(.)the")[0]
     self.assertEqual(res.text, "what the")
     self.assertEqual(res.anns, [Annotation("micropause", "", 4, 5)])
@@ -60,22 +60,22 @@ class UnitTest(unittest.TestCase):
     self.assertEqual(res.text, "hi there chap")
     self.assertEqual(res.anns, [Annotation("pause", "1.3", 2, 3),Annotation("elongation", "", 3, 3), Annotation("micropause", "", 8, 9),Annotation("elongation", "", 9, 9),Annotation("elongation", "", 9, 9),Annotation("elongation", "", 10, 10)])
 
-    
+
   def testNestedAnnotations(self):
     res = self.griffith._GriffithIngest__markupParser().parseString("what >the fast >really fast<<")[0]
     self.assertEqual(res.text, "what the fast really fast")
     self.assertEqual(res.anns, [Annotation("speed", "compressed", 14, 25), Annotation("speed", "compressed", 5, 25)])
 
-  
+
   def testSpeakerParser(self):
     res = self.griffith._GriffithIngest__ourSpeakerParser().parseString("J: Hi there")[0]
     self.assertEqual(res.text, "Hi there")
     self.assertEqual(res.anns, [Annotation("speaker", "J", 0, 8)])
-    
+
     res = self.griffith._GriffithIngest__ourSpeakerParser().parseString("J: Hi there\nK: Hello")[0]
     self.assertEqual(res.text, "Hi there\nHello")
     self.assertEqual(res.anns, [Annotation("speaker", "J", 0, 8), Annotation("speaker", "K", 9,14)])
-    
+
     res = self.griffith._GriffithIngest__ourSpeakerParser().parseString("        J:    Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation?")[0]
     self.assertEqual(res.text, "Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation")
     self.assertEqual(res.anns, [Annotation("intonation", "rising", 82, 82), Annotation("speaker", "J", 0, 82)])
@@ -83,7 +83,7 @@ class UnitTest(unittest.TestCase):
     res = self.griffith._GriffithIngest__ourSpeakerParser().parseString("        J:    Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation?            (.)")[0]
     self.assertEqual(res.text, "Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation ")
     self.assertEqual(res.anns, [Annotation("intonation", "rising", 82, 82),Annotation("micropause", "", 82, 83), Annotation("speaker", "J", 0, 83)])
-  
+
     body, anns = self.griffith._GriffithIngest__extractAnnotations("        J:    Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation?            (.)")
     self.assertEqual(body, "Nicky are you coming to uni on\n          Monday to listen to Jacqui's presentation ")
     self.assertEqual(anns, [Annotation("intonation", "rising", 82, 82),Annotation("micropause", "", 82, 83), Annotation("speaker", "J", 0, 83)])
@@ -91,7 +91,7 @@ class UnitTest(unittest.TestCase):
 
   def testSpeakerParserWithTurnPreceededWithPipe(self):
     body, anns = self.griffith._GriffithIngest__extractAnnotations("|J: Hi there")
-    
+
     self.assertEqual(body, "Hi there")
     self.assertEqual(anns, [Annotation("speaker", "J", 0, 8)])
 
@@ -101,26 +101,26 @@ class UnitTest(unittest.TestCase):
 
      self.assertEqual(body, "Hi there")
      self.assertEqual(anns, [Annotation("speaker", "J", 0, 8)])
-       
-  
-  def testOneParticularDocumentGCSAusE22(self):  
+
+
+  def testOneParticularDocumentGCSAusE22(self):
     (text, body, meta, anns) = self.griffith.ingestDocument(self.corpus_basedir + 'griffith/GCSAusE22.doc')
     self.assertEqual(anns[0], Annotation("elongation", "", 1, 1))
-  
+
     (meta_graph, ann_graph) = self.griffith._GriffithIngest__serialise(self.corpus_basedir + 'griffith/',
                                                                        '/tmp', self.corpus_basedir + 'griffith/GCSAusE22.doc',
                                                                        'GCSAusE22.doc', text, body, meta, anns)
-  
+
     root_id = griffMap.item_uri(meta['sampleid'])
-    
+
     # Assert that the root sample as a title which is mandatory
-    self.assertTrue((root_id, DC.title, Literal("GCSAusE22")) in meta_graph)   
-    
-  
+    self.assertTrue((root_id, DC.title, Literal("GCSAusE22")) in meta_graph)
+
+
   def testOneParticularDocumentGCSAusE01(self):
-    
+
     (text, body, meta, anns) = self.griffith.ingestDocument(self.corpus_basedir + 'griffith/GCSAusE01.doc')
-    
+
     # Has 2 participants only
     self.assertTrue(meta.has_key('table_person_Participant_1'))
     self.assertTrue(meta.has_key('table_person_Participant_2'))
@@ -129,10 +129,10 @@ class UnitTest(unittest.TestCase):
     # Is comprised of two documents one Text, the other Audio
     self.assertTrue(meta.has_key('table_document_GCSAusE01#Text'))
     self.assertFalse(meta.has_key('table_document_GCSAusE01#Audio'))
-    
+
     self.assertTrue(meta['table_document_GCSAusE01#Text'].has_key('Title'))
-       
-       
+
+
   def testFullData(self):
     data = """
     Transcript Coversheet
@@ -165,11 +165,11 @@ class UnitTest(unittest.TestCase):
     2            Monday to listen to Jacqui's presentation?
     3            (.)
     """
-    
+
     topTable = self.griffith.parseTopTable(data)['topTable']
     body = self.griffith.parseBody(data)["body"]
-    
-    body, anns = self.griffith._GriffithIngest__extractAnnotations(body)    
+
+    body, anns = self.griffith._GriffithIngest__extractAnnotations(body)
     self.assertEqual(body, "Nicky are you coming to uni on\n            Monday to listen to Jacqui's presentation ")
     self.assertEqual(anns, [Annotation("intonation", "rising", 84, 84),Annotation("micropause", "", 84, 85), Annotation("speaker", "J", 0, 85)])
     self.assertEqual(topTable["Title"], "GCSAusE18")
@@ -178,13 +178,13 @@ class UnitTest(unittest.TestCase):
     self.assertEqual(topTable["Length of recording"], "8 minutes 0 seconds")
     self.assertEqual(topTable["Transcribers"], "Jessica Park (April 2009) Yasuhisa Watanabe (June 2009)")
     self.assertEqual(topTable["last modified"], "")
-    
-    dataPlus = data + u"""4	N:	Ye:s I will be here, (0.8) u:m and that will 
+
+    dataPlus = data + u"""4	N:	Ye:s I will be here, (0.8) u:m and that will
       5		also be good too cause I've got this other
-      6		assignment,\xb0 oh >did I-\xb0 < I told you about that 
+      6		assignment,\xb0 oh >did I-\xb0 < I told you about that
       7		didn't I,=the one (.) fo:r (0.3) u:m
       """
-    
+
     topTable = self.griffith.parseTopTable(dataPlus)['topTable']
     body = self.griffith.parseBody(dataPlus)["body"]
     body, anns = self.griffith._GriffithIngest__extractAnnotations(body)
@@ -218,27 +218,34 @@ class UnitTest(unittest.TestCase):
     |Date transcription    |7 October 2009                              |
     |last modified         |                                            |
     |Creator               |Michael Haugh                               |
-    
-    
+
+
     |1   |J:       |mmm um: (1.5) are you superstitious?                       |
     |2   |         |(3.0)                                                      |
     |3   |C:       |yes and no:. there’s a >bloo:dy bird<                      |
     |4   |         |(hh)ther(hh)e.                                             |
     """, errors='ignore')
-    
+
     topTable = self.griffith.parseTopTable(data)['topTable']
     body = self.griffith.parseBody(data)["body"]
-    
-    body, anns = self.griffith._GriffithIngest__extractAnnotations(body)    
+
+    body, anns = self.griffith._GriffithIngest__extractAnnotations(body)
     self.assertEqual(body, u'mmm um  are you superstitious \nyes and no theres a bloody bird                      \n            hhtherhhe')
 
   def testGCSAusE18(self):
-    raw = u"""N:	so it's the whole course (.) that's 
+    raw = u"""N:	so it's the whole course (.) that's
         in the same boat=
-	=so [she] doesn't (.) have to and it's her- 
+	=so [she] doesn't (.) have to and it's her-
 J:	    [yeah]
 N:	she [is the convenor (0.5) so:
 J:	     [yeah
           """
     body, at =  self.griffith._GriffithIngest__extractAnnotations(raw)
     self.assertEqual(body, u"so it's the whole course   that's \n        in the same boat\n        so she doesn't   have to and it's her-\nyeah\nshe is the convenor   so\nyeah")
+
+
+
+
+if __name__=='__main__':
+
+    unittest.main()

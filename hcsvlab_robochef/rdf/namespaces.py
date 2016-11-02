@@ -110,12 +110,12 @@ def corpus_speaker_uri(corpusID, speakerID):
 
     return  corpus_prefix_namespace(corpusID)["/person/"+speakerID]
 
-def corpus_source_uri(corpusID, sourceID):
+def corpus_source_uri(corpusID, itemID, sourceID):
     """Generate a URI for the source data of this item"""
 
     # replace spaces in the filename with _
     sourceID = sourceID.replace(' ', '_')
-    return corpus_prefix_namespace(corpusID)["/document/"+sourceID]
+    return corpus_prefix_namespace(corpusID)["/"+itemID+"/document/"+sourceID]
 
 
 def corpus_annotation_uri(corpusID, annotID):

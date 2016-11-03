@@ -14,7 +14,7 @@ from hcsvlab_robochef.utils.statistics import *
 
 
 class AvozesIngest(IngestBase):
-  
+
   status = ""
   filemetadata = {}
   speakermetadata = {}
@@ -22,7 +22,7 @@ class AvozesIngest(IngestBase):
       'created':  'August 2000',
       'language': 'eng',
   }
-  conversions = { # The conversion calculator would get these wrong, so we cache the correct answers 
+  conversions = { # The conversion calculator would get these wrong, so we cache the correct answers
       'CVCWords': u'CVC Words',
       'VCVWords': u'VCV Words'
   }
@@ -52,7 +52,7 @@ class AvozesIngest(IngestBase):
 
       print "  converting corpus", srcdir, "into normalised data in ", outdir
       print "    clearing and creating output location"
-      
+
       self.clear_output_dir(outdir)
 
       print "    processing files..."
@@ -128,8 +128,13 @@ class AvozesIngest(IngestBase):
       return None
 
   def identify_documents(self, documents):
+      """Return a tuple of (indexable_document, display_document) for this
+      item, each should be None if there is no relevant document
+
+      For avozes, display doc is the audio (video is not web ready)"""
+
     for doc in documents:
-        if doc.get('filetype') == 'Video':
+        if doc.get('filetype') == 'Audio':
             return (None, doc['uri'])
     return (None, None)
 
@@ -138,7 +143,7 @@ class AvozesIngest(IngestBase):
       Function serialises the graphs to disc and returns the object graph to the caller
       '''
       serialiser = Serialiser(outdir)
-  
+
       '''
       This function takes the source list of document and a dictionary of meta information and
       annotations and outputs rdf graphs.

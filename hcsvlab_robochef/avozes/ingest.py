@@ -133,10 +133,10 @@ class AvozesIngest(IngestBase):
 
       For avozes, display doc is the audio (video is not web ready)"""
 
-    for doc in documents:
-        if doc.get('filetype') == 'Audio':
-            return (None, doc['uri'])
-    return (None, None)
+      for doc in documents:
+          if doc.get('filetype') == 'Audio':
+              return (None, doc['uri'])
+      return (None, None)
 
   def __serialise(self, outdir, sampleid, module, sequence, speakerid, source_list):
       '''

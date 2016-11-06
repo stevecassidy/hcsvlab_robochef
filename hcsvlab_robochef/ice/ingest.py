@@ -15,61 +15,61 @@ from hcsvlab_robochef.rdf.map import FieldMapper
 
 from rdf import iceM
 from xml.etree import ElementTree
-  
+
 class ICEIngest(IngestBase):
-  
+
   filemetadata = {}
   book_date_mode = 0
   META_DEFAULTS = {'language': 'eng'}
 
 
-  def ingest(self, corpus_basedir, output_dir): 
-     """Perform the ingest process for this corpus"""    
-      
+  def ingest(self, corpus_basedir, output_dir):
+     """Perform the ingest process for this corpus"""
+
      self.setWrittenMetaData(os.path.join(corpus_basedir, "metadata"))
      self.setMetaData(os.path.join(corpus_basedir, "metadata"))
      self.ingestCorpus(os.path.join(corpus_basedir, "standoff"), output_dir)
-            
-     
+
+
   def setWrittenMetaData(self, dirpath):
     """ This method extracts the meta data for the written corpora for the ICE collections """
 
     # Initialise locally used vars
     rst = []
     utils.listFiles(rst, dirpath, False)
-    new_group = True  # This boolean is used to mark the start of a new title in the written Meta file  
+    new_group = True  # This boolean is used to mark the start of a new title in the written Meta file
     group_ids = ()
     meta_publisher = {}
-  
+
     # Open written workbook and extract meta data
     wb = xlrd.open_workbook(os.path.join(dirpath, "ICE-catalogue.xls"))
     self.book_date_mode = wb.datemode
-  
+
     # TODO: This looks a bit nasty. The problem is the spreadsheet has so many empty fields.
     common_row_defn = (u'ignore',u'table_subtitle',u'table_date_of_publication',u'ignore',u'table_author')
-    common_publisher_defn = self.__gen_ignores(1) + (u'table_publisher',)  
-  
+    common_publisher_defn = self.__gen_ignores(1) + (u'table_publisher',)
+
     w1a_header = (u'ignore', u'table_genre_subject', u'ignore', u'table_wordcount')
     w1a_row = (u'ignore', u'table_subtitle')
-  
+
     w1b_header = (u'ignore', u'table_letter_genre', u'table_date_of_publication', u'table_wordcount')
     w1b_row = (u'ignore', u'table_subtitle')
-  
+
     w2a_header = (u'ignore', u'table_source_title', u'table_date_of_publication', u'table_wordcount')
     w2b_header = w2a_header
     w2c_header = (u'ignore', u'table_source_title', u'ignore', u'table_wordcount')
-  
+
     w2d_header = w2c_header
     w2d_row = (u'ignore', u'table_subtitle', u'table_date_of_publication', u'table_wordcount', u'table_author')
-  
+
     w2e_header = self.__gen_ignores(9) + (u'table_source',) + self.__gen_ignores(213) + (u'table_wordcount',)
     w2e_row = self.__gen_ignores(8) + (u'table_source', u'table_subtitle',) + self.__gen_ignores(17) + (u'table_date_of_publication',)
-    w2e_publisher_defn = self.__gen_ignores(9) + (u'table_publisher',) 
-  
+    w2e_publisher_defn = self.__gen_ignores(9) + (u'table_publisher',)
+
     w2f_header = self.__gen_ignores(8) + (u'table_source',) + self.__gen_ignores(67) + (u'table_date_of_publication',) + (u'table_wordcount',)
     w2f_row = self.__gen_ignores(3) + (u'table_wordcount',) + self.__gen_ignores(3) + (u'table_source', u'table_subtitle',) + self.__gen_ignores(4) + (u'table_publisher',) + self.__gen_ignores(9) + (u'table_date_of_publication',) + self.__gen_ignores(54) + (u'table_author',)
-    w2f_publisher_defn = self.__gen_ignores(8) + (u'table_publisher',) 
-       
+    w2f_publisher_defn = self.__gen_ignores(8) + (u'table_publisher',)
+
     sheet_defn_ref = {0: [w1a_header, w1a_row, common_publisher_defn], \
       1: [w1b_header, w1b_row, common_publisher_defn], \
       2: [w2a_header, common_row_defn, common_publisher_defn], \
@@ -78,56 +78,56 @@ class ICEIngest(IngestBase):
       5: [w2d_header, w2d_row, common_publisher_defn], \
       6: [w2e_header, w2e_row, w2e_publisher_defn], \
       7: [w2f_header, w2f_row, w2f_publisher_defn]}
-  
+
     # Indicate which sets have publisher information
     has_publisher_info = {0: False, 1: False, 2: True, 3: True, 4: True, 5: True, 6: True, 7: True}
-  
+
     # The written meta data spreadsheet consists of more than 8 work sheets
     # however the first 8 are for the written word only, the rest
     # are for the spoken word. These have been ignored for the moment
-    for sheet_index in range(0,8):     
-    
+    for sheet_index in range(0,8):
+
       sheet = wb.sheet_by_index(sheet_index)
       group_ids = ()
-  
+
       # Iterate through all the rows ingesting meta data as we go along
       for i in range(1, sheet.nrows):
-      
+
         row = sheet.row(i)
         sampleid = self.__convert(row[0]).upper()
-      
+
         # We have a new sample at this point
         if sampleid != "":
-        
+
           group_ids = group_ids + (sampleid,)
-        
+
           # If it is a new group grab the Meta header row
           if new_group == True:
-          
+
             # The header row is the row prior in a new group
             meta_header_item = self.__convert_row(sheet.row(i-1), sheet_defn_ref[sheet_index][0])
             new_group = False
 
           # Grab the meta line item for the corresponding sample
           meta_line_item = self.__convert_row(row, sheet_defn_ref[sheet_index][1])
-        
+
           # Only add a meta item if it is clean and complete
           if meta_line_item['table_subtitle'] != "":
 
               # Update this line item with header values
               self.filemetadata[sampleid] = utils.merge_dictionaries(meta_line_item, meta_header_item)
 
-        else: 
-        
+        else:
+
           # If the sample id is empty & we have just finished processing a group there might be publisher information
           # if so this publisher information should be appended to the samples data set
           if len(group_ids) > 0 and has_publisher_info[sheet_index] == True:
             meta_publisher = self.__convert_row(sheet.row(i), sheet_defn_ref[sheet_index][2])
-          
+
             # Add the publisher to the meta line items discovered in the last round of updates
             for group_id in group_ids:
-                self.filemetadata[group_id] = utils.merge_dictionaries(self.filemetadata[group_id], meta_publisher)      
-          
+                self.filemetadata[group_id] = utils.merge_dictionaries(self.filemetadata[group_id], meta_publisher)
+
           # Reset the group information
           group_ids = ()
           new_group = True
@@ -137,11 +137,11 @@ class ICEIngest(IngestBase):
 
     rst = []
     utils.listFiles(rst, dirpath, False)
-  
+
     # S1A
     wb = xlrd.open_workbook(os.path.join(dirpath, "demographic_info_ice-aus_s1a.xls"))
-  
-    # this spreadsheet has two sheets, they were slightly different but I've 
+
+    # this spreadsheet has two sheets, they were slightly different but I've
     # modified them to be the same
     fields = (
         u'ignore',
@@ -155,16 +155,16 @@ class ICEIngest(IngestBase):
         u'table_subject',
         u'table_number_of_speakers',
         u'table_relationship')
-  
+
     for sheet_index in (0,1):
         sheet = wb.sheet_by_index(sheet_index)
         for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
             sampleid = self.__convert(row[0]).upper()
-                    
+
             self.filemetadata[sampleid] = self.__convert_row(row, fields)
             spkrinfo = self.__convert_speaker_info(row, 9, 11, sampleid, (u'age', u'gender', u'education', u'occupation'))
-          
-            self.filemetadata[sampleid].update(spkrinfo) 
+
+            self.filemetadata[sampleid].update(spkrinfo)
 
     # S1B
     wb = xlrd.open_workbook(os.path.join(dirpath, "demographic_info_ice-aus_s1b.xls"))
@@ -191,7 +191,7 @@ class ICEIngest(IngestBase):
             self.filemetadata[sampleid] = self.__convert_row(row, fields)
             spkrinfo = self.__convert_speaker_info(row, 14, 16, sampleid, (u'age', u'gender', u'education', u'occupation'))
             self.filemetadata[sampleid].update(spkrinfo)
-          
+
     # sheet 'broadcast discussions'
     sheet = wb.sheet_by_index(1)
     fields = (
@@ -205,18 +205,18 @@ class ICEIngest(IngestBase):
         u'table_place_of_recording',
         u'table_date_of_recording',
         u'table_program',
-        u'table_channel', 
+        u'table_channel',
         u'table_recorder',
         u'table_mode',
         u'table_number_of_speakers',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 13, 14, sampleid, (u'age', u'gender', u'education', u'surname', u'forename', u'occupation'))
           self.filemetadata[sampleid].update(spkrinfo)
-  
-  
+
+
     # sheet 'broadcast interviews'
     sheet = wb.sheet_by_index(2)
     fields = (
@@ -229,8 +229,8 @@ class ICEIngest(IngestBase):
         u'table_place_of_recording',
         u'table_date_of_recording',
         u'table_program',
-        u'table_channel', 
-        u'table_recorder', 
+        u'table_channel',
+        u'table_recorder',
         u'table_relationship',
         u'table_mode',
         u'table_number_of_speakers',
@@ -240,16 +240,16 @@ class ICEIngest(IngestBase):
         u'table_number_of_subtexts',
         u'table_textcode'
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 13, 19, sampleid, (u'age', u'gender', u'education', u'occupation'))
           self.filemetadata[sampleid].update(spkrinfo)
-  
+
     # sheet 'parliamentary debate'
     sheet = wb.sheet_by_index(3)
     fields = (
-        u'ignore', 
+        u'ignore',
         u'table_category',
         u'table_wordcount',
         u'table_free_comments',
@@ -257,18 +257,18 @@ class ICEIngest(IngestBase):
         u'table_place_of_recording',
         u'table_channel',
         u'ignore',
-        u'table_tv_or_radio', 
+        u'table_tv_or_radio',
         u'table_source_title',
         u'table_subject',
         u'table_number_of_speakers',
         u'table_comments'
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 11, 13, sampleid, (u'age', u'gender', u'nationality', u'birthplace', u'education', u'occupation', u'mothertongue', u'otherlanguages'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
+
     # sheet 'legal cross-examination'
     sheet = wb.sheet_by_index(4)
     fields = (
@@ -281,19 +281,19 @@ class ICEIngest(IngestBase):
         u'table_place_of_recording',
         u'ignore',
         u'table_subject',
-        u'table_title', 
+        u'table_title',
         u'ignore',
         u'table_number_of_speakers',
         u'table_relationship',
         u'ignore',
         u'ignore'
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 11, 15, sampleid, (u'age', u'gender', u'nationality', u'birthplace', u'education', u'occupation', u'mothertongue', u'otherlanguages'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
+
     # sheet 'business transactions'
     sheet = wb.sheet_by_index(5)
     fields = (
@@ -309,18 +309,18 @@ class ICEIngest(IngestBase):
         u'table_number_of_speakers',
         u'table_relationship',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 9, 11, sampleid, (u'age', u'gender', u'nationality', u'birthplace', u'education', u'occupation', u'mothertongue', u'otherlanguages'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
-             
-    
-  
+
+
+
+
     # S2A
     wb = xlrd.open_workbook(os.path.join(dirpath, "demographic_info_ice-aus_s2a.xls"))
-  
+
     # sheet 'spontaneous commentaries'
     sheet = wb.sheet_by_index(0)
     fields = (
@@ -337,14 +337,14 @@ class ICEIngest(IngestBase):
             u'table_subject',
             u'table_number_of_speakers'
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 11, 15, sampleid, (u'age', u'gender', u'education', u'occupation'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
-        
-        
+
+
+
     # sheet 'unscripted speeches'
     sheet = wb.sheet_by_index(1)
     fields = (
@@ -356,18 +356,18 @@ class ICEIngest(IngestBase):
             u'table_place_of_recording',
             u'table_free_comments',
             u'table_audience',
-            u'table_audience_size', 
+            u'table_audience_size',
             u'table_subject',
             u'table_number_of_speakers'
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 10, 11, sampleid, (u'age', u'gender', u'education', u'occupation'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
-        
-        
+
+
+
     # sheet 'demonstrations'
     sheet = wb.sheet_by_index(2)
     fields = (
@@ -383,17 +383,17 @@ class ICEIngest(IngestBase):
             u'table_source_title',
             u'table_date_of_recording',
             u'table_place_of_recording',
-            u'table_organising_body', 
+            u'table_organising_body',
             u'table_subject',
             u'table_number_of_speakers',
             u'table_relationship',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 14, 16, sampleid, (u'age', u'gender', u'education', u'occupation', u'surname', u'forename'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
+
     # sheet 'legal presentations'
     sheet = wb.sheet_by_index(3)
     fields = (
@@ -404,16 +404,16 @@ class ICEIngest(IngestBase):
             u'table_free_comments',
             u'table_source_type',
             u'table_date_of_recording',
-            u'table_place_of_recording', 
+            u'table_place_of_recording',
             u'table_subject',
-            u'table_number_of_speakers', 
+            u'table_number_of_speakers',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 9, 10, sampleid, (u'age', u'gender', u'education', u'occupation'))
           self.filemetadata[sampleid].update(spkrinfo)
-        
+
 
     # S2B
     wb = xlrd.open_workbook(os.path.join(dirpath, "demographic_info_ice-aus_s2b.xls"))
@@ -422,7 +422,7 @@ class ICEIngest(IngestBase):
             u'ignore',
             u'ignore',
             u'table_category',
-            u'table_wordcount', 
+            u'table_wordcount',
             u'table_free_comments',
             u'table_source_type',
             u'table_channel',
@@ -433,7 +433,7 @@ class ICEIngest(IngestBase):
             u'table_place_of_recording',
             u'table_number_of_speakers',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 12, 12, sampleid, [])
@@ -446,7 +446,7 @@ class ICEIngest(IngestBase):
             u'ignore',
             u'ignore',
             u'table_category',
-            u'table_wordcount', 
+            u'table_wordcount',
             u'table_free_comments',
             u'table_source_type',
             u'table_channel',
@@ -462,7 +462,7 @@ class ICEIngest(IngestBase):
             u'ignore',
             u'table_number_of_speakers',
     )
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 17, 21, sampleid, (u'surname', u'forename', u'age', u'gender', u'education'))
@@ -474,9 +474,9 @@ class ICEIngest(IngestBase):
             u'ignore',
             u'ignore',
             u'table_category',
-            u'table_wordcount', 
+            u'table_wordcount',
             u'table_free_comments',
-            u'table_source_type', 
+            u'table_source_type',
             u'table_date_of_recording',
             u'table_place_of_recording',
             u'table_organising_body',
@@ -487,8 +487,8 @@ class ICEIngest(IngestBase):
             u'table_communicative_situation',
             u'table_number_of_speakers',
     )
-    
-    for row in [sheet.row(i) for i in range(1, sheet.nrows)]: 
+
+    for row in [sheet.row(i) for i in range(1, sheet.nrows)]:
           sampleid = self.__convert(row[0]).upper()
           self.filemetadata[sampleid] = self.__convert_row(row, fields)
           spkrinfo = self.__convert_speaker_info(row, 14, 18, sampleid, (u'age', u'gender', u'nationality', u'birthplace', u'education', u'mothertongue', u'otherlanguages'))
@@ -497,47 +497,48 @@ class ICEIngest(IngestBase):
 
   def ingestCorpus(self, srcdir, outdir):
 
-    print "  converting corpus in", srcdir, "into normalised data in", outdir  
+    print "  converting corpus in", srcdir, "into normalised data in", outdir
     print "    clearing and creating output location"
-    
+
     self.clear_output_dir(outdir)
-  
+
+    print "    processing files..."
+
     res = []
     utils.listFiles(res, srcdir, True)
-    total = 0
+
+    total = len(res)
+    sofar = 0
     for f in res:
-  
-      if ( f.endswith(".txt") ): 
-          print "ICE:", f
+
+      if ( f.endswith(".txt") ):
           (sampleid, rawtext, body, meta, anns) = self.ingestDocument(f)
-          
+
+          self.status = "id: %s - %s" % (sampleid, f)
+
           meta.update(self.META_DEFAULTS)
-          
-          subdir = f.replace(srcdir, '', 1)
-          subdir = subdir.replace(os.path.basename(subdir), '')
-          meta['subdir'] = subdir
-          
-          thisoutdir = os.path.dirname(f.replace(srcdir, outdir, 1))
-          
-          self.__serialise(thisoutdir, sampleid, body, meta, anns)
-          
-          #if total > 10:
-          #    break
-          total += 1
-    
+
+          self.__serialise(outdir, sampleid, body, meta, anns)
+
+          sofar += 1
+
+          print "\033[2K   ", sofar, "of", total, self.status, "\033[A"
+
+    print "\033[2K   ", total, "files processed"
+
     schema = FieldMapper.generate_schema()
     schema.serialize(os.path.join(outdir, "schema.owl"), format="turtle")
-    
-    
+
+
   def ingestDocument(self, sourcepath):
-    
+
     # matching annotation is in the .xml file
     annpath = os.path.splitext(sourcepath)[0]+".xml"
     anns = self.__parseStandoffAnnotations(annpath)
-  
+
     fhandle = codecs.open(sourcepath, "r", "utf-8")
     text = fhandle.read()
-    fhandle.close() 
+    fhandle.close()
 
     # get the sample name, also the sample cagetory which is the first three
     # letters (eg. W1A) and denotes the type of sample
@@ -545,7 +546,7 @@ class ICEIngest(IngestBase):
     meta = {'sampleid': samplename, 'category': samplename[:3]}
     if (samplename in self.filemetadata):
         meta.update(self.filemetadata[samplename])
-  
+
     return (meta['sampleid'], text, text, meta, anns)
 
 
@@ -559,7 +560,7 @@ class ICEIngest(IngestBase):
   def __serialise(self, outdir, sampleid, body, meta, anns):
     """Write out the various products of ingest to the output
     directory"""
-    
+
     serialiser = Serialiser(outdir)
     return serialiser.serialise_single(sampleid, 'ice', None, body, iceM, meta, anns, self.identify_documents)
 
@@ -568,21 +569,21 @@ class ICEIngest(IngestBase):
   def __parseStandoffAnnotations(self, path):
       '''Read annotation data from the given file in XML
       format, generate a list of annotation instances and return it'''
-    
+
       #print "parsing", path, "\n"
       doc = ElementTree.parse(path)
-     
+
       root =  doc.getroot()
-    
+
       if root is None:
           print "No root for ", path
           return []
-    
+
       docid = root.attrib['doc']
       # now generate one annotation isntance per annotation element in the
       # input
       anns = []
-    
+
   #    <annotation id='S1A-066#a0'>
   #        <type>corpus</type>
   #        <start>0</start>
@@ -614,7 +615,7 @@ class ICEIngest(IngestBase):
 
 
   def __parseData(self, string):
-    
+
     textString       = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=?@[\]^_`{|}~\n\t >"
     text             = Word(textString)
     textWithoutClose = Word(textString[0:len(textString)-1])
@@ -624,7 +625,7 @@ class ICEIngest(IngestBase):
     header           = inTag(textWithoutClose("id")) + inTag(textWithoutClose("num"))
     body             = iOpen + text("data") + iClose
     whole            = header + body
-    
+
     return whole.parseString(string)
 
 
@@ -638,7 +639,7 @@ class ICEIngest(IngestBase):
       tupl = tupl + (u'ignore',)
 
     return tupl
-    
+
 
   def __convert(self, cell, uni=True):
      '''
@@ -652,12 +653,12 @@ class ICEIngest(IngestBase):
        if cell.ctype == 3:
 
          year, month, day, hour, minute, second = xlrd.xldate.xldate_as_tuple(cell.value, self.book_date_mode)
-         py_date = datetime.datetime(year, month, day, hour, minute, second) 
+         py_date = datetime.datetime(year, month, day, hour, minute, second)
 
          # TODO: Does this date format work? No spec to decide at the moment
          return unicode(py_date.strftime('%y/%m/%d'))
 
-       if (uni):    
+       if (uni):
          return unicode(int(cell.value))
        else:
          return int(cell.value)
@@ -670,9 +671,9 @@ class ICEIngest(IngestBase):
 
 
   def __convert_speaker_info(self, row, countcol, startcol, sampleid, fields):
-     """Generate the speaker descriptions from a spreadsheet given 
+     """Generate the speaker descriptions from a spreadsheet given
      the column containing the speaker count, the start column
-     and the number of speaker fields to look for. 
+     and the number of speaker fields to look for.
      Returns a dictionary of speaker descriptions or an empty dictionary if
      the count field is empty."""
 
@@ -681,7 +682,7 @@ class ICEIngest(IngestBase):
      if self.__convert(row[countcol]) == '':
          return dict()
 
-     result = dict() 
+     result = dict()
      for speaker in range(0,int(self.__convert(row[countcol], False))):
 
          info = dict()
@@ -695,7 +696,7 @@ class ICEIngest(IngestBase):
          info[u'role'] = u'speaker'
          result[u"table_person_"+speakertitles[speaker]] = info
 
-     return result     
+     return result
 
 
   def __convert_row(self, row, fields):
@@ -705,7 +706,7 @@ class ICEIngest(IngestBase):
    the field name is 'ignore' in which case it is skipped.
    Return a dictionary of field names and values"""
 
-   if len(fields) > len(row): 
+   if len(fields) > len(row):
        raise Exception("Too many fields (%d) for the row I was given (%d)" % (len(fields), len(row)))
 
    result = dict()

@@ -512,15 +512,17 @@ class ICEIngest(IngestBase):
     for f in res:
 
       if ( f.endswith(".txt") ):
-          (sampleid, rawtext, body, meta, anns) = self.ingestDocument(f)
+          docmeta = self.ingestDocument(f)
+          if docmeta != None:
+              (sampleid, rawtext, body, meta, anns) = docmeta
 
-          self.status = "id: %s - %s" % (sampleid, f)
+              self.status = "id: %s - %s" % (sampleid, f)
 
-          meta.update(self.META_DEFAULTS)
+              meta.update(self.META_DEFAULTS)
 
-          self.__serialise(outdir, sampleid, body, meta, anns)
+              self.__serialise(outdir, sampleid, body, meta, anns)
 
-          sofar += 1
+              sofar += 1
 
           print "\033[2K   ", sofar, "of", total, self.status, "\033[A"
 
@@ -539,6 +541,12 @@ class ICEIngest(IngestBase):
     fhandle = codecs.open(sourcepath, "r", "utf-8")
     text = fhandle.read()
     fhandle.close()
+
+    # some files are empty, need to skip them
+    # these are files that have been split into A, B etc but the earlier
+    # preprocessing left behind an empty file 
+    if text == '':
+        return None
 
     # get the sample name, also the sample cagetory which is the first three
     # letters (eg. W1A) and denotes the type of sample

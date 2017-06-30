@@ -1,8 +1,5 @@
 from rdflib import Namespace
-
 from hcsvlab_robochef import configmanager
-configmanager.configinit()
-
 
 # Define namespaces
 RDF = Namespace(u"http://www.w3.org/1999/02/22-rdf-syntax-ns#")
@@ -22,7 +19,7 @@ RDF = Namespace(u"http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 RDFS = Namespace(u"http://www.w3.org/2000/01/rdf-schema#")
 OWL = Namespace(u"http://www.w3.org/2002/07/owl#")
 XSD = Namespace(u"http://www.w3.org/2001/XMLSchema#")
-HCSVLAB = Namespace(u"http://hcsvlab.org/vocabulary/")
+ALVEO = Namespace(u"http://alveo.edu.au/vocabulary/")
 
 # Namespaces we control
 # SCHEMA is the namespace for all schema
@@ -32,9 +29,8 @@ SCHEMA = Namespace(u"http://ns.ausnc.org.au/schemas/")
 AUSNC = Namespace(SCHEMA[u"ausnc_md_model/"])
 
 # corpus is used as a prefix for all corpus items
-#CORPUS = Namespace(u"http://ns.ausnc.org.au/corpora/")
-CORPUS = Namespace(configmanager.get_config("CORPUS_BASE_URL"))
-
+CORPUS = Namespace(u"https://app.alveo.edu.au/catalog/")
+SPEAKERS = Namespace(u"https://app.alveo.edu.au/speakers/")
 
 # annotation namespaces
 ANNOTATION = Namespace(SCHEMA[u'annotation/'])
@@ -49,7 +45,7 @@ MAUS = Namespace(ANNOTATION['maus/'])
 
 
 
-# this hack finds all of the namespaces defined above and 
+# this hack finds all of the namespaces defined above and
 # puts them into a dictionary that we can use in bind_graph
 import sys
 NAMESPACES = dict()
@@ -58,66 +54,62 @@ for ns in namespaces:
     NAMESPACES[ns.lower()] = eval(ns)
 
 def bind_graph(graph):
-    
+
     for ns in NAMESPACES.keys():
-        graph.bind(ns, NAMESPACES[ns]) 
+        graph.bind(ns, NAMESPACES[ns])
 
     return graph
 
 
 def corpus_property_namespace(corpusID):
     """Return a namespace object suitable for use
-    in generating new property names for this corpus
-    also adds this to the global NAMESPACES list that is bound
-    to the graph for output"""
-    
-    global NAMESPACES
-    
-    ns = Namespace(SCHEMA[corpusID.lower()+"/"])
-    NAMESPACES[corpusID.lower()] = ns
-    return ns
+    in generating new property names for this corpus"""
+
+    return Namespace(SCHEMA[corpusID.lower()+"/"])
 
 
 def corpus_prefix_namespace(corpusID):
-    """Return a namespace we can use to generate 
+    """Return a namespace we can use to generate
     URIs for things inside this corpus"""
 
     return Namespace(CORPUS[corpusID.lower()])
 
 def corpus_uri(corpusID):
-    """Given a corpus identifier, return the right 
+    """Given a corpus identifier, return the right
     corpus URI
-    
+
     corpusURI is http://ns.ausnc.org.au/corpora/braided/
-    
+
     """
-    
+
     return corpus_prefix_namespace(corpusID)[""]
 
 
 def corpus_item_uri(corpusID, itemID):
-    """Given a corpus and item identifier, return 
+    """Given a corpus and item identifier, return
     a URI for the item
-    
+
     http://ns.ausnc.org.au/corpus/<corpusid>/items/<itemid>
     """
-    
-    return corpus_prefix_namespace(corpusID)["/items/"+itemID]
+
+    return corpus_prefix_namespace(corpusID)["/"+itemID]
 
 
 def corpus_speaker_uri(corpusID, speakerID):
     """Generate a speaker URI for this corpus"""
 
-    return  corpus_prefix_namespace(corpusID)["/person/"+speakerID]
+    # replace any # in speakerID with - to give a proper URI
+    speakerID = speakerID.replace("#", '-')
+    
+    return  SPEAKERS[corpusID+"/"+speakerID]
 
 def corpus_source_uri(corpusID, sourceID):
     """Generate a URI for the source data of this item"""
-    
+
     return corpus_prefix_namespace(corpusID)["/source/"+sourceID]
 
 
 def corpus_annotation_uri(corpusID, annotID):
     """Generate a URI for an annotation in this corpus"""
-    
-    return corpus_prefix_namespace(corpusID)["/annotation/"+annotID]
 
+    return corpus_prefix_namespace(corpusID)["/annotation/"+annotID]

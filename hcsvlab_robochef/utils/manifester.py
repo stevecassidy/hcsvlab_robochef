@@ -28,7 +28,7 @@ DOCUMENT_QUERY = """SELECT DISTINCT ?type ?identifier ?source
 def create_manifest(srcdir, format):
     rdf_files = get_files(srcdir)
     manifest_hash = {"collection_name":extract_manifest_collection(rdf_files[0], format), "files":{}}
-    
+
     total = len(rdf_files)
     sofar = 0
 
@@ -65,7 +65,7 @@ def get_files(srcdir):
     return_files = []
 
     for root, dirnames, filenames in os.walk(srcdir):
-        for filename in fnmatch.filter(filenames, '*-metadata.rdf'):
+        for filename in fnmatch.filter(filenames, '*-metadata.nt'):
             return_files.append(os.path.join(root, filename))
 
     return return_files
@@ -73,7 +73,7 @@ def get_files(srcdir):
 def extract_manifest_collection(rdf_file, format):
     graph = Graph()
     graph.parse(rdf_file, format=format)
-    
+
     res = graph.query(COLLECTION_QUERY)
     # Small hack for austalk
     for row in res:

@@ -163,10 +163,10 @@ class FieldMapper:
 
         return corpus_speaker_uri(self.corpusID, id)
 
-    def item_source_uri(self, id):
+    def item_source_uri(self, itemid, id):
         """Generate a URI for the source data of this item"""
 
-        return corpus_source_uri(self.corpusID, id)
+        return corpus_source_uri(self.corpusID, itemid, id)
 
 
     def mapdict(self, metadata):
@@ -266,7 +266,7 @@ class MetadataMapper(FieldMapper):
         graph = bind_graph(graph)
 
         itemuri = self.item_uri(metadata['sampleid'])
-        sourceuri = self.item_source_uri(metadata['sampleid'])
+
         corpusuri = self.corpus_uri()
         documents = []
 
@@ -285,7 +285,7 @@ class MetadataMapper(FieldMapper):
             elif key.startswith("table_document"):
                 docmeta = metadata[key]
                 # make a document uri
-                docuri = self.document(docmeta, graph)
+                docuri = self.document(metadata['sampleid'], docmeta, graph)
                 docmeta.update({'uri':docuri})
                 documents.append(docmeta)
                 graph.add((itemuri, AUSNC.document, docuri))  # TODO: what is a document?
@@ -293,18 +293,11 @@ class MetadataMapper(FieldMapper):
                 # we're given a  DOCUMENT_BASE_URL in the configuration
 
                 baseuri = configmanager.get_config("DOCUMENT_BASE_URL", "")
+
                 if not baseuri == "":
                     docid = docmeta['filename']
                     docid = urllib.quote(docid)
-                    if 'subdir' in metadata:
-                      uri = URIRef(baseuri + self.corpusID.lower() + metadata['subdir'] + docid)
-                    else:
-                      if self.corpusID.lower() == "paradisec":
-                        uri = URIRef(baseuri + self.corpusID.lower() + "/" + docid.split("-")[0] + "/" + docid.split("-")[1] + "/" + docid)
-                      else:
-                        uri = URIRef(baseuri + self.corpusID.lower() + "/" + docid)
-                    graph.add((docuri, DC.source, URIRef(uri)))
-
+                    graph.add((docuri, DC.source, Literal(docid)))
 
             elif  metadata[key] != '':
                 # convert and add the property/value
@@ -337,6 +330,7 @@ class MetadataMapper(FieldMapper):
         # graph.add((itemuri, DC.source, sourceuri))
         # g.add((itemuri, DC.creator, authoruri))
         # keep original item identifier as separate field
+
 
         # TODO: should we derive a new property from dc:identifier?
         graph.add((itemuri, DC.identifier, Literal(metadata['sampleid'])))
@@ -426,7 +420,7 @@ class MetadataMapper(FieldMapper):
 
 
 
-    def document(self, metadata, graph):
+    def document(self, itemID, metadata, graph):
         """Generate the description of a document from a metadata dictionary
         adds triples to the item's graph, returns the document URI"""
 
@@ -436,7 +430,7 @@ class MetadataMapper(FieldMapper):
         if not metadata.has_key("id"):
             raise Exception("No id for document")
 
-        uri = self.item_source_uri(metadata["id"])
+        uri = self.item_source_uri(itemID, metadata["id"])
 
         graph.add((uri, RDF.type, FOAF.Document))
 

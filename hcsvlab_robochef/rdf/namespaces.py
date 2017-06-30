@@ -68,6 +68,7 @@ def corpus_property_namespace(corpusID):
     return Namespace(SCHEMA[corpusID.lower()+"/"])
 
 
+
 def corpus_prefix_namespace(corpusID):
     """Return a namespace we can use to generate
     URIs for things inside this corpus"""
@@ -90,6 +91,7 @@ def corpus_item_uri(corpusID, itemID):
     a URI for the item
 
     http://ns.ausnc.org.au/corpus/<corpusid>/items/<itemid>
+
     """
 
     return corpus_prefix_namespace(corpusID)["/"+itemID]
@@ -100,13 +102,13 @@ def corpus_speaker_uri(corpusID, speakerID):
 
     # replace any # in speakerID with - to give a proper URI
     speakerID = speakerID.replace("#", '-')
-    
+
     return  SPEAKERS[corpusID+"/"+speakerID]
 
-def corpus_source_uri(corpusID, sourceID):
+def corpus_source_uri(corpusID, itemID, sourceID):
     """Generate a URI for the source data of this item"""
 
-    return corpus_prefix_namespace(corpusID)["/source/"+sourceID]
+    return corpus_prefix_namespace(corpusID)["/document/"+sourceID]
 
 
 def corpus_annotation_uri(corpusID, annotID):
